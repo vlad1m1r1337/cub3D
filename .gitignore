@@ -2,3 +2,12 @@
 .idea
 CMakeLists.txt
 cmake-build-debug
+#Mac
+.DS_Store
+
+
+#Exec
+cube3D
+
+#.o
+*.o
