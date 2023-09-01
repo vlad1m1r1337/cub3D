@@ -12,131 +12,87 @@
 
 #include "../so_long.h"	
 
-static void	fill(char **tab, t_parse *pr, int x, int y)
-{
-	int	tmp_x;
-	int	tmp_y;
+// int	check_data(char *orient, t_map *map, char *line)
+// {
+// 	int	i;
+// 	int	j;
 
-	tmp_x = pr->x;
-	tmp_y = pr->y;
-	if (tab[x][y] == '1')
-		return ;
-	else if (tab[x][y] == 'C')
-		pr->c -= 1;
-	else if (tab[x][y] == 'E')
-		pr->e -= 1;
-	tab[x][y] = '1';
-	fill(tab, pr, x + 1, y);
-	fill(tab, pr, x - 1, y);
-	fill(tab, pr, x, y + 1);
-	fill(tab, pr, x, y - 1);
-}
+// 	j = 0;
+// 	i = 0;
+// 	while (line[i])
+// 	{
+// 		j = 0;
+// 		while (orient[j])
+// 		{
+// 			if (line[i] == ' ')
+// 				i++;
+// 			else if (line[i] == orient[j])
+// 		}
+// 	}
+// }
 
-static void	invalid_chars(char **tab, t_parse *pr)
+int	orient_empty(char *orient)
 {
-	int	chk;
 	int	i;
-	int	j;
+	int	count;
 
-	i = -1;
-	chk = 0;
-	j = -1;
-	while (tab[++i] != NULL)
+	i = 0;
+	count = 0;
+	while (orient[i])
 	{
-		if (tab[i] == NULL)
-			break ;
-		j = -1;
-		while (tab[i][++j] != '\0')
-		{
-			if (tab[i][j] != '1' && tab[i][j] != '0' && tab[i][j] != 'P' && \
-			tab[i][j] != 'E' && tab[i][j] != 'C' && tab[i][j] != '\n')
-				chk = 1;
-		}
+		if (orient[i] == 'N' || orient[i] == 'S' || \
+		orient[i] == 'E' || orient[i] == 'W' \
+		|| orient[i] == 'F' || orient[i] == 'C')
+			count++;
+		i++;
 	}
-	if (chk == 1)
-	{
-		free_matrix(tab, 0, "");
-		free_matrix(pr->map, 1, "Invalid Input");
-	}
+	if (count == 0)
+		return (-1);
+	return (0);
 }
 
-static void	arr2d_cpy(t_parse *pr)
+int	get_colors(char *str, t_map *map)
 {
-	char	**tab;
-	int		tmp;
+	int		fd;
+	char	*orient;
 
-	tmp = 0;
-	tab = (char **)malloc(sizeof(char *) * (pr->i + 1));
-	if (!tab)
-		free_matrix(pr->map, 1, "");
-	while (tmp < pr->i)
-	{
-		tab[tmp] = (char *)malloc(sizeof (char) * (pr->len + 1));
-		if (!tab[tmp])
-			free_matrix(pr->map, 1, "Invalid Input");
-		tmp++;
-	}
-	tmp = 0;
-	while (tmp < pr->i)
-	{
-		ft_strcpy(tab[tmp], pr->map[tmp]);
-		tmp++;
-	}
-	tab[tmp] = NULL;
-	invalid_chars(tab, pr);
-	fill(tab, pr, pr->x, pr->y);
-	free_matrix(tab, 0, "");
-}
-
-int	grid_cpy(t_parse *tptr, char *str)
-{
-	int	fd;
-	int	tmp;
-
-	map_parse(str, tptr);
+	orient = ft_strdup("NSEWFC");
 	fd = open_file(str);
-	tptr->map = (char **)malloc(sizeof(char *) * (tptr->i + 1));
-	if (!tptr->map)
-		return (0);
-	tmp = tptr->i + 1;
-	while (tmp)
-		--tmp;
-	while (tmp < tptr->i)
-		tptr->map[tmp++] = get_next_line(fd);
-	tptr->map[tmp] = NULL;
-	tptr->tmp_c = tptr->c;
-	check_walls(tptr);
-	grab_player(tptr);
-	arr2d_cpy(tptr);
-	if (tptr->c != 0 || tptr->e != 0)
-		free_matrix(tptr->map, 1, "Invalid Input");
-	return (1);
-}
-
-void	map_parse(char *str, t_parse *tptr)
-{
-	int	fd;
-
-	fd = open_file(str);
-	tptr->line = get_next_line(fd);
-	if (tptr->line == NULL)
-		game_exit("Read Error");
-	tptr->len = ft_strlen(tptr->line) - ft_strchr_num(tptr->line, '\n');
-	if (!tptr->line)
-		game_exit("Empty Map");
-	tptr->i = 0;
-	while (tptr->line != '\0')
-	{	
-		tptr->c += chr_count(tptr->line, 'C');
-		tptr->e += chr_count(tptr->line, 'E');
-		tptr->p += chr_count(tptr->line, 'P');
-		free(tptr->line);
-		tptr->line = get_next_line(fd);
-		tptr->i += 1;
+	if (fd == -1)
+		return (-1);
+	while (orient_empty(orinet) != -1 && line != NULL)
+	{
+		map->line = get_next_line(fd);
+		check_data(orient, map, line);
+		free(map->line);
 	}
-	free(tptr->line);
-	close (fd);
-	if (tptr->i >= 18 || tptr->len >= 34)
-		game_exit("Map is too large for system's monitor");
-	token(tptr->c, tptr->e, tptr->p);
+	free(map->line);
+	if (map->error == 1)
+		return (-1);
+	return (0);
 }
+
+// void	map_parse(char *str, t_game *game)
+// {
+// 	int	fd;
+// 	int	i;
+
+// 	i = 0;
+// 	fd = open_file(str);
+// 	game->line = get_next_line(fd);
+// 	if (game->line == NULL)
+// 		game_exit(game, "error: file read\n");
+// 	while (game->line != NULL)
+// 	{
+// 		game->n += chr_count(game->line, 'N');
+// 		game->s += chr_count(game->line, 'S');
+// 		game->e += chr_count(game->line, 'E');
+// 		game->w += chr_count(game->line, 'W');
+// 		free(game->line);
+// 		game->line = get_next_line(fd);
+// 	}
+// 	free(game->line);
+// 	close(fd);
+// 	if (facing_chk(game) == -1)
+// 		game_exit(game, "error: invalid number of facing(s)\n");
+// }

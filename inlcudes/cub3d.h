@@ -34,6 +34,17 @@
 # define TEX_WIDTH		64
 # define TEX_HEIGHT		64
 
+typedef struct s_map
+{
+	int		size;
+	int		n;
+	int		s;
+	int		e;
+	int		w;
+	char	*line;
+	char	**grid;
+}	t_map;
+
 typedef struct s_img
 {
 	void	*img;
@@ -94,6 +105,7 @@ typedef struct s_game
 	int		floor_color;
 	int		ceiling_color;
 	int		count_arguments_in_file;
+	t_map	*data;
 	t_img	img;
 	t_img	img_sprites[4];
 }			t_game;
