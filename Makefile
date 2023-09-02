@@ -1,4 +1,4 @@
-NAME=cube3D
+NAME = cube3D
 
 SRCDIR = src/
 OBJDIR = obj/
@@ -8,6 +8,7 @@ OBJS = $(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -pthread  -fsanitize=thread
 CFLAGS = -Wall -Wextra -Werror -g
+LIBS =  -lmlx -framework OpenGL -framework AppKit
 
 GREEN = \033[0;32m
 RESET = \033[0m
@@ -25,7 +26,6 @@ $(NAME): $(OBJDIR) $(OBJS)
 	@echo "${GREEN}>>> RDY <<<${RESET}"
 
 clean:
-	@rm -rf $(OBJDIR)*.o
 	@rm -rf $(OBJDIR)
 
 fclean: clean
