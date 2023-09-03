@@ -13,13 +13,14 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../mlx/mlx.h"
+# include <mlx.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include "../libft/libft.h"
-# include "../get_next_line/get_next_line.h"
-# include "string.h"
+#include <fcntl.h>
+//# include "../libft/libft.h"
+# include "../src/get_next_line.h"
+//# include "string.h"
 # include <math.h>
 
 # define A				0
@@ -43,6 +44,12 @@ typedef struct s_map
 	int		w;
 	char	*line;
 	char	**grid;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	char	*floor;
+	char	*ceiling;
 }	t_map;
 
 typedef struct s_img
@@ -60,7 +67,7 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*mlx_win;
-	char	**map;
+	//char	**map;
 	int		players;
 	double	position_player_x;
 	double	position_player_y;
@@ -96,12 +103,6 @@ typedef struct s_game
 	void	*sprite_east;
 	int		height_sprite;
 	int		width_sprite;
-	char	*north;
-	char	*south;
-	char	*west;
-	char	*east;
-	char	*floor;
-	char	*ceiling;
 	int		floor_color;
 	int		ceiling_color;
 	int		count_arguments_in_file;
@@ -109,3 +110,22 @@ typedef struct s_game
 	t_img	img;
 	t_img	img_sprites[4];
 }			t_game;
+
+void	game_exit_error(t_game *game, t_map *map, char *pstr);
+void	check_no(char *orient, char *line, t_map *map, int *i);
+void	check_so(char *orient, char *line, t_map *map, int *i);
+void	check_ea(char *orient, char *line, t_map *map, int *i);
+void	check_we(char *orient, char *line, t_map *map, int *i);
+void	update_orient(char c, char *orient);
+void	check_f(char *orient, char *line, t_map *map, int *i);
+void	check_c(char *orient, char *line, t_map *map, int *i);
+int		orient_empty(char *orient);
+void	check_data(char *orient, t_map *map, char *line);
+int	get_colors(char *str, t_map *map);
+void	skip_whitespace(char *line, int *i);
+void	ft_putstr_fd(char *s, int fd);
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+int	check_orient(char c, char *orient);
+void	space_skip(char **str);
+
+#endif

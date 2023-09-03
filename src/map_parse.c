@@ -10,26 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"	
+#include "../includes/cub3d.h"	
 
-// int	check_data(char *orient, t_map *map, char *line)
-// {
-// 	int	i;
-// 	int	j;
+void	skip_whitespace(char *line, int *i)
+{
+	while ((line[*i] == ' ' || line[*i] == '\t' || line[*i] == '\n') \
+	|| (line[*i] == '\r' || line[*i] == '\v' || line[*i] == '\f'))
+		(*i)++;
+}
 
-// 	j = 0;
-// 	i = 0;
-// 	while (line[i])
-// 	{
-// 		j = 0;
-// 		while (orient[j])
-// 		{
-// 			if (line[i] == ' ')
-// 				i++;
-// 			else if (line[i] == orient[j])
-// 		}
-// 	}
-// }
+void	check_data(char *orient, t_map *map, char *line)
+{
+	int	i;
+
+	i = 0;
+	skip_whitespace(line, &i);
+	check_no(orient, line, map, &i);
+	check_so(orient, line, map, &i);
+	check_ea(orient, line, map, &i);
+	check_we(orient, line, map, &i);
+	check_f(orient, line, map, &i);
+	check_c(orient, line, map, &i);
+}
 
 int	orient_empty(char *orient)
 {
@@ -51,25 +53,35 @@ int	orient_empty(char *orient)
 	return (0);
 }
 
-int	get_colors(char *str, t_map *map)
+int	get_colors(char *str, t_map *map, t_game *game)
 {
 	int		fd;
 	char	*orient;
+	int		cnt;
 
 	orient = ft_strdup("NSEWFC");
-	fd = open_file(str);
+	fd = open(str, O_RDONLY);
 	if (fd == -1)
 		return (-1);
-	while (orient_empty(orinet) != -1 && line != NULL)
+	cnt = 1;
+	map->line = get_next_line(fd);
+	while (orient_empty(orient) != -1 && map->line != NULL)
 	{
-		map->line = get_next_line(fd);
-		check_data(orient, map, line);
+		check_data(orient, map, map->line);
 		free(map->line);
+		cnt++;
+		if (cnt != 1)
+			map->line = get_next_line(fd);
 	}
-	free(map->line);
-	if (map->error == 1)
+	if (orient_empty == 0)
 		return (-1);
 	return (0);
+}
+
+void	parse_map(t_game *game, t_map *map)
+{
+	
+
 }
 
 // void	map_parse(char *str, t_game *game)
