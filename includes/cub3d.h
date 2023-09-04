@@ -121,11 +121,12 @@ void	check_f(char *orient, char *line, t_map *map, int *i);
 void	check_c(char *orient, char *line, t_map *map, int *i);
 int		orient_empty(char *orient);
 void	check_data(char *orient, t_map *map, char *line);
-int	get_colors(char *str, t_map *map);
+int		get_colors(char *str, t_map *map, t_game *game);
 void	skip_whitespace(char *line, int *i);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int	check_orient(char c, char *orient);
 void	space_skip(char **str);
+void	parse_map(t_game *game, t_map *map, int fd);
 
 #endif

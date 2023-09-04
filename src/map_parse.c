@@ -73,22 +73,47 @@ int	get_colors(char *str, t_map *map, t_game *game)
 		if (cnt != 1)
 			map->line = get_next_line(fd);
 	}
-	if (orient_empty == 0)
+	if (orient_empty(orient) == 0)
+	{
+		close(fd);
 		return (-1);
+	}
+	parse_map(game, map, fd);
 	return (0);
 }
 
-void	parse_map(t_game *game, t_map *map)
+void	parse_map(t_game *game, t_map *map, int fd)
 {
-	
+	int	i;
 
+	i = 0;
+	while (map->line[0] && map->line[0] == '\n')
+	{
+		free(map->line);
+		map->line = get_next_line(fd);
+		if (map->line[0] == '\0')
+		{
+			close(fd);
+			game_exit_error(game, map, "error: no map\n");
+		}
+	}
+	while (map->line[0] != '\0')
+	{
+		map->grid[i] = ft_strdup(map->line);
+		free (map->line);
+		map->line = get_next_line(fd);
+		i++;
+	}
+	free(map->line);
+	i = 0;
+	while (map->grid[i])
+		printf("%s\n", map->grid[i]);
 }
 
 // void	map_parse(char *str, t_game *game)
 // {
 // 	int	fd;
 // 	int	i;
-
 // 	i = 0;
 // 	fd = open_file(str);
 // 	game->line = get_next_line(fd);
