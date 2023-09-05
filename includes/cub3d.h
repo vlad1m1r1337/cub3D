@@ -134,4 +134,7 @@ void	parsing_magic(char *str, t_game *game, t_map *map);
 void	alloc_grid(t_map *map, t_game *game);
 void	trim_grid(t_map *map, t_game *game);
 char	*ft_strtrim(char const *s1, char const *set);
+void	dup_cnt(t_map *map, t_game *game);
+int	chr_count(char *str, char c);
+int	facing_check(t_map *map);
 #endif

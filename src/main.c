@@ -23,43 +23,44 @@ void	game_exit_error(t_game *game, t_map *map, char *pstr)
 		}
 		free(map);
 	}
-	free(game);	
+	free(game);
 	ft_putstr_fd(pstr, 2);
 	exit(1);
 }
 
-// int	facing_check(t_game *game)
-// {
-// 	if (game->n == 0 && game->s == 0 && game->e == 0 && game->w == 0)
-// 		return (-1);
-// 	if (game->n > 1 || game->s > 1 || game->e > 1 || game->w > 1)
-// 		return (-1);
-// 	else if (game->n == 1 && game->s != 0 && game->e != 0 && game->w != 0)
-// 		return (-1);
-// 	else if (game->s == 1 && game->n != 0 && game->e != 0 && game->w != 0)
-// 		return (-1);
-// 	else if (game->e == 1 && game->s != 0 && game->n != 0 && game->w != 0)
-// 		return (-1);
-// 	else if (game->w == 1 && game->s != 0 && game->e != 0 && game->n != 0)
-// 		return (-1);
-// 	return (0);
-// }
+int	facing_check(t_map *map)
+{
+	if (map->n == 0 && map->s == 0 && map->e == 0 && map->w == 0)
+		return (-1);
+	if (map->n > 1 || map->s > 1 || map->e > 1 || map->w > 1)
+		return (-1);
+	else if (map->n == 1 && map->s != 0 && map->e != 0 && map->w != 0)
+		return (-1);
+	else if (map->s == 1 && map->n != 0 && map->e != 0 && map->w != 0)
+		return (-1);
+	else if (map->e == 1 && map->s != 0 && map->n != 0 && map->w != 0)
+		return (-1);
+	else if (map->w == 1 && map->s != 0 && map->e != 0 && map->n != 0)
+		return (-1);
+	return (0);
+}
 
-// int	chr_count(char *str, char c)
-// {
-// 	int	i;
+int	chr_count(char *str, char c)
+{
+	int	i;
 
-// 	if (!str)
-// 		return (0);
-// 	i = 0;
-// 	while (*str)
-// 	{
-// 		if (*str == c)
-// 			i++;
-// 		str++;
-// 	}
-// 	return (i);
-// }
+	if (!str)
+		return (0);
+	i = 0;
+	while (*str)
+	{
+		if (*str == c)
+			i++;
+		printf("[%c]\n", *str);
+		str++;
+	}
+	return (i);
+}
 
 int	main(int argc, char **argv)
 {

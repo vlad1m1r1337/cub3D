@@ -113,6 +113,26 @@ void	alloc_grid(t_map *map, t_game *game)
 	map->grid[map->size + 1] = NULL;
 }
 
+void	dup_cnt(t_map *map, t_game *game)
+{
+	int	i;
+
+	i = -1;
+	while (map->grid[++i] != NULL)
+	{
+		map->n = chr_count(map->grid[i], 'N');
+		//printf("[n count = %d]\n", map->n);
+		map->s = chr_count(map->grid[i], 'S');
+		//printf("[s count = %d]\n", map->n);
+		map->e = chr_count(map->grid[i], 'E');
+		//printf("[e count = %d]\n", map->n);
+		map->w = chr_count(map->grid[i], 'W');
+		//printf("[w count = %d]\n", map->n);
+	}
+	if (facing_check(map) == -1)
+		game_exit_error(game, map, "error: invalid facings\n");
+}
+
 void	store_grid(t_game *game, t_map *map, int fd)
 {
 	int	i;
@@ -123,6 +143,8 @@ void	store_grid(t_game *game, t_map *map, int fd)
 		map->grid[i] = get_next_line(fd);
 		i++;
 	}
+	trim_grid(map, game);
+	dup_cnt(map, game);
 }
 
 void	trim_grid(t_map *map, t_game *game)
