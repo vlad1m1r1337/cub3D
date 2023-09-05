@@ -12,6 +12,7 @@
 
 #include "../includes/cub3d.h"	
 
+
 void	skip_whitespace(char *line, int *i)
 {
 	while ((line[*i] == ' ' || line[*i] == '\t' || line[*i] == '\n') \
@@ -63,13 +64,13 @@ int	get_colors(char *str, t_map *map, t_game *game)
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
 		return (-1);
-	cnt = 1;
+	map->cnt = 1;
 	map->line = get_next_line(fd);
 	while (orient_empty(orient) != -1 && map->line != NULL)
 	{
 		check_data(orient, map, map->line);
 		free(map->line);
-		cnt++;
+		map->cnt++;
 		if (cnt != 1)
 			map->line = get_next_line(fd);
 	}
@@ -78,58 +79,85 @@ int	get_colors(char *str, t_map *map, t_game *game)
 		close(fd);
 		return (-1);
 	}
-	parse_map(game, map, fd);
+	parse_map(str, game, map, fd);
 	return (0);
 }
 
-void	parse_map(t_game *game, t_map *map, int fd)
+void	parse_map(char *str, t_game *game, t_map *map, int fd)
 {
-	int	i;
-
-	i = 0;
-	while (map->line[0] && map->line[0] == '\n')
+	map->line = get_next_line(fd);
+	while (map->line != NULL && map->line[0] == '\n')
 	{
 		free(map->line);
 		map->line = get_next_line(fd);
-		if (map->line[0] == '\0')
+	}
+	if (map->line != NULL)
+	{
+		map->size = 1;
+		while (map->line != NULL && map->line[0] != '\n')
 		{
-			close(fd);
-			game_exit_error(game, map, "error: no map\n");
+			free(map->line);
+			map->line = get_next_line(fd);
+			map->size++;
 		}
 	}
-	while (map->line[0] != '\0')
-	{
-		map->grid[i] = ft_strdup(map->line);
-		free (map->line);
-		map->line = get_next_line(fd);
-		i++;
-	}
-	free(map->line);
-	i = 0;
-	while (map->grid[i])
-		printf("%s\n", map->grid[i]);
+	close(fd);
+	parsing_magic(str, game, map);
 }
 
-// void	map_parse(char *str, t_game *game)
-// {
-// 	int	fd;
-// 	int	i;
-// 	i = 0;
-// 	fd = open_file(str);
-// 	game->line = get_next_line(fd);
-// 	if (game->line == NULL)
-// 		game_exit(game, "error: file read\n");
-// 	while (game->line != NULL)
-// 	{
-// 		game->n += chr_count(game->line, 'N');
-// 		game->s += chr_count(game->line, 'S');
-// 		game->e += chr_count(game->line, 'E');
-// 		game->w += chr_count(game->line, 'W');
-// 		free(game->line);
-// 		game->line = get_next_line(fd);
-// 	}
-// 	free(game->line);
-// 	close(fd);
-// 	if (facing_chk(game) == -1)
-// 		game_exit(game, "error: invalid number of facing(s)\n");
-// }
+void	alloc_grid(t_map *map, t_game *game)
+{
+	map->grid = (char **)malloc(sizeof(char *) * map->size + 1);
+	if (!map->grid)
+		game_exit_error(game, map, "fucking error or something");
+	map->grid[map->size + 1] = NULL;
+}
+
+void	store_grid(t_game *game, t_map *map, int fd)
+{
+	int	i;
+
+	i = 1;
+	while (i < map->size)
+	{
+		map->grid[i] = get_next_line(fd);
+		i++;
+	}
+}
+
+void	trim_grid(t_map *map, t_game *game)
+{
+	int	i;
+
+	i = -1;
+	while (map->grid[++i] != NULL)
+		map->grid[i] = ft_strtrim(map->grid[i], "\n");
+}
+
+void	parsing_magic(char *str, t_game *game, t_map *map)
+{
+	int	fd;
+
+	fd = open(str, O_RDONLY);
+	while (map->cnt != 0)
+	{
+		map->line = get_next_line(fd);
+		free(map->line);
+		map->cnt--;
+	}
+	alloc_grid(map, game);
+	map->line = get_next_line(fd);
+	while (map->line != NULL && map->line[0] == '\n')
+	{
+		free(map->line);
+		map->line = get_next_line(fd);
+	}
+	if (map->line != NULL)
+	{
+		map->grid[0] = ft_strdup(map->line);
+		free(map->line);
+	}
+	store_grid(game, map, fd);
+	close (fd);
+	trim_grid(map, game);
+}

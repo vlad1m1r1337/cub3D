@@ -37,6 +37,7 @@
 
 typedef struct s_map
 {
+	int		cnt;
 	int		size;
 	int		n;
 	int		s;
@@ -127,6 +128,10 @@ void	ft_putstr_fd(char *s, int fd);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int	check_orient(char c, char *orient);
 void	space_skip(char **str);
-void	parse_map(t_game *game, t_map *map, int fd);
-
+void	parse_map(char *str, t_game *game, t_map *map, int fd);
+void	store_grid(t_game *game, t_map *map, int fd);
+void	parsing_magic(char *str, t_game *game, t_map *map);
+void	alloc_grid(t_map *map, t_game *game);
+void	trim_grid(t_map *map, t_game *game);
+char	*ft_strtrim(char const *s1, char const *set);
 #endif
