@@ -78,7 +78,6 @@ int	main(int argc, char **argv)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		game_exit_error(game, NULL, "error: map struct malloc error\n");
-	if (get_colors(argv[1], map, game) == -1)
-		game_exit_error(game, map, "error: cannot open file\n");
+	get_colors(argv[1], map, game);
 	return (0);
 }

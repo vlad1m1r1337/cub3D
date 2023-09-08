@@ -12,6 +12,8 @@
 
 #include "../includes/cub3d.h"	
 
+//void	extra_security_checks(t_map *map, t_game *game);
+
 void	set_count(t_map *map)
 {
 	map->n = 0;
@@ -61,7 +63,7 @@ int	orient_empty(char *orient)
 	return (0);
 }
 
-int	get_colors(char *str, t_map *map, t_game *game)
+void	get_colors(char *str, t_map *map, t_game *game)
 {
 	int		fd;
 	char	*orient;
@@ -70,7 +72,7 @@ int	get_colors(char *str, t_map *map, t_game *game)
 	orient = ft_strdup("NSEWFC");
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-		return (-1);
+		game_exit_error(game, map, "error: file cannot open\n");
 	map->cnt = 1;
 	map->line = get_next_line(fd);
 	while (orient_empty(orient) != -1 && map->line != NULL)
@@ -87,7 +89,6 @@ int	get_colors(char *str, t_map *map, t_game *game)
 		game_exit_error(game, map, "error: invalid descriptors\n");
 	}
 	parse_map(str, game, map, fd);
-	return (0);
 }
 
 void	parse_map(char *str, t_game *game, t_map *map, int fd)
@@ -128,14 +129,12 @@ void	dup_cnt(t_map *map, t_game *game)
 	i = -1;
 	while (map->grid[++i] != NULL)
 	{
+		if (char_chk(map->grid[i]) == -1)
+			game_exit_error(game, map, "error: invalid characters in map\n");
 		map->n += chr_count(map->grid[i], 'N');
-		printf("[n count = %d]\n", map->n);
 		map->s += chr_count(map->grid[i], 'S');
-		printf("[s count = %d]\n", map->s);
 		map->e += chr_count(map->grid[i], 'E');
-		printf("[e count = %d]\n", map->e);
 		map->w += chr_count(map->grid[i], 'W');
-		printf("[w count = %d]\n", map->w);
 	}
 	if (facing_check(map) == -1)
 		game_exit_error(game, map, "error: invalid facings\n");
@@ -153,15 +152,6 @@ void	store_grid(t_game *game, t_map *map, int fd)
 	}
 	trim_grid(map, game);
 	dup_cnt(map, game);
-}
-
-void	trim_grid(t_map *map, t_game *game)
-{
-	int	i;
-
-	i = -1;
-	while (map->grid[++i] != NULL)
-		map->grid[i] = ft_strtrim(map->grid[i], "\n");
 }
 
 void	parsing_magic(char *str, t_game *game, t_map *map)
@@ -190,4 +180,30 @@ void	parsing_magic(char *str, t_game *game, t_map *map)
 	store_grid(game, map, fd);
 	close (fd);
 	trim_grid(map, game);
+	//extra_security_checks(map, game);
+}
+
+void	trim_grid(t_map *map, t_game *game)
+{
+	int	i;
+
+	i = -1;
+	while (map->grid[++i] != NULL)
+		map->grid[i] = ft_strtrim(map->grid[i], "\n");
+}
+
+int	char_chk(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != 'N' && str[i] != '0' && \
+		str[i] != '1' && str[i] != 'S' && str[i] != 'E' && str[i] != 'W'\
+		&& str[i] != ' ')
+			return (-1);
+		i++;
+	}
+	return (0);
 }
