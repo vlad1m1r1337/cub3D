@@ -155,18 +155,13 @@ void	free_arr(char **arr1, char **arr2)
 void	fill_colors(t_game *game, t_map *map, char **floor, char **ceiling)
 {
 	game->flc1 = new_ft_atoi(floor[0]);
-	printf("flc1 = %d\n", game->flc1);
 	game->flc2 = new_ft_atoi(floor[1]);
-	printf("flc2 = %d\n", game->flc2);
 	game->flc3 = new_ft_atoi(floor[2]);
-	printf("flc3 = %d\n", game->flc3);
 	game->clc1 = new_ft_atoi(ceiling[0]);
-	printf("clc1 = %d\n", game->clc1);
 	game->clc2 = new_ft_atoi(ceiling[1]);
-	printf("clc2 = %d\n", game->clc1);
 	game->clc3 = new_ft_atoi(ceiling[2]);
-	printf("clc3 = %d\n", game->clc1);
-	if (game->flc1 < 0 || game->flc2 < 0 || game->flc3 < 0 || game->clc1 < 0 || game->clc2 < 0 || game->clc3 < 0)
+	if (game->flc1 < 0 || game->flc2 < 0 || game->flc3 < 0 \
+	|| game->clc1 < 0 || game->clc2 < 0 || game->clc3 < 0)
 	{
 		free_arr(floor, ceiling);
 		game_exit_error(game, map, "error: RGB values incorrect\n");
