@@ -104,9 +104,12 @@ typedef struct s_game
 	void	*sprite_east;
 	int		height_sprite;
 	int		width_sprite;
-	int		floor_color;
-	int		ceiling_color;
-	int		count_arguments_in_file;
+	int		flc1;
+	int		flc2;
+	int		flc3;
+	int		clc1;
+	int		clc2;
+	int		clc3;
 	t_map	*data;
 	t_img	img;
 	t_img	img_sprites[4];

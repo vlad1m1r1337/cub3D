@@ -14,6 +14,188 @@
 
 //void	extra_security_checks(t_map *map, t_game *game);
 
+static int	ft_wordcount(const char *s, char c)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			i++;
+		else
+		{
+			j++;
+			while (s[i] && s[i] != c)
+				i++;
+		}
+	}
+	return (j);
+}
+
+static char	*ft_putword(const char *s, char c)
+{
+	int		i;
+	int		j;
+	char	*word;
+
+	i = 0;
+	j = 0;
+	while (s[i] && s[i] == c)
+		i++;
+	while (s[i] && s[i] != c)
+	{
+		i++;
+		j++;
+	}
+	word = malloc(sizeof(char) * (j + 1));
+	if (!word)
+		return (0);
+	i -= j;
+	j = 0;
+	while (s[i] && s[i] != c)
+		word[j++] = s[i++];
+	word[j] = '\0';
+	return (word);
+}
+
+static void	ft_free(int i, char **new)
+{
+	while (i > 0)
+	{
+		free(new[i - 1]);
+		i--;
+	}
+	free(new);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**new;
+	int		wc;
+	int		i;
+	int		j;
+
+	if (!s)
+		return (0);
+	i = -1;
+	j = 0;
+	wc = ft_wordcount(s, c);
+	new = malloc(sizeof(char *) * wc + 1);
+	if (!new)
+		return (new);
+	while (++i < wc)
+	{
+		while (s[j] && s[j] == c)
+			j++;
+		new[i] = ft_putword(&s[j], c);
+		if (!new[i])
+			ft_free(i, new);
+		while (s[j] && s[j] != c)
+			j++;
+	}
+	new[i] = 0;
+	return (new);
+}
+
+int	new_ft_atoi(const char *str)
+{
+	int	result;
+
+	result = 0;
+	while ((*str >= 9 && *str <= 13) || (*str == 32))
+		str++;
+	if (*str == '-')
+		return (-1);
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + *str - '0';
+		str++;
+	}
+	while (*str != '\0')
+	{
+		if (!(*str >= '0' && *str <= '9'))
+			return (-1);
+	}
+	return (result);
+}
+
+int	arr_size(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
+}
+
+void	free_arr(char **arr1, char **arr2)
+{
+	int	i;
+
+	i = 0;
+	while (arr1[i])
+	{
+		free(arr1[i]);
+		i++;
+	}
+	free(arr1);
+	i = 0;
+	while (arr2[i])
+	{
+		free(arr2[i]);
+		i++;
+	}
+	free(arr2);
+}
+
+void	fill_colors(t_game *game, t_map *map, char **floor, char **ceiling)
+{
+	game->flc1 = new_ft_atoi(floor[0]);
+	printf("flc1 = %d\n", game->flc1);
+	game->flc2 = new_ft_atoi(floor[1]);
+	printf("flc2 = %d\n", game->flc2);
+	game->flc3 = new_ft_atoi(floor[2]);
+	printf("flc3 = %d\n", game->flc3);
+	game->clc1 = new_ft_atoi(ceiling[0]);
+	printf("clc1 = %d\n", game->clc1);
+	game->clc2 = new_ft_atoi(ceiling[1]);
+	printf("clc2 = %d\n", game->clc1);
+	game->clc3 = new_ft_atoi(ceiling[2]);
+	printf("clc3 = %d\n", game->clc1);
+	if (game->flc1 < 0 || game->flc2 < 0 || game->flc3 < 0 || game->clc1 < 0 || game->clc2 < 0 || game->clc3 < 0)
+	{
+		free_arr(floor, ceiling);
+		game_exit_error(game, map, "error: RGB values incorrect\n");
+	}
+}
+
+void	check_colors(t_game *game, t_map *map)
+{
+	char	**tmp_floor;
+	char	**tmp_ceiling;
+	int		flag;
+
+	flag = 0;
+	map->floor = ft_strtrim(map->floor, " ");
+	map->ceiling = ft_strtrim(map->ceiling, " ");
+	map->floor = ft_strtrim(map->floor, "\n");
+	map->ceiling = ft_strtrim(map->ceiling, "\n");
+	tmp_floor = ft_split(map->floor, ',');
+	tmp_ceiling = ft_split(map->ceiling, ',');
+	if (arr_size(tmp_floor) != 3 && arr_size(tmp_ceiling) != 3)
+	{
+		free_arr(tmp_floor, tmp_ceiling);
+		flag = 1;
+	}
+	fill_colors(game, map, tmp_floor, tmp_ceiling);
+	if (flag == 0)
+		free_arr(tmp_floor, tmp_ceiling);
+}
+
 void	set_count(t_map *map)
 {
 	map->n = 0;
@@ -138,6 +320,7 @@ void	dup_cnt(t_map *map, t_game *game)
 	}
 	if (facing_check(map) == -1)
 		game_exit_error(game, map, "error: invalid facings\n");
+	check_colors(game, map);
 }
 
 void	store_grid(t_game *game, t_map *map, int fd)
@@ -179,7 +362,7 @@ void	parsing_magic(char *str, t_game *game, t_map *map)
 	}
 	store_grid(game, map, fd);
 	close (fd);
-	trim_grid(map, game);
+	//trim_grid(map, game);
 	//extra_security_checks(map, game);
 }
 

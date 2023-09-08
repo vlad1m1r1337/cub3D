@@ -6,8 +6,8 @@ OBJDIR = obj/
 SRCS = $(wildcard $(SRCDIR)*.c)
 OBJS = $(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -pthread  -fsanitize=thread
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g ##-fsanitize=address
+##CFLAGS = -Wall -Wextra -Werror -g 
 
 GREEN = \033[0;32m
 RESET = \033[0m
