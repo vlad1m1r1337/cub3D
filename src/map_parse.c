@@ -12,6 +12,13 @@
 
 #include "../includes/cub3d.h"	
 
+void	set_count(t_map *map)
+{
+	map->n = 0;
+	map->s = 0;
+	map->e = 0;
+	map->w = 0;
+}
 
 void	skip_whitespace(char *line, int *i)
 {
@@ -77,7 +84,7 @@ int	get_colors(char *str, t_map *map, t_game *game)
 	if (orient_empty(orient) == 0)
 	{
 		close(fd);
-		return (-1);
+		game_exit_error(game, map, "error: invalid descriptors\n");
 	}
 	parse_map(str, game, map, fd);
 	return (0);
@@ -102,6 +109,7 @@ void	parse_map(char *str, t_game *game, t_map *map, int fd)
 		}
 	}
 	close(fd);
+	set_count(map);
 	parsing_magic(str, game, map);
 }
 
@@ -120,14 +128,14 @@ void	dup_cnt(t_map *map, t_game *game)
 	i = -1;
 	while (map->grid[++i] != NULL)
 	{
-		map->n = chr_count(map->grid[i], 'N');
-		//printf("[n count = %d]\n", map->n);
-		map->s = chr_count(map->grid[i], 'S');
-		//printf("[s count = %d]\n", map->n);
-		map->e = chr_count(map->grid[i], 'E');
-		//printf("[e count = %d]\n", map->n);
-		map->w = chr_count(map->grid[i], 'W');
-		//printf("[w count = %d]\n", map->n);
+		map->n += chr_count(map->grid[i], 'N');
+		printf("[n count = %d]\n", map->n);
+		map->s += chr_count(map->grid[i], 'S');
+		printf("[s count = %d]\n", map->s);
+		map->e += chr_count(map->grid[i], 'E');
+		printf("[e count = %d]\n", map->e);
+		map->w += chr_count(map->grid[i], 'W');
+		printf("[w count = %d]\n", map->w);
 	}
 	if (facing_check(map) == -1)
 		game_exit_error(game, map, "error: invalid facings\n");

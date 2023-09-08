@@ -34,13 +34,13 @@ int	facing_check(t_map *map)
 		return (-1);
 	if (map->n > 1 || map->s > 1 || map->e > 1 || map->w > 1)
 		return (-1);
-	else if (map->n == 1 && map->s != 0 && map->e != 0 && map->w != 0)
+	else if (map->n == 1 && (map->s != 0 || map->e != 0 || map->w != 0))
 		return (-1);
-	else if (map->s == 1 && map->n != 0 && map->e != 0 && map->w != 0)
+	else if (map->s == 1 && (map->n != 0 || map->e != 0 || map->w != 0))
 		return (-1);
-	else if (map->e == 1 && map->s != 0 && map->n != 0 && map->w != 0)
+	else if (map->e == 1 && (map->s != 0 || map->n != 0 || map->w != 0))
 		return (-1);
-	else if (map->w == 1 && map->s != 0 && map->e != 0 && map->n != 0)
+	else if (map->w == 1 && (map->s != 0 || map->e != 0 || map->n != 0))
 		return (-1);
 	return (0);
 }
@@ -56,7 +56,6 @@ int	chr_count(char *str, char c)
 	{
 		if (*str == c)
 			i++;
-		printf("[%c]\n", *str);
 		str++;
 	}
 	return (i);
