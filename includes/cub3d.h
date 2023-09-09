@@ -68,7 +68,7 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*mlx_win;
-	//char	**map;
+	t_map	*data;
 	int		players;
 	double	position_player_x;
 	double	position_player_y;

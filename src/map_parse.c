@@ -332,6 +332,25 @@ void	store_grid(t_game *game, t_map *map, int fd)
 	dup_cnt(map, game);
 }
 
+void	create_cpy(t_game *game, t_map *map)
+{
+	int	max_str;
+	int	i;
+
+	i = -1;
+	max_str = ft_strlen(map->grid[0]);
+	while (map->grid[++i])
+	{
+		if (ft_strlen(map->grid[i]) > max_str)
+			max_str = ft_strlen(map-grid[i]);
+	}
+	game->data->grid = (char **)malloc(sizeof(char *) * map->size + 1);
+	i = -1;
+	while (game->data->grid[i])
+		game->data->grid[i] = (char)malloc(sizeof(char) * max_size + 1);
+
+}
+
 void	parsing_magic(char *str, t_game *game, t_map *map)
 {
 	int	fd;
@@ -357,7 +376,7 @@ void	parsing_magic(char *str, t_game *game, t_map *map)
 	}
 	store_grid(game, map, fd);
 	close (fd);
-	//trim_grid(map, game);
+	create_cpy(game, map);
 	//extra_security_checks(map, game);
 }
 
