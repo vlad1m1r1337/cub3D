@@ -33,7 +33,10 @@ typedef struct s_mlx
 	double time;
 	double oldTime;
 	double cameraX;
-
+	int		w;
+	int		a;
+	int		s;
+	int		d;
 }			t_mlx;
 
 void	hooks(t_mlx *mlx);

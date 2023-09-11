@@ -69,9 +69,9 @@ void raycasting(t_mlx *mlx)
 	for (int x = 0; x < W; x++)
 	{
 		for (int i = 0; i < H / 2; i++)
-			my_pixel_put(mlx, x, i, 0x0000FF);
+			my_pixel_put(mlx, x, i, 0xFFFFFF);// потолок
 		for (int i = H / 2; i < H; i++)
-			my_pixel_put(mlx, x, i, 0x00FF00);
+			my_pixel_put(mlx, x, i, 0x000000);// пол
 		double cameraX = 2 * x / (double)W - 1; //x-coordinate in camera space
 		double rayDirX = mlx->dirX + planeX * cameraX;
 		double rayDirY = mlx->dirY + planeY * cameraX;
@@ -143,14 +143,18 @@ void raycasting(t_mlx *mlx)
 
 		//calculate lowest and highest pixel to fill in current stripe
 		int drawStart = -lineHeight / 2 + H / 2;
-		if (drawStart < 0) drawStart = 0;
-		int drawEnd = lineHeight / 2 + H / 2;
-		if (drawEnd >= H) drawEnd = H - 1;
+		if (drawStart < 0)
+				drawStart = 0;
 
+		int drawEnd = lineHeight / 2 + H / 2;
+
+		if (drawEnd >= H)
+				drawEnd = H - 1;
+		//printf("%d\n", drawEnd);
 		int i = -1;
-		while (++i < drawEnd)
+		while (drawStart++ < drawEnd)
 		{
-			my_pixel_put(mlx, x, i, 0xFF0000);
+			my_pixel_put(mlx, x, drawStart, 0xFF0000);
 		}
 		mlx_put_image_to_window(mlx -> mlx_ptr, mlx -> win_ptr,
 								mlx -> img_ptr, 0, 0);
