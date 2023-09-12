@@ -70,6 +70,7 @@ typedef struct s_game
 	void	*mlx_win;
 	t_map	*data;
 	int		players;
+	int		max_size;
 	double	position_player_x;
 	double	position_player_y;
 	double	dir_x;
@@ -110,7 +111,6 @@ typedef struct s_game
 	int		clc1;
 	int		clc2;
 	int		clc3;
-	t_map	*data;
 	t_img	img;
 	t_img	img_sprites[4];
 }			t_game;
