@@ -12,7 +12,49 @@
 
 #include "../includes/cub3d.h"	
 
-//void	extra_security_checks(t_map *map, t_game *game);
+void	check_posit(t_game *game, t_map *map, char pos, char player)
+{
+	if (pos != '1' && pos != '0' && pos != player)
+		game_exit_error(game, map, "error: map not enclosed in WALLS\n");
+}
+
+int	map_size(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i] != NULL)
+		i++;
+	return (i - 1);
+}
+
+void	check_walls(t_game *game, t_map *map, int x, int j)
+{
+	while (map->grid[x])
+	{
+		j = 0;
+		while (map->grid[x][j])
+		{
+			if (map->grid[x][j] == map->spawn_orient)
+			{
+				game->pos_player_y = x + 0.5;
+				game->pos_player_x = j + 0.5;
+				map->grid[x][j] = '0';
+			}
+			if (map->grid[x][j] == '0')
+			{
+				if (x == 0 || x == map_size(map->grid))
+					game_exit_error(game, map, "error: not enclosed in walls\n");
+				check_posit(game, map, map->grid[x - 1][j], map->spawn_orient);
+				check_posit(game, map, map->grid[x + 1][j], map->spawn_orient);
+				check_posit(game, map, map->grid[x][j - 1], map->spawn_orient);
+				check_posit(game, map, map->grid[x][j + 1], map->spawn_orient);
+			}
+			j++;
+		}
+		x++;
+	}
+}
 
 static int	ft_wordcount(const char *s, char c)
 {
@@ -295,7 +337,7 @@ void	alloc_grid(t_map *map, t_game *game)
 {
 	map->grid = (char **)malloc(sizeof(char *) * map->size + 1);
 	if (!map->grid)
-		game_exit_error(game, map, "fucking error or something");
+		game_exit_error(game, map, "error: malloc: fatal\n");
 	map->grid[map->size + 1] = NULL;
 }
 
@@ -358,7 +400,7 @@ void	parsing_magic(char *str, t_game *game, t_map *map)
 	}
 	store_grid(game, map, fd);
 	close (fd);
-	//extra_security_checks(map, game);
+	check_walls(game, map, 0, 0);
 }
 
 void	trim_grid(t_map *map, t_game *game)

@@ -51,6 +51,7 @@ typedef struct s_map
 	char	*east;
 	char	*floor;
 	char	*ceiling;
+	char	spawn_orient;
 }	t_map;
 
 typedef struct s_img
@@ -71,8 +72,8 @@ typedef struct s_game
 	t_map	*data;
 	int		players;
 	int		max_size;
-	double	position_player_x;
-	double	position_player_y;
+	double	pos_player_x;
+	double	pos_player_y;
 	double	dir_x;
 	double	dir_y;
 	double	plane_x;

@@ -42,6 +42,14 @@ int	facing_check(t_map *map)
 		return (-1);
 	else if (map->w == 1 && (map->s != 0 || map->e != 0 || map->n != 0))
 		return (-1);
+	if (map->n == 1 && (map->s == 0 || map->e == 0 || map->w == 0))
+		map->spawn_orient = 'N';
+	else if (map->s == 1 && (map->n == 0 || map->e == 0 || map->w == 0))
+		map->spawn_orient = 'S';
+	else if (map->e == 1 && (map->s == 0 || map->n == 0 || map->w == 0))
+		map->spawn_orient = 'E';
+	else if (map->w == 1 && (map->s == 0 || map->n == 0 || map->e == 0))
+		map->spawn_orient = 'W';
 	return (0);
 }
 
