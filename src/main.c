@@ -14,52 +14,57 @@ int	render_check(t_mlx *mlx)
 	return (0);
 }
 
-#define mapWidth 24
-#define mapHeight 24
+//#define mapWidth 24
+//#define mapHeight 24
+
+#define mapWidth 6
+#define mapHeight 6
+
 #define screenWidth 640
 #define screenHeight 480
 
-//int worldMap[mapWidth][mapHeight]=
-//		{
-//				{1,1,1,1,1,1},
-//				{1,0,0,0,0,1},
-//				{1,0,0,0,0,1},
-//				{1,0,0,0,0,1},
-//				{1,0,0,0,0,1},
-//				{1,1,1,1,1,1},
-//		};
-
 int worldMap[mapWidth][mapHeight]=
 		{
-				{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-				{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-				{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-				{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+				{1,1,1,1,1,1},
+				{1,0,0,0,0,1},
+				{1,0,0,0,0,1},
+				{1,0,0,0,0,1},
+				{1,0,0,0,0,1},
+				{1,1,1,1,1,1},
 		};
+
+//int worldMap[mapWidth][mapHeight]=
+//		{
+//				{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+//				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+//				{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
+//				{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+//				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//				{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+//		};
 
 void raycasting(t_mlx *mlx)
 {
-	double planeX = 0, planeY = 0.66;
+	double	planeX = 0;
+	double	planeY = 0.66;
 
 	for (int x = 0; x < W; x++)
 	{
@@ -68,6 +73,7 @@ void raycasting(t_mlx *mlx)
 		for (int i = H / 2; i < H; i++)
 			my_pixel_put(mlx, x, i, 0x000000);// пол
 	}
+
 	for (int x = 0; x < W; x++)
 	{
 
@@ -130,7 +136,8 @@ void raycasting(t_mlx *mlx)
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (worldMap[mapX][mapY] > 0) hit = 1;
+			if (worldMap[mapX][mapY] > 0)
+				hit = 1;
 		}
 		if (side == 0)
 			perpWallDist = (sideDistX - deltaDistX);
@@ -146,25 +153,23 @@ void raycasting(t_mlx *mlx)
 				drawStart = 0;
 
 		int drawEnd = lineHeight / 2 + H / 2;
-
 		if (drawEnd >= H)
 				drawEnd = H - 1;
-		//printf("%d\n", drawEnd);
+
+
 		drawStart--;
 		while (drawStart++ < drawEnd)
 			my_pixel_put(mlx, x, drawStart, 0xFF0000);
-
-		mlx_put_image_to_window(mlx -> mlx_ptr, mlx -> win_ptr,
-								mlx -> img_ptr, 0, 0);
 	}
 }
 
 void moving(t_mlx *mlx)
 {
 	double moveSpeed = 0.1;
+	double rotSpeed = 0.1;
 	if (mlx -> w)// W
 	{
-		moveSpeed = 0.5;
+		moveSpeed = 0.1;
 		if(worldMap[(int)(mlx->posX + mlx->dirX * moveSpeed)][(int)(mlx->posY)] == 0)
 			mlx->posX += mlx->dirX * moveSpeed;
 		if(worldMap[(int)(mlx->posX)][(int)(mlx->posY + mlx->dirY * moveSpeed)] == 0)
@@ -172,7 +177,7 @@ void moving(t_mlx *mlx)
 	}
 	else if (mlx -> s)// S
 	{
-		moveSpeed = 0.5;
+		moveSpeed = 0.1;
 		if(worldMap[(int)(mlx->posX + mlx->dirX * moveSpeed)][(int)(mlx->posY)] == 0)
 			mlx->posX -= mlx->dirX * moveSpeed;
 		if(worldMap[(int)(mlx->posX)][(int)(mlx->posY + mlx->dirY * moveSpeed)] == 0)
@@ -180,7 +185,6 @@ void moving(t_mlx *mlx)
 	}
 	else if (mlx -> a)// A
 	{
-		double rotSpeed = 0.1;
 		double oldDirX = mlx->dirX;
 		mlx->dirX = mlx->dirX * cos(rotSpeed) - mlx->dirY * sin(rotSpeed);
 		mlx->dirY = oldDirX * sin(rotSpeed) + mlx->dirY * cos(rotSpeed);
@@ -190,7 +194,6 @@ void moving(t_mlx *mlx)
 	}
 	else if (mlx -> d)// D
 	{
-		double rotSpeed = 0.1;
 		double oldDirX = mlx->dirX;
 		mlx->dirX = mlx->dirX * cos(-rotSpeed) - mlx->dirY * sin(-rotSpeed);
 		mlx->dirY = oldDirX * sin(-rotSpeed) + mlx->dirY * cos(-rotSpeed);
@@ -202,8 +205,11 @@ void moving(t_mlx *mlx)
 
 int render(t_mlx *mlx)
 {
+	mlx_clear_window(mlx -> mlx_ptr, mlx -> win_ptr);
 	raycasting(mlx);
 	moving(mlx);
+	mlx_put_image_to_window(mlx -> mlx_ptr, mlx -> win_ptr,
+							mlx -> img_ptr, 0, 0);
 	return (0);
 }
 
@@ -214,8 +220,8 @@ int main(int argc, char **argv)
 
 	t_mlx	*mlx;
 	mlx = malloc(sizeof(t_mlx));
-	mlx->posX = 3;
-	mlx->posY = 3;
+	mlx->posX = 2;
+	mlx->posY = 2;
 	mlx->dirX = -1;
 	mlx->dirY = 0;
 	window_creating(mlx);

@@ -9,7 +9,8 @@
 # include <math.h>
 # include <mlx.h>
 
-int worldMap[24][24];
+//int worldMap[24][24];
+int	worldMap[6][6];
 
 typedef struct s_mlx
 {
