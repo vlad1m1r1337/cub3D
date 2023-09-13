@@ -16,7 +16,7 @@ RESET = \033[0m
 all: $(NAME)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
-	@$(CC) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR):
 	@$(shell mkdir -p $(dir $(OBJS)))
