@@ -51,7 +51,7 @@ void	free_arr(char **arr1, char **arr2)
 void	check_posit(t_game *game, t_map *map, char pos, char player)
 {
 	if (pos != '1' && pos != '0' && pos != player)
-		game_exit_error(game, map, "error: map not enclosed in WALLS\n");
+		game_exit_error(game, map, "error: map not enclosed in walls\n");
 }
 
 int	map_size(char **map)
