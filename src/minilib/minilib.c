@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map_utils.c                                  :+:      :+:    :+:   */
+/*   minilib.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 15:22:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/04/10 14:22:59 by jfrances         ###   ########.fr       */
+/*   Created: 2023/09/15 14:22:06 by jfrances          #+#    #+#             */
+/*   Updated: 2023/09/15 14:22:07 by jfrances         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -42,26 +42,6 @@ char	*ft_strchr2(const char *s, int c)
 	return (0);
 }
 
-size_t	ft_strlcpy2(char *dst, const char *src, size_t dstsize)
-{
-	size_t	src_len;
-	size_t	i;
-
-	src_len = 0;
-	i = 0;
-	while (src[src_len] != '\0')
-		src_len++;
-	if (dstsize == 0)
-		return (src_len);
-	while (src[i] != '\0' && i < (dstsize - 1))
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (src_len);
-}
-
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	front;
@@ -82,4 +62,36 @@ char	*ft_strtrim(char const *s1, char const *set)
 			ft_strlcpy2(str, &s1[front], rear - front + 1);
 	}
 	return (str);
+}
+
+int	new_ft_atoi(const char *str)
+{
+	int	result;
+
+	result = 0;
+	while ((*str >= 9 && *str <= 13) || (*str == 32))
+		str++;
+	if (*str == '-')
+		return (-1);
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + *str - '0';
+		str++;
+	}
+	while (*str != '\0')
+	{
+		if (!(*str >= '0' && *str <= '9'))
+			return (-1);
+	}
+	return (result);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	write (fd, s, i);
 }

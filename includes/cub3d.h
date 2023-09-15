@@ -17,10 +17,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-#include <fcntl.h>
-//# include "../libft/libft.h"
-# include "../src/get_next_line.h"
-//# include "string.h"
+# include <fcntl.h>
+# include "../src/gnl/get_next_line.h"
 # include <math.h>
 
 # define A				0
@@ -116,30 +114,54 @@ typedef struct s_game
 	t_img	img_sprites[4];
 }			t_game;
 
-void	game_exit_error(t_game *game, t_map *map, char *pstr);
+//src/minilib/ft_split.c
+char	**ft_split(char const *s, char c);
+//src/minilib/minilib.c
+void	ft_putstr_fd(char *s, int fd);
+size_t	ft_strlen(const char *s);
+int		new_ft_atoi(const char *str);
+char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_strchr2(const char *s, int c);
+//src/minilib/minilib2.c
+size_t	ft_strlcpy2(char *dst, const char *src, size_t dstsize);
+//parsing/check_file_head.c
+void	space_skip(char **str);
 void	check_no(char *orient, char *line, t_map *map, int *i);
 void	check_so(char *orient, char *line, t_map *map, int *i);
 void	check_ea(char *orient, char *line, t_map *map, int *i);
 void	check_we(char *orient, char *line, t_map *map, int *i);
-void	update_orient(char c, char *orient);
-void	check_f(char *orient, char *line, t_map *map, int *i);
+//parsing/check_walls.c
+void	fill_colors(t_game *game, t_map *map, char **floor, char **ceiling);
+void	free_arr(char **arr1, char **arr2);
+void	check_posit(t_game *game, t_map *map, char pos, char player);
+void	check_walls(t_game *game, t_map *map, int x, int j);
+int		map_size(char **map);
+//parsing/f_c_and_orient.c
 void	check_c(char *orient, char *line, t_map *map, int *i);
-int		orient_empty(char *orient);
-void	check_data(char *orient, t_map *map, char *line);
-void	get_colors(char *str, t_map *map, t_game *game);
-void	skip_whitespace(char *line, int *i);
-void	ft_putstr_fd(char *s, int fd);
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+void	check_f(char *orient, char *line, t_map *map, int *i);
+void	update_orient(char c, char *orient);
+int		check(const char *(haystack), const char *(needle), size_t len);
 int		check_orient(char c, char *orient);
-void	space_skip(char **str);
+//parsing/map_parse.c
+void	get_colors(char *str, t_map *map, t_game *game);
 void	parse_map(char *str, t_game *game, t_map *map, int fd);
-void	store_grid(t_game *game, t_map *map, int fd);
 void	parsing_magic(char *str, t_game *game, t_map *map);
+void	check_data(char *orient, t_map *map, char *line);
+void	check_colors(t_game *game, t_map *map);
+//parsing/parse_map_utils.c
+void	store_grid(t_game *game, t_map *map, int fd);
 void	alloc_grid(t_map *map, t_game *game);
-void	trim_grid(t_map *map, t_game *game);
-char	*ft_strtrim(char const *s1, char const *set);
+void	trim_grid(t_map *map);
+void	set_count(t_map *map);
+int		char_chk(char *str);
+//parsing/parse_map_utils2.c
 void	dup_cnt(t_map *map, t_game *game);
+void	skip_whitespace(char *line, int *i);
+int		orient_empty(char *orient);
+int		arr_size(char **arr);
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+//main.c
 int		chr_count(char *str, char c);
 int		facing_check(t_map *map);
-int		char_chk(char *str);
+void	game_exit_error(t_game *game, t_map *map, char *pstr);
 #endif
