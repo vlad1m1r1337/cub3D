@@ -1,19 +1,5 @@
 #include "../include/cube3d.h"
 
-int	render_check(t_mlx *mlx)
-{
-	if (mlx -> win_ptr == NULL)
-		return (1);
-	mlx_clear_window(mlx -> mlx_ptr, mlx -> win_ptr);
-	mlx_clear_window(mlx -> mlx_ptr, mlx -> win_ptr);
-	mlx -> img_ptr = mlx_new_image(mlx -> mlx_ptr, H, W);
-	mlx -> data = mlx_get_data_addr(mlx -> img_ptr, &mlx -> bpp,
-									&mlx -> size_l, &mlx -> endian);
-	mlx_put_image_to_window(mlx -> mlx_ptr, mlx -> win_ptr,
-							mlx -> img_ptr, 0, 0);
-	return (0);
-}
-
 //#define mapWidth 24
 //#define mapHeight 24
 
@@ -29,7 +15,7 @@ int worldMap[mapWidth][mapHeight]=
 				{1,0,0,0,0,1},
 				{1,0,0,0,0,1},
 				{1,0,0,0,0,1},
-				{1,0,0,0,0,1},
+				{1,0,1,0,0,1},
 				{1,1,1,1,1,1},
 		};
 
@@ -69,14 +55,12 @@ void raycasting(t_mlx *mlx)
 	for (int x = 0; x < W; x++)
 	{
 		for (int i = 0; i < H / 2; i++)
-			my_pixel_put(mlx, x, i, 0x0000FF);// потолок
+			my_pixel_put(mlx, x, i, rgb_to_hex(153, 171, 255));//  небо
 		for (int i = H / 2; i < H; i++)
-			my_pixel_put(mlx, x, i, 0x000000);// пол
+			my_pixel_put(mlx, x, i, rgb_to_hex(53, 52, 50));// пол
 	}
-
 	for (int x = 0; x < W; x++)
 	{
-
 		double cameraX = 2 * x / (double)W - 1; //x-coordinate in camera space
 		double rayDirX = mlx->dirX + planeX * cameraX;
 		double rayDirY = mlx->dirY + planeY * cameraX;
@@ -154,22 +138,21 @@ void raycasting(t_mlx *mlx)
 
 		int drawEnd = lineHeight / 2 + H / 2;
 		if (drawEnd >= H)
-				drawEnd = H - 1;
-
-
-		drawStart--;
-		while (drawStart++ < drawEnd)
-			my_pixel_put(mlx, x, drawStart, 0xFF0000);
+				drawEnd = H;
+		int color = rgb_to_hex(106, 103, 102);
+		if (side)
+			color = color / 2;
+		while (++drawStart < drawEnd)
+			my_pixel_put(mlx, x, drawStart, color);
 	}
 }
 
 void moving(t_mlx *mlx)
 {
 	double moveSpeed = 0.1;
-	double rotSpeed = 0.1;
+	double rotSpeed = 0.03;
 	if (mlx -> w)// W
 	{
-		moveSpeed = 0.1;
 		if(worldMap[(int)(mlx->posX + mlx->dirX * moveSpeed)][(int)(mlx->posY)] == 0)
 			mlx->posX += mlx->dirX * moveSpeed;
 		if(worldMap[(int)(mlx->posX)][(int)(mlx->posY + mlx->dirY * moveSpeed)] == 0)
@@ -177,13 +160,12 @@ void moving(t_mlx *mlx)
 	}
 	else if (mlx -> s)// S
 	{
-		moveSpeed = 0.1;
 		if(worldMap[(int)(mlx->posX + mlx->dirX * moveSpeed)][(int)(mlx->posY)] == 0)
 			mlx->posX -= mlx->dirX * moveSpeed;
 		if(worldMap[(int)(mlx->posX)][(int)(mlx->posY + mlx->dirY * moveSpeed)] == 0)
 			mlx->posY -= mlx->dirY * moveSpeed;
 	}
-	else if (mlx -> a)// A
+	if (mlx -> a)// A
 	{
 		double oldDirX = mlx->dirX;
 		mlx->dirX = mlx->dirX * cos(rotSpeed) - mlx->dirY * sin(rotSpeed);
@@ -192,7 +174,7 @@ void moving(t_mlx *mlx)
 		mlx->planeX = mlx->planeX * cos(rotSpeed) - mlx->planeY * sin(rotSpeed);
 		mlx->planeY = oldPlaneX * sin(rotSpeed) + mlx->planeY * cos(rotSpeed);
 	}
-	else if (mlx -> d)// D
+	if (mlx -> d)// D
 	{
 		double oldDirX = mlx->dirX;
 		mlx->dirX = mlx->dirX * cos(-rotSpeed) - mlx->dirY * sin(-rotSpeed);
@@ -220,10 +202,10 @@ int main(int argc, char **argv)
 
 	t_mlx	*mlx;
 	mlx = malloc(sizeof(t_mlx));
-	mlx->posX = 2;
-	mlx->posY = 2;
+	mlx->posX = 3;
+	mlx->posY = 3;
 	mlx->dirX = -1;
-	mlx->dirY = 0;
+	mlx->dirY = -1;
 	window_creating(mlx);
 	mlx_loop_hook(mlx->mlx_ptr, &render, mlx);
 	hooks(mlx);

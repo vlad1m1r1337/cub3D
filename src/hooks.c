@@ -7,28 +7,28 @@ int	ex(void)
 
 int	press_handle(int keycode, t_mlx *mlx)
 {
-	if (keycode == 53)
+	if (keycode == ESC)
 		exit(0);
-	if (keycode == 13)
+	if (keycode == W_KEY)
 		mlx -> w = 1;
-	if (keycode == 1)
+	if (keycode == S_KEY)
 		mlx -> s = 1;
-	if (keycode == 2)
+	if (keycode == D_KEY)
 		mlx -> d = 1;
-	if (keycode == 0)
+	if (keycode == A_KEY)
 		mlx -> a = 1;
 	return (0);
 }
 
 int	release_handle(int keycode, t_mlx *mlx)
 {
-	if (keycode == 13)
+	if (keycode == W_KEY)
 		mlx -> w = 0;
-	if (keycode == 1)
+	if (keycode == S_KEY)
 		mlx -> s = 0;
-	if (keycode == 2)
+	if (keycode == D_KEY)
 		mlx -> d = 0;
-	if (keycode == 0)
+	if (keycode == A_KEY)
 		mlx -> a = 0;
 	return (0);
 }
