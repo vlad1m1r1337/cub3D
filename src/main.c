@@ -12,6 +12,24 @@
 
 #include "../includes/cub3d.h"
 
+static int	name_check(char *str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = -1;
+	while (str[i])
+		i++;
+	while (str[i] != '.')
+		i--;
+	while (++j < i)
+		str++;
+	if (!str || ft_strncmp(str, ".cub", 4) != 0)
+		return (-1);
+	return (0);
+}
+
 void	game_exit_error(t_game *game, t_map *map, char *pstr)
 {
 	if (!game)
@@ -78,7 +96,7 @@ int	main(int argc, char **argv)
 
 	i = -1;
 	j = i;
-	if (argc != 2 || (ft_strnstr(argv[1], ".cub", 4) != 0))
+	if (argc != 2 || (name_check(argv[1]) == -1))
 		game_exit_error(NULL, NULL, "error: invalid input\n");
 	game = malloc(sizeof(t_game));
 	if (!game)

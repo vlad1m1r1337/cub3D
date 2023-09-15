@@ -68,19 +68,18 @@ void	dup_cnt(t_map *map, t_game *game)
 	check_colors(game, map);
 }
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if (*needle == '\0')
-		return ((char *) haystack);
-	while (*haystack != '\0' && len > 0)
+	size_t	i;
+
+	i = 0;
+	if (!s1)
+		return (0);
+	while ((s1[i] || s2[i]) && i < n)
 	{
-		if (*haystack == *needle)
-		{
-			if (check(haystack, needle, len) == 1)
-				return ((char *)haystack);
-		}
-		haystack++;
-		len--;
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
 	}
 	return (0);
 }

@@ -159,7 +159,7 @@ void	dup_cnt(t_map *map, t_game *game);
 void	skip_whitespace(char *line, int *i);
 int		orient_empty(char *orient);
 int		arr_size(char **arr);
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 //main.c
 int		chr_count(char *str, char c);
 int		facing_check(t_map *map);
