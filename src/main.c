@@ -152,17 +152,31 @@ void moving(t_mlx *mlx)
 	double rotSpeed = 0.03;
 	if (mlx -> w)// W
 	{
-		if(worldMap[(int)(mlx->posX + mlx->dirX * moveSpeed)][(int)(mlx->posY)] == 0)
-			mlx->posX += mlx->dirX * moveSpeed;
-		if(worldMap[(int)(mlx->posX)][(int)(mlx->posY + mlx->dirY * moveSpeed)] == 0)
-			mlx->posY += mlx->dirY * moveSpeed;
+		double tempX;
+		double tempY;
+
+		tempX = mlx->posX + mlx->dirX * moveSpeed;
+		tempY = mlx->posY + mlx->dirY * moveSpeed;
+
+		if (worldMap[(int)tempX][(int)tempY] == 0)
+		{
+			mlx->posX = tempX;
+			mlx->posY = tempY;
+		}
 	}
 	else if (mlx -> s)// S
 	{
-		if(worldMap[(int)(mlx->posX + mlx->dirX * moveSpeed)][(int)(mlx->posY)] == 0)
-			mlx->posX -= mlx->dirX * moveSpeed;
-		if(worldMap[(int)(mlx->posX)][(int)(mlx->posY + mlx->dirY * moveSpeed)] == 0)
-			mlx->posY -= mlx->dirY * moveSpeed;
+		double tempX;
+		double tempY;
+
+		tempX = mlx->posX - mlx->dirX * moveSpeed;
+		tempY = mlx->posY - mlx->dirY * moveSpeed;
+
+		if (worldMap[(int)tempX][(int)tempY] == 0)
+		{
+			mlx->posX = tempX;
+			mlx->posY = tempY;
+		}
 	}
 	if (mlx -> a)// A
 	{

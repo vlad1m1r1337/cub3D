@@ -27,7 +27,6 @@
 # include <limits.h>
 
 //int worldMap[24][24];
-int	worldMap[6][6];
 
 typedef struct s_mlx
 {
