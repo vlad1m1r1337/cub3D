@@ -49,9 +49,6 @@ int worldMap[mapWidth][mapHeight]=
 
 void raycasting(t_mlx *mlx)
 {
-	double	planeX = 0;
-	double	planeY = 0.66;
-
 	for (int x = 0; x < W; x++)
 	{
 		for (int i = 0; i < H / 2; i++)
@@ -61,13 +58,15 @@ void raycasting(t_mlx *mlx)
 	}
 	for (int x = 0; x < W; x++)
 	{
+		//calculate ray position and direction
 		double cameraX = 2 * x / (double)W - 1; //x-coordinate in camera space
-		double rayDirX = mlx->dirX + planeX * cameraX;
-		double rayDirY = mlx->dirY + planeY * cameraX;
+		double rayDirX = mlx->dirX + mlx->planeX * cameraX;
+		double rayDirY = mlx->dirY + mlx->planeY * cameraX;
 		//which box of the map we're in
 		int mapX = (int)mlx->posX;
 		int mapY = (int)mlx->posY;
 
+		//length of ray from current position to next x or y-side
 		double sideDistX;
 		double sideDistY;
 
@@ -107,7 +106,7 @@ void raycasting(t_mlx *mlx)
 		while(hit == 0)
 		{
 			//jump to next map square, either in x-direction, or in y-direction
-			if (sideDistX < sideDistY)
+			if(sideDistX < sideDistY)
 			{
 				sideDistX += deltaDistX;
 				mapX += stepX;
@@ -120,29 +119,29 @@ void raycasting(t_mlx *mlx)
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (worldMap[mapX][mapY] > 0)
-				hit = 1;
+			if(worldMap[mapX][mapY] > 0) hit = 1;
 		}
-		if (side == 0)
-			perpWallDist = (sideDistX - deltaDistX);
-		else
-			perpWallDist = (sideDistY - deltaDistY);
+		//Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
+		//hit to the camera plane. Euclidean to center camera point would give fisheye effect!
+		//This can be computed as (mapX - posX + (1 - stepX) / 2) / rayDirX for side == 0, or same formula with Y
+		//for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
+		//because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
+		//steps, but we subtract deltaDist once because one step more into the wall was taken above.
+		if(side == 0) perpWallDist = (sideDistX - deltaDistX);
+		else          perpWallDist = (sideDistY - deltaDistY);
 
 		//Calculate height of line to draw on screen
 		int lineHeight = (int)(H / perpWallDist);
 
 		//calculate lowest and highest pixel to fill in current stripe
 		int drawStart = -lineHeight / 2 + H / 2;
-		if (drawStart < 0)
-				drawStart = 0;
-
+		if(drawStart < 0) drawStart = 0;
 		int drawEnd = lineHeight / 2 + H / 2;
-		if (drawEnd >= H)
-				drawEnd = H;
-		int color = rgb_to_hex(106, 103, 102);
-		if (side)
-			color = color / 2;
-		while (++drawStart < drawEnd)
+		if(drawEnd >= H) drawEnd = H - 1;
+
+		int color = rgb_to_hex(0, 0, 255);
+		if(side == 1) {color = color / 2;}
+		while(++drawStart < drawEnd)
 			my_pixel_put(mlx, x, drawStart, color);
 	}
 }
@@ -206,6 +205,8 @@ int main(int argc, char **argv)
 	mlx->posY = 3;
 	mlx->dirX = -1;
 	mlx->dirY = 0;
+	mlx->planeX = 0;
+	mlx->planeY = 0.66;
 	window_creating(mlx);
 	mlx_loop_hook(mlx->mlx_ptr, &render, mlx);
 	hooks(mlx);

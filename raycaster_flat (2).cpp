@@ -95,17 +95,17 @@ int main(int /*argc*/, char */*argv*/[])
       double sideDistX;
       double sideDistY;
 
-//      length of ray from one x or y-side to next x or y-side
-//      these are derived as:
-//      deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX))
-//      deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY))
-//      which can be simplified to abs(|rayDir| / rayDirX) and abs(|rayDir| / rayDirY)
-//      where |rayDir| is the length of the vector (rayDirX, rayDirY). Its length,
-//      unlike (dirX, dirY) is not 1, however this does not matter, only the
-//      ratio between deltaDistX and deltaDistY matters, due to the way the DDA
-//      stepping further below works. So the values can be computed as below.
-//       Division through zero is prevented, even though technically that's not
-//       needed in C++ with IEEE 754 floating point values.
+      //length of ray from one x or y-side to next x or y-side
+      //these are derived as:
+      //deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX))
+      //deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY))
+      //which can be simplified to abs(|rayDir| / rayDirX) and abs(|rayDir| / rayDirY)
+      //where |rayDir| is the length of the vector (rayDirX, rayDirY). Its length,
+      //unlike (dirX, dirY) is not 1, however this does not matter, only the
+      //ratio between deltaDistX and deltaDistY matters, due to the way the DDA
+      //stepping further below works. So the values can be computed as below.
+      // Division through zero is prevented, even though technically that's not
+      // needed in C++ with IEEE 754 floating point values.
       double deltaDistX = (rayDirX == 0) ? 1e30 : std::abs(1 / rayDirX);
       double deltaDistY = (rayDirY == 0) ? 1e30 : std::abs(1 / rayDirY);
 
@@ -240,3 +240,5 @@ int main(int /*argc*/, char */*argv*/[])
     }
   }
 }
+
+
