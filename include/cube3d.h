@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <mlx.h>
+# include <limits.h>
 
 //int worldMap[24][24];
 int	worldMap[6][6];

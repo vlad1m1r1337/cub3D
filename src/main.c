@@ -205,7 +205,7 @@ int main(int argc, char **argv)
 	mlx->posX = 3;
 	mlx->posY = 3;
 	mlx->dirX = -1;
-	mlx->dirY = -1;
+	mlx->dirY = 0;
 	window_creating(mlx);
 	mlx_loop_hook(mlx->mlx_ptr, &render, mlx);
 	hooks(mlx);
