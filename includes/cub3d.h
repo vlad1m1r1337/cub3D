@@ -37,10 +37,7 @@ typedef struct s_map
 {
 	int		cnt;
 	int		size;
-	int		n;
-	int		s;
-	int		e;
-	int		w;
+	int		fd;
 	char	*line;
 	char	**grid;
 	char	*north;
@@ -49,7 +46,7 @@ typedef struct s_map
 	char	*east;
 	char	*floor;
 	char	*ceiling;
-	char	spawn_orient;
+	char	s_orient;
 }	t_map;
 
 typedef struct s_img
@@ -67,51 +64,25 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*mlx_win;
-	t_map	*data;
+	t_map	*map;
 	int		players;
 	int		max_size;
-	double	pos_player_x;
-	double	pos_player_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	double	camera_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	int		hit;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	perp_wall_dist;
-	int		step_x;
-	int		step_y;
-	int		side;
-	int		map_x;
-	int		map_y;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	double	move_speed;
-	double	turn_speed;
-	double	wall_x;
-	double	texture_x;
-	double	texture_y;
+	double	posx;
+	double	posy;
 	void	*sprite_north;
 	void	*sprite_south;
 	void	*sprite_west;
 	void	*sprite_east;
 	int		height_sprite;
 	int		width_sprite;
-	int		flc1;
-	int		flc2;
-	int		flc3;
-	int		clc1;
-	int		clc2;
-	int		clc3;
-	t_img	img;
-	t_img	img_sprites[4];
+	int		floor_rgb;
+	int		ceiling_rgb;
+	t_img	*image;
+	t_img	*wallt;
+	t_img	*n;
+	t_img	*w;
+	t_img	*s;
+	t_img	*e;
 }			t_game;
 
 //src/minilib/ft_split.c
@@ -123,45 +94,44 @@ int		new_ft_atoi(const char *str);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strchr2(const char *s, int c);
 //src/minilib/minilib2.c
-size_t	ft_strlcpy2(char *dst, const char *src, size_t dstsize);
-//parsing/check_file_head.c
-void	space_skip(char **str);
-void	check_no(char *orient, char *line, t_map *map, int *i);
-void	check_so(char *orient, char *line, t_map *map, int *i);
-void	check_ea(char *orient, char *line, t_map *map, int *i);
-void	check_we(char *orient, char *line, t_map *map, int *i);
-//parsing/check_walls.c
-void	fill_colors(t_game *game, t_map *map, char **floor, char **ceiling);
-void	free_arr(char **arr1, char **arr2);
-void	check_posit(t_game *game, t_map *map, char pos, char player);
-void	check_walls(t_game *game, t_map *map, int x, int j);
-int		map_size(char **map);
-//parsing/f_c_and_orient.c
-void	check_c(char *orient, char *line, t_map *map, int *i);
-void	check_f(char *orient, char *line, t_map *map, int *i);
-void	update_orient(char c, char *orient);
-int		check(const char *(haystack), const char *(needle), size_t len);
-int		check_orient(char c, char *orient);
-//parsing/map_parse.c
-void	get_colors(char *str, t_map *map, t_game *game);
-void	parse_map(char *str, t_game *game, t_map *map, int fd);
-void	parsing_magic(char *str, t_game *game, t_map *map);
-void	check_data(char *orient, t_map *map, char *line);
-void	check_colors(t_game *game, t_map *map);
-//parsing/parse_map_utils.c
-void	store_grid(t_game *game, t_map *map, int fd);
-void	alloc_grid(t_map *map, t_game *game);
-void	trim_grid(t_map *map);
-void	set_count(t_map *map);
-int		char_chk(char *str);
-//parsing/parse_map_utils2.c
-void	dup_cnt(t_map *map, t_game *game);
-void	skip_whitespace(char *line, int *i);
-int		orient_empty(char *orient);
-int		arr_size(char **arr);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_atoi(const char *str);
+size_t	ft_strlcpy2(char *dst, const char *src, size_t dstsize);
+//parsing/check_walls_helper.c
+int		check_num(char *number);
+void	parse_error(char *str);
+void	check_positions(char pos, char player, t_game *game, t_map *map);
+int		arrsize(char **arr);
+//parsing/color_conversion.c
+void	init_num_arrs(int **c_nums, int **f_nums);
+void	hex_colors(int *c, int *f, t_game *game);
+void	make_color_arr(char **rgb_arr, int *color_nums, int arr_size);
+void	store_colors(char **ceil, char **flor, t_game *game);
+//parsing/map_parse.c
+void	new_line(t_map *map, char *str);
+void	parse_map(char *str, t_game *game, t_map *map, int i);
+int		check_map(char *str, t_map *map, t_game *game);
+void	final_check(int fd, t_map *map, t_game *game);
+void	check_walls(t_map *map, t_game *game, int i, int j);
+//parsing/parse_map_utils.c
+void	trim_spaces(char **arr);
+void	space_skip(char **str);
+void	dup_grid(char **src, char **dest);
+void	free_grid(char **free_me);
+//parsing/parsing_start_help.c
+int		orient_check(char *orient);
+void	trim_stuff(t_map *map);
+void	check_textures(t_game *game, t_map *map);
+void	confirm_textures(char *arr, t_map *map, t_game *game);
+//parsing/parsing_start.c
+void	set_game_set_map(char **argv, t_game *game);
+void	parsing_next(char *str, t_map *map, t_game *game);
+void	get_colors(t_game *game, t_map *map);
+int		get_info(char *line, char *orient, t_map *map, t_game *game);
+int		add_info(char to_remove, t_game *game, char *orient, char *line);
 //main.c
-int		chr_count(char *str, char c);
-int		facing_check(t_map *map);
 void	game_exit_error(t_game *game, t_map *map, char *pstr);
+int		facing_check(t_map *map);
+int		chr_count(char *str, char c);
+
 #endif

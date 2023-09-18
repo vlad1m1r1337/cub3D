@@ -12,117 +12,123 @@
 
 #include "../../includes/cub3d.h"	
 
-void	check_colors(t_game *game, t_map *map)
+void	parse_map(char *str, t_game *game, t_map *map, int i)
 {
-	char	**tmp_floor;
-	char	**tmp_ceiling;
-	int		flag;
-
-	flag = 0;
-	map->floor = ft_strtrim(map->floor, " ");
-	map->ceiling = ft_strtrim(map->ceiling, " ");
-	map->floor = ft_strtrim(map->floor, "\n");
-	map->ceiling = ft_strtrim(map->ceiling, "\n");
-	tmp_floor = ft_split(map->floor, ',');
-	tmp_ceiling = ft_split(map->ceiling, ',');
-	if (arr_size(tmp_floor) != 3 && arr_size(tmp_ceiling) != 3)
-	{
-		free_arr(tmp_floor, tmp_ceiling);
-		flag = 1;
-	}
-	fill_colors(game, map, tmp_floor, tmp_ceiling);
-	if (flag == 0)
-		free_arr(tmp_floor, tmp_ceiling);
-}
-
-void	check_data(char *orient, t_map *map, char *line)
-{
-	int	i;
-
-	i = 0;
-	skip_whitespace(line, &i);
-	check_no(orient, line, map, &i);
-	check_so(orient, line, map, &i);
-	check_ea(orient, line, map, &i);
-	check_we(orient, line, map, &i);
-	check_f(orient, line, map, &i);
-	check_c(orient, line, map, &i);
-}
-
-void	parsing_magic(char *str, t_game *game, t_map *map)
-{
-	int	fd;
-
-	fd = open(str, O_RDONLY);
-	while (map->cnt != 0)
-	{
-		map->line = get_next_line(fd);
-		free(map->line);
-		map->cnt--;
-	}
-	alloc_grid(map, game);
-	map->line = get_next_line(fd);
-	while (map->line != NULL && map->line[0] == '\n')
+	map->line = get_next_line(map->fd);
+	while (*(map->line) == '\n')
 	{
 		free(map->line);
-		map->line = get_next_line(fd);
+		map->line = get_next_line(map->fd);
 	}
-	if (map->line != NULL)
+	if (!map->line)
+		game_exit_error(game, map, "error: map not detected\n");
+	while (check_map(map->line, map, game))
 	{
-		map->grid[0] = ft_strdup(map->line);
-		free(map->line);
-	}
-	store_grid(game, map, fd);
-	close (fd);
-	check_walls(game, map, 0, 0);
-}
-
-void	parse_map(char *str, t_game *game, t_map *map, int fd)
-{
-	map->line = get_next_line(fd);
-	while (map->line != NULL && map->line[0] == '\n')
-	{
-		free(map->line);
-		map->line = get_next_line(fd);
-	}
-	if (map->line != NULL)
-	{
-		map->size = 1;
-		while (map->line != NULL && map->line[0] != '\n')
+		new_line(map, str);
+		map->line = get_next_line(map->fd);
+		if (!map->line || (*(map->line) == '\n'))
 		{
-			free(map->line);
-			map->line = get_next_line(fd);
-			map->size++;
+			final_check(map->fd, map, game);
+			break ;
 		}
+		i++;
 	}
-	close(fd);
-	set_count(map);
-	parsing_magic(str, game, map);
+	check_walls(map, game, 0, 0);
 }
 
-void	get_colors(char *str, t_map *map, t_game *game)
+int	check_map(char *str, t_map *map, t_game *game)
 {
-	int		fd;
-	char	*orient;
+	char		*save;
+	char const	*nl;
+	static int	player_flag = 0;
 
-	orient = ft_strdup("NSEWFC");
-	fd = open(str, O_RDONLY);
-	if (fd == -1)
-		game_exit_error(game, map, "error: file cannot open\n");
-	map->cnt = 1;
+	save = str;
+	nl = ft_strdup("\n");
+	str = ft_strtrim(str, nl);
+	free(save);
+	save = str;
+	while (*save)
+	{
+		if ((*save == 'N' || *save == 'S' || *save == 'W' || *save == 'E')
+			&& player_flag == 0)
+		{
+			player_flag = 1;
+			map->s_orient = *save;
+		}
+		else if (*save != '1' && *save != '0' && *save != ' ')
+			game_exit_error(game, map, "error: extra chars\n");
+		save++;
+	}
+	free((char *)nl);
+	return (1);
+}
+
+void	new_line(t_map *map, char *str)
+{
+	static int	size = 1;
+	char		**new_arr;
+
+	new_arr = NULL;
+	if (size == 1)
+	{
+		map->grid = (char **)malloc(sizeof(char *) * (size + 1));
+		map->grid[0] = str;
+		map->grid[1] = NULL;
+		size++;
+		return ;
+	}
+	else
+	{
+		new_arr = (char **)malloc(sizeof(char *) * (size + 1));
+		dup_grid(map->grid, new_arr);
+		new_arr[size - 1] = str;
+		new_arr[size] = NULL;
+		free_grid(map->grid);
+		map->grid = new_arr;
+		size++;
+		return ;
+	}
+}
+
+void	final_check(int fd, t_map *map, t_game *game)
+{
+	if (!map->line)
+		return ;
+	free(map->line);
 	map->line = get_next_line(fd);
-	while (orient_empty(orient) != -1 && map->line != NULL)
+	while (map->line && *(map->line))
 	{
-		check_data(orient, map, map->line);
+		if (*(map->line) != '\n')
+			game_exit_error(game, map, "error: data after map\n");
 		free(map->line);
-		map->cnt++;
-		if (map->cnt != 1)
-			map->line = get_next_line(fd);
+		map->line = get_next_line(fd);
 	}
-	if (orient_empty(orient) == 0)
+}
+
+void	check_walls(t_map *map, t_game *game, int i, int j)
+{
+	while (map->grid[i])
 	{
-		close(fd);
-		game_exit_error(game, map, "error: invalid descriptors\n");
+		j = 0;
+		while (map->grid[i][j])
+		{
+			if (map->grid[i][j] == map->s_orient)
+			{
+				game->posx = i + 0.5;
+				game->posy = j + 0.5;
+				map->grid[i][j] = '0';
+			}
+			if (map->grid[i][j] == '0')
+			{
+				if (i == 0 || i == arrsize(map->grid))
+					game_exit_error(game, map, "error: map not within walls\n");
+				check_positions(map->grid[i - 1][j], map->s_orient, game, map);
+				check_positions(map->grid[i + 1][j], map->s_orient, game, map);
+				check_positions(map->grid[i][j - 1], map->s_orient, game, map);
+				check_positions(map->grid[i][j + 1], map->s_orient, game, map);
+			}
+			j++;
+		}
+		i++;
 	}
-	parse_map(str, game, map, fd);
 }

@@ -12,57 +12,48 @@
 
 #include "../../includes/cub3d.h"
 
-void	set_count(t_map *map)
+void	trim_spaces(char **arr)
 {
-	map->n = 0;
-	map->s = 0;
-	map->e = 0;
-	map->w = 0;
+	int		i;
+	char	*save;
+
+	i = 0;
+	while (arr[i] != NULL)
+	{
+		save = arr[i];
+		arr[i] = ft_strtrim(arr[i], " ");
+		free(save);
+		i++;
+	}
 }
 
-int	char_chk(char *str)
+void	space_skip(char **str)
+{
+	while (**str == ' ')
+		(*str)++;
+}
+
+void	dup_grid(char **src, char **dest)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (src[i] != NULL)
 	{
-		if (str[i] != 'N' && str[i] != '0' \
-		&& str[i] != '1' && str[i] != 'S' && str[i] != 'E' \
-		&& str[i] != 'W' && str[i] != ' ')
-			return (-1);
+		dest[i] = ft_strdup(src[i]);
 		i++;
 	}
-	return (0);
 }
 
-void	trim_grid(t_map *map)
+void	free_grid(char **free_me)
 {
 	int	i;
 
-	i = -1;
-	while (map->grid[++i] != NULL)
-		map->grid[i] = ft_strtrim(map->grid[i], "\n");
-}
-
-void	alloc_grid(t_map *map, t_game *game)
-{
-	map->grid = (char **)malloc(sizeof(char *) * map->size + 1);
-	if (!map->grid)
-		game_exit_error(game, map, "error: malloc: fatal\n");
-	map->grid[map->size + 1] = NULL;
-}
-
-void	store_grid(t_game *game, t_map *map, int fd)
-{
-	int	i;
-
-	i = 1;
-	while (i < map->size)
+	i = 0;
+	while (free_me[i] != NULL)
 	{
-		map->grid[i] = get_next_line(fd);
+		free(free_me[i]);
 		i++;
 	}
-	trim_grid(map);
-	dup_cnt(map, game);
+	free(free_me);
 }
