@@ -85,9 +85,9 @@ void	parse_map(char *str, t_game *game, t_map *map, int fd)
 		free(map->line);
 		map->line = get_next_line(fd);
 	}
+	map->size = 1;
 	if (map->line != NULL)
 	{
-		map->size = 1;
 		while (map->line != NULL && map->line[0] != '\n')
 		{
 			free(map->line);
@@ -95,6 +95,8 @@ void	parse_map(char *str, t_game *game, t_map *map, int fd)
 			map->size++;
 		}
 	}
+	if (map->size == 1)
+		game_exit_error(game, map, "error: invalid map size\n");
 	close(fd);
 	set_count(map);
 	parsing_magic(str, game, map);

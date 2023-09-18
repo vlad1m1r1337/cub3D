@@ -39,9 +39,9 @@ void	game_exit_error(t_game *game, t_map *map, char *pstr)
 			ft_putstr_fd(pstr, 2);
 			exit(1);
 		}
-		free(map);
+		//free(map);
 	}
-	free(game);
+	//free(game);
 	ft_putstr_fd(pstr, 2);
 	exit(1);
 }
