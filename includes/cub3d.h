@@ -32,6 +32,7 @@
 # define WINDOW_H		480
 # define TEX_WIDTH		64
 # define TEX_HEIGHT		64
+# define SENTINEL		69
 
 typedef struct s_map
 {
@@ -41,6 +42,7 @@ typedef struct s_map
 	int		s;
 	int		e;
 	int		w;
+	int		**int_grid;
 	char	*line;
 	char	**grid;
 	char	*north;
@@ -166,4 +168,5 @@ int		facing_check(t_map *map);
 void	game_exit_error(t_game *game, t_map *map, char *pstr);
 //misc
 void	after_map(t_game *game, t_map *map);
+void	create_int_array(t_game *game, t_map *map);
 #endif
