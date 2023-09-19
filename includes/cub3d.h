@@ -164,4 +164,6 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		chr_count(char *str, char c);
 int		facing_check(t_map *map);
 void	game_exit_error(t_game *game, t_map *map, char *pstr);
+//misc
+void	after_map(t_game *game, t_map *map);
 #endif

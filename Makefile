@@ -6,7 +6,7 @@ SRCS = $(wildcard $(SRCDIR)*/*.c) $(wildcard $(SRCDIR)*.c)
 OBJS = $(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 LIBS =  # Add your libraries here if needed
 
 GREEN = \033[0;32m

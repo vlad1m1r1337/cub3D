@@ -12,6 +12,12 @@
 
 #include "../../includes/cub3d.h"	
 
+void	check_map_count(t_game *game, t_map *map)
+{
+	if (map->cnt == 0)
+		game_exit_error(game, map, "error: fatal\n");
+}
+
 void	check_colors(t_game *game, t_map *map)
 {
 	char	**tmp_floor;
@@ -25,11 +31,13 @@ void	check_colors(t_game *game, t_map *map)
 	map->ceiling = ft_strtrim(map->ceiling, "\n");
 	tmp_floor = ft_split(map->floor, ',');
 	tmp_ceiling = ft_split(map->ceiling, ',');
-	if (arr_size(tmp_floor) != 3 && arr_size(tmp_ceiling) != 3)
+	if (arr_size(tmp_floor) != 3 || arr_size(tmp_ceiling) != 3)
 	{
 		free_arr(tmp_floor, tmp_ceiling);
 		flag = 1;
 	}
+	if (flag == 1)
+		game_exit_error(game, map, "error: invalid number of RGB arguments\n");
 	fill_colors(game, map, tmp_floor, tmp_ceiling);
 	if (flag == 0)
 		free_arr(tmp_floor, tmp_ceiling);
@@ -54,6 +62,7 @@ void	parsing_magic(char *str, t_game *game, t_map *map)
 	int	fd;
 
 	fd = open(str, O_RDONLY);
+	check_map_count(game, map);
 	while (map->cnt != 0)
 	{
 		map->line = get_next_line(fd);
@@ -88,7 +97,7 @@ void	parse_map(char *str, t_game *game, t_map *map, int fd)
 	map->size = 1;
 	if (map->line != NULL)
 	{
-		while (map->line != NULL && map->line[0] != '\n')
+		while (map->line != NULL)
 		{
 			free(map->line);
 			map->line = get_next_line(fd);

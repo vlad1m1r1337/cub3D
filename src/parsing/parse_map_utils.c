@@ -47,10 +47,10 @@ void	trim_grid(t_map *map)
 
 void	alloc_grid(t_map *map, t_game *game)
 {
-	map->grid = (char **)malloc(sizeof(char *) * map->size + 1);
+	map->grid = (char **)malloc(sizeof(char *) * (map->size + 1));
 	if (!map->grid)
 		game_exit_error(game, map, "error: malloc: fatal\n");
-	map->grid[map->size + 1] = NULL;
+	map->grid[map->size] = NULL;
 }
 
 void	store_grid(t_game *game, t_map *map, int fd)
@@ -63,6 +63,7 @@ void	store_grid(t_game *game, t_map *map, int fd)
 		map->grid[i] = get_next_line(fd);
 		i++;
 	}
+	after_map(game, map);
 	trim_grid(map);
 	dup_cnt(map, game);
 }
