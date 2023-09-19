@@ -1,7 +1,7 @@
 #ifndef CUBE_H
 # define CUBE_H
-# define H  600
-# define W  600
+# define H  800
+# define W  800
 
 # define ESC 53
 # define W_KEY 13
