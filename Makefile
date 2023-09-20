@@ -6,8 +6,8 @@ SRCS = $(wildcard $(SRCDIR)*/*.c) $(wildcard $(SRCDIR)*.c)
 OBJS = $(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
-LIBS =  # Add your libraries here if needed
+CFLAGS = -Wall -Wextra -Werror  #-g -fsanitize=address
+LIBS =  -lmlx -framework OpenGL -framework AppKit
 
 GREEN = \033[0;32m
 RESET = \033[0m
