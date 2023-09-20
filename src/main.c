@@ -1,4 +1,16 @@
-#include "../include/cube3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 16:20:39 by jfrances          #+#    #+#             */
+/*   Updated: 2023/08/31 16:20:41 by jfrances         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/cub3d.h"
 
 //#define mapWidth 24
 //#define mapHeight 24
@@ -210,11 +222,10 @@ int render(t_mlx *mlx)
 
 int main(int argc, char **argv)
 {
-	(void)argv;
-	(void)argc;
-
 	t_mlx	*mlx;
+
 	mlx = malloc(sizeof(t_mlx));
+	parsing(argc, argv);
 	mlx->posX = 3;
 	mlx->posY = 3;
 	mlx->dirX = -1;

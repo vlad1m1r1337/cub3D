@@ -1,4 +1,4 @@
-#include "../include/cube3d.h"
+#include "../../includes/cub3d.h"
 
 int	ex(void)
 {
