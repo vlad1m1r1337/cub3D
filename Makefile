@@ -1,4 +1,5 @@
-NAME = cube3D
+NAME=cube3D
+
 SRCDIR = src/
 OBJDIR = obj/
 
@@ -6,13 +7,17 @@ SRCS = $(wildcard $(SRCDIR)*/*.c) $(wildcard $(SRCDIR)*.c)
 OBJS = $(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
-LIBS =  # Add your libraries here if needed
+CFLAGS = -Wall -Wextra -Werror -g -pthread  -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -g
+LIBS =  -lmlx -framework OpenGL -framework AppKit
 
 GREEN = \033[0;32m
 RESET = \033[0m
 
 all: $(OBJDIR) $(NAME)
+
+$(OBJDIR)%.o: $(SRCDIR)%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
