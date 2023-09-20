@@ -1,4 +1,4 @@
-#include "../include/cube3d.h"
+#include "../../includes/cub3d.h"
 
 void	my_pixel_put(t_mlx *mlx, int x, int y, int color)
 {
