@@ -42,7 +42,6 @@ typedef struct s_map
 	int		s;
 	int		e;
 	int		w;
-	int		**int_grid;
 	char	*line;
 	char	**grid;
 	char	*north;

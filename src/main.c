@@ -103,12 +103,5 @@ int	main(int argc, char **argv)
 	if (!map)
 		game_exit_error(game, NULL, "error: map struct malloc error\n");
 	get_colors(argv[1], map, game);
-	create_int_array(game, map);
-	// while (game->data->int_grid[++i])
-	// {
-	// 	j = -1;
-	// 	while (game->data->int_grid[i][++j])
-	// 		printf("%d", game->data->int_grid[i][j]);
-	// }
 	return (0);
 }
