@@ -15,15 +15,9 @@
 int main(int argc, char **argv)
 {
 	t_mlx	*mlx;
-
 	mlx = malloc(sizeof(t_mlx));
 	parsing(argc, argv);
-	mlx->posX = 3;
-	mlx->posY = 3;
-	mlx->dirX = -1;
-	mlx->dirY = 0;
-	mlx->planeX = 0;
-	mlx->planeY = 0.66;
+	initial_game_parametres(mlx);
 	char worldMap[mapWidth][mapHeight] = {
 			{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
 			{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},

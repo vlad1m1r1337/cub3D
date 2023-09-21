@@ -74,6 +74,8 @@ typedef struct s_mlx
 	int		d;
 	int		arrow_left;
 	int 	arrow_right;
+	double moveSpeed;
+	double rotSpeed;
 	char worldMap[mapWidth][mapHeight];
 }			t_mlx;
 
@@ -98,6 +100,12 @@ void raycasting(t_mlx *mlx);
 int render(t_mlx *mlx);
 
 float	ft_abs(float num);
+
+void initial_game_parametres(t_mlx *mlx);
+
+void spin_left(t_mlx *mlx);
+
+void spin_right(t_mlx *mlx);
 
 typedef struct s_map
 {

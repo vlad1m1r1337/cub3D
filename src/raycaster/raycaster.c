@@ -114,3 +114,17 @@ void raycasting(t_mlx *mlx)
 			my_pixel_put(mlx, x, drawStart, color);
 	}
 }
+
+void loadImage(void **texture, unsigned long *tw, unsigned long *th, char *filename)
+{
+	*texture = mlx_xpm_file_to_image(mlx, filename, tw, th);
+}
+
+void	texture(t_mlx *mlx)
+{
+	void	*texture[1];
+	unsigned long tw;
+	unsigned long th;
+
+	loadImage(&texture[0], &tw, &th, "pics/bluestone.xpm");
+}

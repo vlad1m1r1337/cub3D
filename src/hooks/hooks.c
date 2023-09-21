@@ -36,29 +36,14 @@ int	release_handle(int keycode, t_mlx *mlx)
 	return (0);
 }
 
-int mouse_move(int x, int y, t_mlx *mlx)
+int	mouse_move(int x, int y, t_mlx *mlx)
 {
-	double rotSpeed = 0.03;
 	(void)y;
 	mlx_mouse_hide();
 	if (x < W / 2)
-	{
-		double oldDirX = mlx->dirX;
-		mlx->dirX = mlx->dirX * cos(rotSpeed) - mlx->dirY * sin(rotSpeed);
-		mlx->dirY = oldDirX * sin(rotSpeed) + mlx->dirY * cos(rotSpeed);
-		double oldPlaneX = mlx->planeX;
-		mlx->planeX = mlx->planeX * cos(rotSpeed) - mlx->planeY * sin(rotSpeed);
-		mlx->planeY = oldPlaneX * sin(rotSpeed) + mlx->planeY * cos(rotSpeed);
-	}
+		spin_left(mlx);
 	if (x > W / 2)
-	{
-		double oldDirX = mlx->dirX;
-		mlx->dirX = mlx->dirX * cos(-rotSpeed) - mlx->dirY * sin(-rotSpeed);
-		mlx->dirY = oldDirX * sin(-rotSpeed) + mlx->dirY * cos(-rotSpeed);
-		double oldPlaneX = mlx->planeX;
-		mlx->planeX = mlx->planeX * cos(-rotSpeed) - mlx->planeY * sin(-rotSpeed);
-		mlx->planeY = oldPlaneX * sin(-rotSpeed) + mlx->planeY * cos(-rotSpeed);
-	}
+		spin_right(mlx);
 	mlx_mouse_move(mlx->win_ptr, W / 2, H / 2);
 	return (0);
 }
@@ -71,7 +56,7 @@ void	hooks(t_mlx *mlx)
 	mlx_hook(mlx -> win_ptr, 3, 1L << 3, release_handle, mlx);
 }
 
-int render(t_mlx *mlx)
+int	render(t_mlx *mlx)
 {
 	mlx_clear_window(mlx -> mlx_ptr, mlx -> win_ptr);
 	raycasting(mlx);
