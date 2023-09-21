@@ -47,8 +47,8 @@
 # include <mlx.h>
 # include <limits.h>
 
-//int worldMap[24][24];
-
+# define mapWidth 24
+# define mapHeight 24
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
@@ -68,13 +68,13 @@ typedef struct s_mlx
 	double dirY;
 	double planeX;
 	double planeY;
-	double time;
-	double oldTime;
-	double cameraX;
 	int		w;
 	int		a;
 	int		s;
 	int		d;
+	int		arrow_left;
+	int 	arrow_right;
+	char worldMap[mapWidth][mapHeight];
 }			t_mlx;
 
 void	hooks(t_mlx *mlx);
@@ -86,6 +86,18 @@ void	window_creating(t_mlx *mlx);
 void	draw_yellow_square(t_mlx *mlx);
 
 unsigned int rgb_to_hex(int r, int g, int b);
+
+int	ex(void);
+
+void moving(t_mlx *mlx);
+
+void	draw_wall_ceil(t_mlx *mlx);
+
+void raycasting(t_mlx *mlx);
+
+int render(t_mlx *mlx);
+
+float	ft_abs(float num);
 
 typedef struct s_map
 {

@@ -8,3 +8,4 @@ void	window_creating(t_mlx *mlx)
 	mlx -> data = mlx_get_data_addr(mlx -> img_ptr, &mlx -> bpp,
 									&mlx -> size_l, &mlx -> endian);
 }
+
