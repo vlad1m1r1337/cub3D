@@ -24,10 +24,7 @@ void	fill_colors(t_game *game, t_map *map, char **floor, char **ceiling)
 	|| game->clc1 < 0 || game->clc2 < 0 || game->clc3 < 0 || \
 	game->flc1 > 255 || game->flc2 > 255 || game->flc3 > 255 \
 	|| game->clc1 > 255 || game->clc2 > 255 || game->clc3 > 255)
-	{
-		free_arr(floor, ceiling);
-		game_exit_error(game, map, "error: RGB values incorrect\n");
-	}
+		game_exit_error(game, map, "error: RGB values incorrect\n", 1);
 }
 
 void	free_arr(char **arr1, char **arr2)
@@ -53,7 +50,7 @@ void	free_arr(char **arr1, char **arr2)
 void	check_posit(t_game *game, t_map *map, char pos, char player)
 {
 	if (pos != '1' && pos != '0' && pos != player)
-		game_exit_error(game, map, "error: map not enclosed in walls\n");
+		game_exit_error(game, map, "error: map not enclosed in walls\n", 2);
 }
 
 int	map_size(char **map)
@@ -82,7 +79,7 @@ void	check_walls(t_game *game, t_map *map, int x, int j)
 			if (map->grid[x][j] == '0')
 			{
 				if (x == 0 || x == map_size(map->grid))
-					game_exit_error(game, map, "error: not enclosed in walls\n");
+					game_exit_error(game, map, "error: not enclosed in walls\n", 2);
 				check_posit(game, map, map->grid[x - 1][j], map->spawn_orient);
 				check_posit(game, map, map->grid[x + 1][j], map->spawn_orient);
 				check_posit(game, map, map->grid[x][j - 1], map->spawn_orient);

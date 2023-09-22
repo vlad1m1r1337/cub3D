@@ -61,6 +61,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		if (str)
 			ft_strlcpy2(str, &s1[front], rear - front + 1);
 	}
+	free((char *)s1);
 	return (str);
 }
 

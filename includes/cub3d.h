@@ -47,8 +47,8 @@
 # include <mlx.h>
 # include <limits.h>
 
-//int worldMap[24][24];
-
+# define mapWidth 24
+# define mapHeight 24
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
@@ -68,13 +68,15 @@ typedef struct s_mlx
 	double dirY;
 	double planeX;
 	double planeY;
-	double time;
-	double oldTime;
-	double cameraX;
 	int		w;
 	int		a;
 	int		s;
 	int		d;
+	int		arrow_left;
+	int 	arrow_right;
+	double moveSpeed;
+	double rotSpeed;
+	char worldMap[mapWidth][mapHeight];
 }			t_mlx;
 
 void	hooks(t_mlx *mlx);
@@ -86,6 +88,24 @@ void	window_creating(t_mlx *mlx);
 void	draw_yellow_square(t_mlx *mlx);
 
 unsigned int rgb_to_hex(int r, int g, int b);
+
+int	ex(void);
+
+void moving(t_mlx *mlx);
+
+void	draw_wall_ceil(t_mlx *mlx);
+
+void raycasting(t_mlx *mlx);
+
+int render(t_mlx *mlx);
+
+float	ft_abs(float num);
+
+void initial_game_parametres(t_mlx *mlx);
+
+void spin_left(t_mlx *mlx);
+
+void spin_right(t_mlx *mlx);
 
 typedef struct s_map
 {
@@ -217,9 +237,10 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 //main.c
 int		chr_count(char *str, char c);
 int		facing_check(t_map *map);
-void	game_exit_error(t_game *game, t_map *map, char *pstr);
 //misc
 void	after_map(t_game *game, t_map *map);
 void	create_int_array(t_game *game, t_map *map);
 void	parsing(int argc, char **argv);
+void	game_exit_error(t_game *game, t_map *map, char *pstr, int flag);
+void	game_exit(t_game *game, t_map *map, char *pstr);
 #endif

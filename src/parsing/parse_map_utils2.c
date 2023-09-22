@@ -21,11 +21,14 @@ void	after_map(t_game *game, t_map *map)
 	i = -1;
 	while (map->grid[++i])
 	{
-		while (map->grid[i][0] == '\n')
+
+		while (map->grid[i] && map->grid[i][0] == '\n')
 		{
 			i++;
+			if (!map->grid[i])
+				break ;
 			if (map->grid[i][0] != '\n' && map->grid[i][0] != '\0')
-				game_exit_error(game, map, "error: data after map\n");
+				game_exit_error(game, map, "error: data after map\n", 2);
 		}
 	}
 }
@@ -62,6 +65,8 @@ int	arr_size(char **arr)
 	int	i;
 
 	i = 0;
+	if (!arr)
+		return (0);
 	while (arr[i])
 		i++;
 	return (i);
@@ -75,14 +80,14 @@ void	dup_cnt(t_map *map, t_game *game)
 	while (map->grid[++i] != NULL)
 	{
 		if (char_chk(map->grid[i]) == -1)
-			game_exit_error(game, map, "error: invalid characters in map\n");
+			game_exit_error(game, map, "error: invalid characters in map\n", 2);
 		map->n += chr_count(map->grid[i], 'N');
 		map->s += chr_count(map->grid[i], 'S');
 		map->e += chr_count(map->grid[i], 'E');
 		map->w += chr_count(map->grid[i], 'W');
 	}
 	if (facing_check(map) == -1)
-		game_exit_error(game, map, "error: invalid facings\n");
+		game_exit_error(game, map, "error: invalid facings\n", 2);
 	check_colors(game, map);
 }
 

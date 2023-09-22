@@ -15,7 +15,7 @@
 void	check_map_count(t_game *game, t_map *map)
 {
 	if (map->cnt == 0)
-		game_exit_error(game, map, "error: fatal\n");
+		game_exit_error(game, map, "error: fatal\n", 1);
 }
 
 void	check_colors(t_game *game, t_map *map)
@@ -33,11 +33,12 @@ void	check_colors(t_game *game, t_map *map)
 	tmp_ceiling = ft_split(map->ceiling, ',');
 	if (arr_size(tmp_floor) != 3 || arr_size(tmp_ceiling) != 3)
 	{
-		free_arr(tmp_floor, tmp_ceiling);
+		if (arr_size(tmp_floor) != 0 && arr_size(tmp_ceiling) != 0)
+			free_arr(tmp_floor, tmp_ceiling);
 		flag = 1;
 	}
 	if (flag == 1)
-		game_exit_error(game, map, "error: invalid number of RGB arguments\n");
+		game_exit_error(game, map, "error: invalid number of RGB arguments\n", 1);
 	fill_colors(game, map, tmp_floor, tmp_ceiling);
 	if (flag == 0)
 		free_arr(tmp_floor, tmp_ceiling);
@@ -105,7 +106,8 @@ void	parse_map(char *str, t_game *game, t_map *map, int fd)
 		}
 	}
 	if (map->size == 1)
-		game_exit_error(game, map, "error: invalid map size\n");
+		game_exit_error(game, map, "error: invalid map size\n", 1);
+	free(map->line);
 	close(fd);
 	set_count(map);
 	parsing_magic(str, game, map);
@@ -119,7 +121,7 @@ void	get_colors(char *str, t_map *map, t_game *game)
 	orient = ft_strdup("NSEWFC");
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-		game_exit_error(game, map, "error: file cannot open\n");
+		game_exit_error(game, map, "error: file cannot open\n", 1);
 	map->cnt = 1;
 	map->line = get_next_line(fd);
 	while (orient_empty(orient) != -1 && map->line != NULL)
@@ -132,8 +134,11 @@ void	get_colors(char *str, t_map *map, t_game *game)
 	}
 	if (orient_empty(orient) == 0)
 	{
+		free(orient);
 		close(fd);
-		game_exit_error(game, map, "error: invalid descriptors\n");
+		game_exit_error(game, map, "error: invalid descriptors\n", 1);
 	}
+	free(orient);
+	free(map->line);
 	parse_map(str, game, map, fd);
 }
