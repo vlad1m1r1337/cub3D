@@ -111,7 +111,16 @@ void raycasting(t_mlx *mlx)
 
 		int color = rgb_to_hex(0, 0, 255);
 		if(side == 1) {color = color / 2;}
+
+		int step =  1.0 * texHeight / lineHeight;
+		double texPos = (drawStart - H / 2 + lineHeight / 2) * step;
+		char	*dst;
 		while(++drawStart < drawEnd)
+		{
+			int tex_y = (int)texPos & (texHeight - 1);
+			texPos += step;
+			dst = mlx->img_sprites[0].addr + (tex_y * mlx->img_sprites[0].line_length + texX * (mlx->img_sprites[0].bits_per_pixel / 8));
 			my_pixel_put(mlx, x, drawStart, color);
+		}
 	}
 }

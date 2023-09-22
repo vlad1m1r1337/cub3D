@@ -23,6 +23,8 @@
 
 # define H  800
 # define W  800
+#define texWidth 64
+#define texHeight 64
 
 # define ESC 53
 # define W_KEY 13
@@ -33,12 +35,6 @@
 # define RIGHT_KEY 124
 # define UP_KEY 126
 # define DOWN_KEY 125
-# define RGB_Red 0xFF0000
-# define RGB_Green 0x00FF00
-# define RGB_Blue 0x0000FF
-# define RGB_White 0xFFFFFF
-# define RGB_Yellow 0xFFFF00
-
 
 # include <stdio.h>
 # include <unistd.h>
@@ -89,6 +85,7 @@ typedef struct s_mlx
 	double	rotSpeed;
 	char	worldMap[mapWidth][mapHeight];
 	t_rayimg	img_sprites[4];
+	void	*image;
 }			t_mlx;
 
 void	hooks(t_mlx *mlx);

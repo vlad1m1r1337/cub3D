@@ -19,4 +19,9 @@ void	initial_game_parametres(t_mlx *mlx)
 	mlx->dir_y = 0;
 	mlx->plane_x = 0;
 	mlx->plane_y = 0.66;
+
+	mlx->image = mlx_xpm_to_image(mlx->mlx_ptr, "./pics/bluestone.xpm", &mlx->img_sprites[0].width, &mlx->img_sprites[0].height);
+
+	mlx->img_sprites[0].addr = mlx_get_data_addr(mlx->image, &mlx->img_sprites[0].bits_per_pixel, &mlx->img_sprites[0].line_length, &mlx->img_sprites[0].endian);
+
 }
