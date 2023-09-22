@@ -9,14 +9,14 @@ void	window_creating(t_mlx *mlx)
 									&mlx -> size_l, &mlx -> endian);
 }
 
-void initial_game_parametres(t_mlx *mlx)
+void	initial_game_parametres(t_mlx *mlx)
 {
 	mlx->moveSpeed = 0.1;
 	mlx->rotSpeed = 0.03;
-	mlx->posX = 3;
-	mlx->posY = 3;
-	mlx->dirX = -1;
-	mlx->dirY = 0;
-	mlx->planeX = 0;
-	mlx->planeY = 0.66;
+	mlx->pos_x = 3;
+	mlx->pos_y = 3;
+	mlx->dir_x = -1;
+	mlx->dir_y = 0;
+	mlx->plane_x = 0;
+	mlx->plane_y = 0.66;
 }

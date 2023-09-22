@@ -2,20 +2,21 @@
 
 void	draw_wall_ceil(t_mlx *mlx)
 {
-	int x;
+	int	x;
+	int	y;
 
 	x = 0;
 	while (x < W)
 	{
-		int y = 0;
+		y = 0;
 		while (y < H / 2)
 		{
-			my_pixel_put(mlx, x, y, rgb_to_hex(153, 171, 255));//  небо
+			my_pixel_put(mlx, x, y, rgb_to_hex(153, 171, 255));
 			y++;
 		}
 		while (y < H)
 		{
-			my_pixel_put(mlx, x, y, rgb_to_hex(53, 52, 50));// пол
+			my_pixel_put(mlx, x, y, rgb_to_hex(53, 52, 50));
 			y++;
 		}
 		x++;
@@ -29,18 +30,18 @@ void raycasting(t_mlx *mlx)
 	{
 		//calculate ray position and direction
 		double cameraX = 2 * x / (double)W - 1; //x-coordinate in camera space
-		double rayDirX = mlx->dirX + mlx->planeX * cameraX;
-		double rayDirY = mlx->dirY + mlx->planeY * cameraX;
+		double raydir_x = mlx->dir_x + mlx->plane_x * cameraX;
+		double raydir_y = mlx->dir_y + mlx->plane_y * cameraX;
 		//which box of the map we're in
-		int mapX = (int)mlx->posX;
-		int mapY = (int)mlx->posY;
+		int mapX = (int)mlx->pos_x;
+		int mapY = (int)mlx->pos_y;
 
 		//length of ray from current position to next x or y-side
 		double sideDistX;
 		double sideDistY;
 
-		double deltaDistX = (rayDirX == 0) ? 1e30 : ft_abs(1 / rayDirX);
-		double deltaDistY = (rayDirY == 0) ? 1e30 : ft_abs(1 / rayDirY);
+		double deltaDistX = (raydir_x == 0) ? 1e30 : ft_abs(1 / raydir_x);
+		double deltaDistY = (raydir_y == 0) ? 1e30 : ft_abs(1 / raydir_y);
 
 		double perpWallDist;
 
@@ -51,25 +52,25 @@ void raycasting(t_mlx *mlx)
 		int hit = 0; //was there a wall hit?
 		int side; //was a NS or a EW wall hit?
 		//calculate step and initial sideDist
-		if(rayDirX < 0)
+		if(raydir_x < 0)
 		{
 			stepX = -1;
-			sideDistX = (mlx->posX - mapX) * deltaDistX;
+			sideDistX = (mlx->pos_x - mapX) * deltaDistX;
 		}
 		else
 		{
 			stepX = 1;
-			sideDistX = (mapX + 1.0 - mlx->posX) * deltaDistX;
+			sideDistX = (mapX + 1.0 - mlx->pos_x) * deltaDistX;
 		}
-		if(rayDirY < 0)
+		if(raydir_y < 0)
 		{
 			stepY = -1;
-			sideDistY = (mlx->posY - mapY) * deltaDistY;
+			sideDistY = (mlx->pos_y - mapY) * deltaDistY;
 		}
 		else
 		{
 			stepY = 1;
-			sideDistY = (mapY + 1.0 - mlx->posY) * deltaDistY;
+			sideDistY = (mapY + 1.0 - mlx->pos_y) * deltaDistY;
 		}
 		//perform DDA
 		while(hit == 0)
@@ -92,7 +93,7 @@ void raycasting(t_mlx *mlx)
 		}
 		//Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
 		//hit to the camera plane. Euclidean to center camera point would give fisheye effect!
-		//This can be computed as (mapX - posX + (1 - stepX) / 2) / rayDirX for side == 0, or same formula with Y
+		//This can be computed as (mapX - pos_x + (1 - stepX) / 2) / raydir_x for side == 0, or same formula with Y
 		//for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
 		//because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
 		//steps, but we subtract deltaDist once because one step more into the wall was taken above.
@@ -113,18 +114,4 @@ void raycasting(t_mlx *mlx)
 		while(++drawStart < drawEnd)
 			my_pixel_put(mlx, x, drawStart, color);
 	}
-}
-
-void loadImage(void **texture, unsigned long *tw, unsigned long *th, char *filename)
-{
-	*texture = mlx_xpm_file_to_image(mlx, filename, tw, th);
-}
-
-void	texture(t_mlx *mlx)
-{
-	void	*texture[1];
-	unsigned long tw;
-	unsigned long th;
-
-	loadImage(&texture[0], &tw, &th, "pics/bluestone.xpm");
 }

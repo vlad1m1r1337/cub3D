@@ -49,6 +49,17 @@
 
 # define mapWidth 24
 # define mapHeight 24
+
+typedef struct s_rayimg {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}			t_rayimg;
+
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
@@ -62,21 +73,22 @@ typedef struct s_mlx
 	int		y;
 	int		size_l;
 
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 	int		w;
 	int		a;
 	int		s;
 	int		d;
 	int		arrow_left;
-	int 	arrow_right;
-	double moveSpeed;
-	double rotSpeed;
-	char worldMap[mapWidth][mapHeight];
+	int		arrow_right;
+	double	moveSpeed;
+	double	rotSpeed;
+	char	worldMap[mapWidth][mapHeight];
+	t_rayimg	img_sprites[4];
 }			t_mlx;
 
 void	hooks(t_mlx *mlx);
