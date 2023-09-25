@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycaster.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgribkov <vgribkov@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 19:35:26 by vgribkov          #+#    #+#             */
+/*   Updated: 2023/09/23 19:54:54 by vgribkov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 void	draw_wall_ceil(t_mlx *mlx)
@@ -101,7 +113,7 @@ void raycasting(t_mlx *mlx)
 		else          perpWallDist = (sideDistY - deltaDistY);
 
 		//Calculate height of line to draw on screen
-		int lineHeight = (int)(H / perpWallDist);
+		int lineHeight = (int)(H / (perpWallDist));
 
 		//calculate lowest and highest pixel to fill in current stripe
 		int drawStart = -lineHeight / 2 + H / 2;
@@ -112,15 +124,29 @@ void raycasting(t_mlx *mlx)
 		int color = rgb_to_hex(0, 0, 255);
 		if(side == 1) {color = color / 2;}
 
+		int texNum = mlx->worldMap[mapX][mapY] - '0';
+		texNum++;
+		double wallX; //where exactly the wall was hit
+		if(side == 0)
+			wallX = mlx->pos_y + perpWallDist * raydir_y;
+		else
+			wallX = mlx->pos_x + perpWallDist * raydir_x;
+		wallX -= floor(wallX);
+
+		int tex_x = (int)(wallX * (double)texWidth);
+		if(side == 0 && raydir_x > 0) tex_x = texWidth - tex_x - 1;
+		if(side == 1 && raydir_y < 0) tex_x = texWidth - tex_x - 1;
+
 		int step =  1.0 * texHeight / lineHeight;
 		double texPos = (drawStart - H / 2 + lineHeight / 2) * step;
 		char	*dst;
+
 		while(++drawStart < drawEnd)
 		{
 			int tex_y = (int)texPos & (texHeight - 1);
 			texPos += step;
-			dst = mlx->img_sprites[0].addr + (tex_y * mlx->img_sprites[0].line_length + texX * (mlx->img_sprites[0].bits_per_pixel / 8));
-			my_pixel_put(mlx, x, drawStart, color);
+			dst = mlx->img_sprites[0].addr + (tex_y * mlx->img_sprites[0].line_length + tex_x * (mlx->img_sprites[0].bits_per_pixel / 8));
+			my_pixel_put(mlx, x, drawStart, *(unsigned int *)dst);
 		}
 	}
 }

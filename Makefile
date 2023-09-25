@@ -8,7 +8,7 @@ SRCS = $(wildcard $(SRCDIR)*/*.c) $(wildcard $(SRCDIR)*.c)
 OBJS = $(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 LIBS =  -lmlx -framework OpenGL -framework AppKit
 FLAGS_FOR_MLX = -lmlx -framework OpenGL -framework AppKit -L$(MLX_DIR)
 

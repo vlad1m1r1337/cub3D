@@ -16,12 +16,13 @@ int main(int argc, char **argv)
 {
 	t_mlx	*mlx;
 	mlx = malloc(sizeof(t_mlx));
+	window_creating(mlx);
 	parsing(argc, argv);
 	initial_game_parametres(mlx);
 	char worldMap[mapWidth][mapHeight] = {
 			{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
 			{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-			{'1', '0', '1', '1', '1', '1', '1', '1', '0', '1'},
+			{'1', '0', '0', '1', '1', '1', '1', '1', '0', '1'},
 			{'1', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
 			{'1', '0', '1', '0', '1', '1', '0', '1', '0', '1'},
 			{'1', '0', '1', '0', '1', '1', '0', '1', '0', '1'},
@@ -36,7 +37,6 @@ int main(int argc, char **argv)
 			mlx->worldMap[i][j] = worldMap[i][j];
 		}
 	}
-	window_creating(mlx);
 	mlx_loop_hook(mlx->mlx_ptr, &render, mlx);
 	hooks(mlx);
 	mlx_loop(mlx->mlx_ptr);

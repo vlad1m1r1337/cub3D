@@ -85,7 +85,10 @@ typedef struct s_mlx
 	double	rotSpeed;
 	char	worldMap[mapWidth][mapHeight];
 	t_rayimg	img_sprites[4];
-	void	*image;
+	void	*image_n;
+	void	*image_s;
+	void	*image_w;
+	void	*image_e;
 }			t_mlx;
 
 void	hooks(t_mlx *mlx);
