@@ -27,7 +27,7 @@ void	initial_game_parametres(t_mlx *mlx)
 	mlx->arrow_right = 0;
 	mlx->arrow_left = 0;
 
-	mlx->image_n = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/colorstone.xpm", &mlx->img_sprites[0].width, &mlx->img_sprites[0].height);puts("1");
+	mlx->image_n = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/colorstone.xpm", &mlx->img_sprites[0].width, &mlx->img_sprites[0].height);
 	mlx->image_s = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/bluestone.xpm", &mlx->img_sprites[1].width, &mlx->img_sprites[1].height);
 
 	mlx->img_sprites[0].addr = mlx_get_data_addr(mlx->image_n, &mlx->img_sprites[0].bits_per_pixel, &mlx->img_sprites[0].line_length, &mlx->img_sprites[0].endian);

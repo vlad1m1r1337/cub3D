@@ -124,8 +124,6 @@ void raycasting(t_mlx *mlx)
 		int color = rgb_to_hex(0, 0, 255);
 		if(side == 1) {color = color / 2;}
 
-		int texNum = mlx->worldMap[mapX][mapY] - '0';
-		texNum++;
 		double wallX; //where exactly the wall was hit
 		if(side == 0)
 			wallX = mlx->pos_y + perpWallDist * raydir_y;

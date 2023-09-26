@@ -40,7 +40,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
-# include <mlx.h>
+# include "../mlx/mlx.h"
 # include <limits.h>
 
 # define mapWidth 24
@@ -85,6 +85,7 @@ typedef struct s_mlx
 	double	rotSpeed;
 	char	worldMap[mapWidth][mapHeight];
 	t_rayimg	img_sprites[4];
+	t_rayimg	img;
 	void	*image_n;
 	void	*image_s;
 	void	*image_w;

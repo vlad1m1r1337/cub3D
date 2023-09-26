@@ -59,6 +59,10 @@ void	hooks(t_mlx *mlx)
 int	render(t_mlx *mlx)
 {
 	mlx_clear_window(mlx -> mlx_ptr, mlx -> win_ptr);
+	mlx->img.img = mlx_new_image(mlx->mlx_ptr, W, H);
+	mlx->img.addr = mlx_get_data_addr(mlx->img.img, \
+			&mlx->img.bits_per_pixel, &mlx->img.line_length, \
+			&mlx->img.endian);
 	raycasting(mlx);
 	moving(mlx);
 	mlx_put_image_to_window(mlx -> mlx_ptr, mlx -> win_ptr,
