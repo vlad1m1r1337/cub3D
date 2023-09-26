@@ -71,20 +71,16 @@ int	chr_count(char *str, char c)
 	return (i);
 }
 
-void	parsing(int argc, char **argv)
+void	parsing(t_game *game, int argc, char **argv)
 {
 	int		i;
 	int		j;
-	t_game	*game;
 	t_map	*map;
 
 	i = -1;
 	j = i;
 	if (argc != 2 || (name_check(argv[1]) == -1))
 		game_exit_error(NULL, NULL, "error: invalid input\n", 1);
-	game = malloc(sizeof(t_game));
-	if (!game)
-		game_exit_error(NULL, NULL, "error: game struct malloc error\n", 1);
 	map = malloc(sizeof(t_map));
 	if (!map)
 		game_exit_error(game, NULL, "error: map struct malloc error\n", 1);
@@ -95,5 +91,6 @@ void	parsing(int argc, char **argv)
 	map->floor = NULL;
 	map->ceiling = NULL;
 	get_colors(argv[1], map, game);
-	game_exit(game, map, "Thanks For Playing\n");
+	//game_exit(game, map, "Thanks For Playing\n");
 }
+//note to self: stugi kyle youtube

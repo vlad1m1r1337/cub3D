@@ -61,6 +61,7 @@ typedef struct s_mlx
 	int		x;
 	int		y;
 	int		size_l;
+	void	*static1;
 
 	double posX;
 	double posY;
@@ -240,7 +241,8 @@ int		facing_check(t_map *map);
 //misc
 void	after_map(t_game *game, t_map *map);
 void	create_int_array(t_game *game, t_map *map);
-void	parsing(int argc, char **argv);
+void	parsing(t_game *game, int argc, char **argv);
 void	game_exit_error(t_game *game, t_map *map, char *pstr, int flag);
 void	game_exit(t_game *game, t_map *map, char *pstr);
+void	store_sprites(t_mlx *mlx);
 #endif
