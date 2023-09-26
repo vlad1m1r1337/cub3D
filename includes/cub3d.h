@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:18:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/08/31 16:18:27 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:59:01 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void initial_game_parametres(t_mlx *mlx);
 void spin_left(t_mlx *mlx);
 
 void spin_right(t_mlx *mlx);
+
+void	draw_wall_ceil(t_mlx *mlx);
 
 typedef struct s_map
 {

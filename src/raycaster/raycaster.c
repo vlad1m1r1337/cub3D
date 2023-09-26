@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 19:35:26 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/26 18:19:04 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:58:10 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	draw_wall_ceil(t_mlx *mlx)
 
 void raycasting(t_mlx *mlx)
 {
-	draw_wall_ceil(mlx);
 	for (int x = 0; x < W; x++)
 	{
 		//calculate ray position and direction
