@@ -65,7 +65,6 @@ int	render(t_mlx *mlx)
 			&mlx->img.endian);
 	raycasting(mlx);
 	moving(mlx);
-	mlx_put_image_to_window(mlx -> mlx_ptr, mlx -> win_ptr,
-							mlx -> img_ptr, 0, 0);
+	mlx_put_image_to_window(mlx -> mlx_ptr, mlx -> win_ptr, mlx -> img.img, 0, 0);
 	return (0);
 }
