@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:18:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/26 18:59:01 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:23:03 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ typedef struct s_map
 	int		e;
 	int		w;
 	char	*line;
-	char	**grid;
+	char	**grid;// vova needs for map
 	char	*north;
 	char	*south;
 	char	*west;
@@ -193,7 +193,7 @@ typedef struct s_game
 	void	*sprite_east;
 	int		height_sprite;
 	int		width_sprite;
-	int		flc1;
+	int		flc1;//vova need for ceil and floor colors
 	int		flc2;
 	int		flc3;
 	int		clc1;
