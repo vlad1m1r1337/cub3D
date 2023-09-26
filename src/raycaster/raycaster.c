@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgribkov <vgribkov@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 19:35:26 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/23 19:54:54 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:19:04 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = mlx->img.addr + (y * mlx->img.line_length + \
+			x * (mlx->img.bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
 
 void	draw_wall_ceil(t_mlx *mlx)
 {
@@ -23,12 +32,12 @@ void	draw_wall_ceil(t_mlx *mlx)
 		y = 0;
 		while (y < H / 2)
 		{
-			my_pixel_put(mlx, x, y, rgb_to_hex(153, 171, 255));
+			my_mlx_pixel_put(mlx, x, y, rgb_to_hex(153, 171, 255));
 			y++;
 		}
 		while (y < H)
 		{
-			my_pixel_put(mlx, x, y, rgb_to_hex(53, 52, 50));
+			my_mlx_pixel_put(mlx, x, y, rgb_to_hex(53, 52, 50));
 			y++;
 		}
 		x++;
@@ -144,7 +153,7 @@ void raycasting(t_mlx *mlx)
 			int tex_y = (int)texPos & (texHeight - 1);
 			texPos += step;
 			dst = mlx->img_sprites[0].addr + (tex_y * mlx->img_sprites[0].line_length + tex_x * (mlx->img_sprites[0].bits_per_pixel / 8));
-			my_pixel_put(mlx, x, drawStart, *(unsigned int *)dst);
+			my_mlx_pixel_put(mlx, x, drawStart, *(unsigned int *)dst);
 		}
 	}
 }
