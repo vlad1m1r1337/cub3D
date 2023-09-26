@@ -20,6 +20,12 @@ void	initial_game_parametres(t_mlx *mlx)
 	mlx->plane_x = 0;
 	mlx->plane_y = 0.66;
 
+	mlx->w = 0;
+	mlx->a = 0;
+	mlx->s = 0;
+	mlx->d = 0;
+	mlx->arrow_right = 0;
+	mlx->arrow_left = 0;
 
 	mlx->image_n = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/colorstone.xpm", &mlx->img_sprites[0].width, &mlx->img_sprites[0].height);puts("1");
 	mlx->image_s = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/bluestone.xpm", &mlx->img_sprites[1].width, &mlx->img_sprites[1].height);
