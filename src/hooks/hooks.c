@@ -52,16 +52,20 @@ void	hooks(t_mlx *mlx)
 {
 	mlx_hook(mlx -> win_ptr, 17, 1L << 2, ex, mlx);
 	mlx_hook(mlx -> win_ptr, 2, 1L << 3, press_handle, mlx);
-	mlx_hook(mlx -> win_ptr, 6, 1L<<6, mouse_move,mlx);
+	mlx_hook(mlx -> win_ptr, 6, 1L << 6, mouse_move,mlx);
 	mlx_hook(mlx -> win_ptr, 3, 1L << 3, release_handle, mlx);
 }
 
 int	render(t_mlx *mlx)
 {
 	mlx_clear_window(mlx -> mlx_ptr, mlx -> win_ptr);
+	mlx->img.img = mlx_new_image(mlx->mlx_ptr, W, H);
+	mlx->img.addr = mlx_get_data_addr(mlx->img.img, \
+			&mlx->img.bits_per_pixel, &mlx->img.line_length, \
+			&mlx->img.endian);
+	draw_wall_ceil(mlx);
 	raycasting(mlx);
 	moving(mlx);
-	mlx_put_image_to_window(mlx -> mlx_ptr, mlx -> win_ptr,
-							mlx -> img_ptr, 0, 0);
+	mlx_put_image_to_window(mlx -> mlx_ptr, mlx -> win_ptr, mlx -> img.img, 0, 0);
 	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgribkov <vgribkov@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/20 14:16:33 by vgribkov          #+#    #+#             */
+/*   Updated: 2023/09/22 12:53:08 by vgribkov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 void	my_pixel_put(t_mlx *mlx, int x, int y, int color)
@@ -8,16 +20,26 @@ void	my_pixel_put(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-unsigned int rgb_to_hex(int r, int g, int b) {
-	// Ensure RGB values are within the valid range (0-255)
-	r = (r < 0) ? 0 : ((r > 255) ? 255 : r);
-	g = (g < 0) ? 0 : ((g > 255) ? 255 : g);
-	b = (b < 0) ? 0 : ((b > 255) ? 255 : b);
+unsigned int	rgb_to_hex(int r, int g, int b)
+{
+	unsigned int	hex_value;
 
-	// Calculate the hexadecimal value
-	unsigned int hex_value = (r << 16) | (g << 8) | b;
+	if (r < 0)
+		r = 0;
+	else if (r > 255)
+		r = 255;
+	if (g < 0)
+		g = 0;
+	else if (g > 255)
+		g = 255;
+	if (b < 0)
+		b = 0;
+	else if (b > 255)
+		b = 255;
 
-	return hex_value;
+	hex_value = (r << 16) | (g << 8) | b;
+
+	return (hex_value);
 }
 
 int	ex(void)

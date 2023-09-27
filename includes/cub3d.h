@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:18:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/08/31 16:18:27 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:23:03 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 # define H  800
 # define W  800
+#define texWidth 64
+#define texHeight 64
 
 # define ESC 53
 # define W_KEY 13
@@ -33,22 +35,27 @@
 # define RIGHT_KEY 124
 # define UP_KEY 126
 # define DOWN_KEY 125
-# define RGB_Red 0xFF0000
-# define RGB_Green 0x00FF00
-# define RGB_Blue 0x0000FF
-# define RGB_White 0xFFFFFF
-# define RGB_Yellow 0xFFFF00
-
 
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
-# include <mlx.h>
+# include "../mlx/mlx.h"
 # include <limits.h>
 
 # define mapWidth 24
 # define mapHeight 24
+
+typedef struct s_rayimg {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}			t_rayimg;
+
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
@@ -63,21 +70,27 @@ typedef struct s_mlx
 	int		size_l;
 	void	*static1;
 
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 	int		w;
 	int		a;
 	int		s;
 	int		d;
 	int		arrow_left;
-	int 	arrow_right;
-	double moveSpeed;
-	double rotSpeed;
-	char worldMap[mapWidth][mapHeight];
+	int		arrow_right;
+	double	moveSpeed;
+	double	rotSpeed;
+	char	worldMap[mapWidth][mapHeight];
+	t_rayimg	img_sprites[4];
+	t_rayimg	img;
+	void	*image_n;
+	void	*image_s;
+	void	*image_w;
+	void	*image_e;
 }			t_mlx;
 
 void	hooks(t_mlx *mlx);
@@ -108,6 +121,8 @@ void spin_left(t_mlx *mlx);
 
 void spin_right(t_mlx *mlx);
 
+void	draw_wall_ceil(t_mlx *mlx);
+
 typedef struct s_map
 {
 	int		cnt;
@@ -117,7 +132,7 @@ typedef struct s_map
 	int		e;
 	int		w;
 	char	*line;
-	char	**grid;
+	char	**grid;// vova needs for map
 	char	*north;
 	char	*south;
 	char	*west;
@@ -179,7 +194,7 @@ typedef struct s_game
 	void	*sprite_east;
 	int		height_sprite;
 	int		width_sprite;
-	int		flc1;
+	int		flc1;//vova need for ceil and floor colors
 	int		flc2;
 	int		flc3;
 	int		clc1;

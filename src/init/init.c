@@ -9,14 +9,27 @@ void	window_creating(t_mlx *mlx)
 									&mlx -> size_l, &mlx -> endian);
 }
 
-void initial_game_parametres(t_mlx *mlx)
+void	initial_game_parametres(t_mlx *mlx)
 {
 	mlx->moveSpeed = 0.1;
 	mlx->rotSpeed = 0.03;
-	mlx->posX = 3;
-	mlx->posY = 3;
-	mlx->dirX = -1;
-	mlx->dirY = 0;
-	mlx->planeX = 0;
-	mlx->planeY = 0.66;
+	mlx->pos_x = 2;
+	mlx->pos_y = 2;
+	mlx->dir_x = -1;
+	mlx->dir_y = 0;
+	mlx->plane_x = 0;
+	mlx->plane_y = 0.66;
+
+	mlx->w = 0;
+	mlx->a = 0;
+	mlx->s = 0;
+	mlx->d = 0;
+	mlx->arrow_right = 0;
+	mlx->arrow_left = 0;
+
+	mlx->image_n = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/colorstone.xpm", &mlx->img_sprites[0].width, &mlx->img_sprites[0].height);
+	mlx->image_s = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/bluestone.xpm", &mlx->img_sprites[1].width, &mlx->img_sprites[1].height);
+
+	mlx->img_sprites[0].addr = mlx_get_data_addr(mlx->image_n, &mlx->img_sprites[0].bits_per_pixel, &mlx->img_sprites[0].line_length, &mlx->img_sprites[0].endian);
+	mlx->img_sprites[1].addr = mlx_get_data_addr(mlx->image_s, &mlx->img_sprites[1].bits_per_pixel, &mlx->img_sprites[1].line_length, &mlx->img_sprites[1].endian);
 }
