@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 19:35:26 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/26 18:58:10 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:08:58 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,13 @@ void raycasting(t_mlx *mlx)
 {
 	for (int x = 0; x < W; x++)
 	{
-		//calculate ray position and direction
-		double cameraX = 2 * x / (double)W - 1; //x-coordinate in camera space
+		double cameraX = 2 * x / (double)W - 1;
 		double raydir_x = mlx->dir_x + mlx->plane_x * cameraX;
 		double raydir_y = mlx->dir_y + mlx->plane_y * cameraX;
-		//which box of the map we're in
+		
 		int mapX = (int)mlx->pos_x;
 		int mapY = (int)mlx->pos_y;
 
-		//length of ray from current position to next x or y-side
 		double sideDistX;
 		double sideDistY;
 
@@ -65,13 +63,12 @@ void raycasting(t_mlx *mlx)
 
 		double perpWallDist;
 
-		//what direction to step in x or y-direction (either +1 or -1)
 		int stepX;
 		int stepY;
 
-		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
-		//calculate step and initial sideDist
+		int hit = 0;
+		int side;
+		
 		if(raydir_x < 0)
 		{
 			stepX = -1;
@@ -92,10 +89,10 @@ void raycasting(t_mlx *mlx)
 			stepY = 1;
 			sideDistY = (mapY + 1.0 - mlx->pos_y) * deltaDistY;
 		}
-		//perform DDA
+		
 		while(hit == 0)
 		{
-			//jump to next map square, either in x-direction, or in y-direction
+			
 			if(sideDistX < sideDistY)
 			{
 				sideDistX += deltaDistX;
@@ -108,22 +105,15 @@ void raycasting(t_mlx *mlx)
 				mapY += stepY;
 				side = 1;
 			}
-			//Check if ray has hit a wall
+
 			if(mlx->worldMap[mapX][mapY] == '1') hit = 1;
 		}
-		//Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
-		//hit to the camera plane. Euclidean to center camera point would give fisheye effect!
-		//This can be computed as (mapX - pos_x + (1 - stepX) / 2) / raydir_x for side == 0, or same formula with Y
-		//for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
-		//because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
-		//steps, but we subtract deltaDist once because one step more into the wall was taken above.
+		
 		if(side == 0) perpWallDist = (sideDistX - deltaDistX);
 		else          perpWallDist = (sideDistY - deltaDistY);
 
-		//Calculate height of line to draw on screen
 		int lineHeight = (int)(H / (perpWallDist));
 
-		//calculate lowest and highest pixel to fill in current stripe
 		int drawStart = -lineHeight / 2 + H / 2;
 		if(drawStart < 0) drawStart = 0;
 		int drawEnd = lineHeight / 2 + H / 2;
@@ -132,22 +122,24 @@ void raycasting(t_mlx *mlx)
 		int color = rgb_to_hex(0, 0, 255);
 		if(side == 1) {color = color / 2;}
 
-		double wallX; //where exactly the wall was hit
-		if(side == 0)
+		double wallX;
+		if (side == 0)
 			wallX = mlx->pos_y + perpWallDist * raydir_y;
 		else
 			wallX = mlx->pos_x + perpWallDist * raydir_x;
 		wallX -= floor(wallX);
 
 		int tex_x = (int)(wallX * (double)texWidth);
-		if(side == 0 && raydir_x > 0) tex_x = texWidth - tex_x - 1;
-		if(side == 1 && raydir_y < 0) tex_x = texWidth - tex_x - 1;
+		if (side == 0 && raydir_x > 0)
+			tex_x = texWidth - tex_x - 1;
+		if (side == 1 && raydir_y < 0)
+			tex_x = texWidth - tex_x - 1;
 
-		int step =  1.0 * texHeight / lineHeight;
+		int step = texHeight / lineHeight;
 		double texPos = (drawStart - H / 2 + lineHeight / 2) * step;
-		char	*dst;
+		char *dst;
 
-		while(++drawStart < drawEnd)
+		while (++drawStart < drawEnd)
 		{
 			int tex_y = (int)texPos & (texHeight - 1);
 			texPos += step;
