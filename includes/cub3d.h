@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:18:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/28 15:37:11 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/28 16:23:20 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,10 @@ typedef struct s_mlx
 	double	delta_dist_x;
 	double	delta_dist_y;
 	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		side;
+	int		hit;
 }			t_mlx;
 
 void	hooks(t_mlx *mlx);
