@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:18:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/28 17:49:32 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:58:47 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ typedef struct s_mlx
 	int		draw_end;
 	int		line_height;
 	int		tex_x;
-	double	step;
 	double	texPos;
+	double	step;
 }			t_mlx;
 
 void	hooks(t_mlx *mlx);

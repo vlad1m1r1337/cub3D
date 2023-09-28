@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 19:35:26 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/28 17:55:09 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:12:58 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,40 @@ void	calc_draw_start_end(t_mlx *mlx)
 		mlx->draw_end = H - 1;
 }
 
+void	calc_textures(t_mlx *mlx)
+{
+	double wallX;
+	if(mlx->side == 0)
+		wallX = mlx->pos_y + mlx->perp_wall_dist * mlx->ray_dir_y;
+	else
+		wallX = mlx->pos_x + mlx->perp_wall_dist * mlx->ray_dir_x;
+	wallX -= floor((wallX));
+
+	mlx->tex_x = (int)(wallX * (double)(texWidth));
+	if(mlx->side == 0 && mlx->ray_dir_x > 0)
+		mlx->tex_x = texWidth - mlx->tex_x - 1;
+	if(mlx->side == 1 && mlx->ray_dir_y < 0)
+		mlx->tex_x = texWidth - mlx->tex_x - 1;
+}
+
+void	put_textures(t_mlx *mlx, int x)
+{
+	char	*dst;
+	int tex_y;
+	double	step = 1.0 * texHeight / mlx->line_height;
+	double tex_pos = (mlx->draw_start - H / 2 + mlx->line_height / 2) * step;
+	while (mlx->draw_start < mlx->draw_end)
+	{
+		tex_y = (int)tex_pos & (texHeight - 1);
+		tex_pos += step;
+		dst = mlx->img_sprites[1].addr + (tex_y * \
+			mlx->img_sprites[1].line_length + \
+			mlx->tex_x * \
+			(mlx->img_sprites[1].bits_per_pixel / 8));
+		my_mlx_pixel_put(mlx, x, mlx->draw_start++, *(unsigned int *)dst);
+	}
+}
+
 void raycasting(t_mlx *mlx)
 {
 	for (int x = 0; x < W; x++)
@@ -128,33 +162,7 @@ void raycasting(t_mlx *mlx)
 		preparing_to_dda(mlx);
 		dda(mlx);
 		calc_draw_start_end(mlx);
-		
-		double wallX;
-		if(mlx->side == 0)
-			wallX = mlx->pos_y + mlx->perp_wall_dist * mlx->ray_dir_y;
-		else
-			wallX = mlx->pos_x + mlx->perp_wall_dist * mlx->ray_dir_x;
-		wallX -= floor((wallX));
-
-		int tex_x = (int)(wallX * (double)(texWidth));
-		if(mlx->side == 0 && mlx->ray_dir_x > 0)
-			tex_x = texWidth - tex_x - 1;
-		if(mlx->side == 1 && mlx->ray_dir_y < 0)
-			tex_x = texWidth - tex_x - 1;
-		double step = 1.0 * texHeight / mlx->line_height;
-		double texPos = (mlx->draw_start - H / 2 + mlx->line_height / 2) * step;
-
-		char	*dst;
-		int tex_y;
-		while (mlx->draw_start < mlx->draw_end)
-		{
-			tex_y = (int)texPos & (texHeight - 1);
-			texPos += step;
-			dst = mlx->img_sprites[1].addr + (tex_y * \
-				mlx->img_sprites[1].line_length + \
-				tex_x * \
-				(mlx->img_sprites[1].bits_per_pixel / 8));
-			my_mlx_pixel_put(mlx, x, mlx->draw_start++, *(unsigned int *)dst);
-		}
+		calc_textures(mlx);
+		put_textures(mlx, x);
 	}
 }
