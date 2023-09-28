@@ -11,8 +11,6 @@ void	window_creating(t_mlx *mlx)
 
 void	initial_game_parametres(t_mlx *mlx)
 {
-	mlx->moveSpeed = 0.1;
-	mlx->rotSpeed = 0.03;
 	mlx->pos_x = 2;
 	mlx->pos_y = 2;
 	mlx->dir_x = -1;
@@ -26,6 +24,8 @@ void	initial_game_parametres(t_mlx *mlx)
 	mlx->d = 0;
 	mlx->arrow_right = 0;
 	mlx->arrow_left = 0;
+	mlx->moveSpeed = 0.1;
+	mlx->rotSpeed = 0.03;
 
 	mlx->image_n = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/colorstone.xpm", &mlx->img_sprites[0].width, &mlx->img_sprites[0].height);
 	mlx->image_s = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/bluestone.xpm", &mlx->img_sprites[1].width, &mlx->img_sprites[1].height);

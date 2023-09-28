@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 19:35:26 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/28 14:40:22 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:57:48 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,106 +44,110 @@ void	draw_wall_ceil(t_mlx *mlx)
 	}
 }
 
+void	calculate_dist(t_mlx *mlx, int x)
+{
+	double cameraX = 2 * x / (double)W - 1; //x-coordinate in camera space
+	
+	mlx->ray_dir_x = mlx->dir_x + mlx->plane_x * cameraX;
+	mlx->ray_dir_y = mlx->dir_y + mlx->plane_y * cameraX;
+	
+	mlx->map_x = (int)(mlx->pos_x);
+	mlx->map_y = (int)(mlx->pos_y);
+
+	mlx->delta_dist_x = (mlx->ray_dir_x == 0) ? 1e30 : fabs(1 / mlx->ray_dir_x);
+	mlx->delta_dist_y = (mlx->ray_dir_y == 0) ? 1e30 : fabs(1 / mlx->ray_dir_y);
+}
+
+// void	preparing_to_dda(t_mlx *mlx)
+// {
+	
+// }
+
 void raycasting(t_mlx *mlx)
 {
 	for (int x = 0; x < W; x++)
 	{
-		double cameraX = 2 * x / (double)W - 1; //x-coordinate in camera space
-		double rayDirX = mlx->dir_x + mlx->plane_x * cameraX;
-		double rayDirY = mlx->dir_y + mlx->plane_y * cameraX;
+		calculate_dist(mlx, x);
 
-		int mapX = (int)(mlx->pos_x);
-		int mapY = (int)(mlx->pos_y);
+		int step_x;
+		int step_y;
 
-		double sideDistX;
-		double sideDistY;
+		int hit = 0;
+		int side;
 
-		double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
-		double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
-
-		double perpWallDist;
-
-		int stepX;
-		int stepY;
-
-		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
-
-		if(rayDirX < 0)
+		if(mlx->ray_dir_x < 0)
 		{
-			stepX = -1;
-			sideDistX = (mlx->pos_x - mapX) * deltaDistX;
+			step_x = -1;
+			mlx->side_dist_x = (mlx->pos_x - mlx->map_x) * mlx->delta_dist_x;
 		}
 		else
 		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - mlx->pos_x) * deltaDistX;
+			step_x = 1;
+			mlx->side_dist_x = (mlx->map_x + 1.0 - mlx->pos_x) * mlx->delta_dist_x;
 		}
-		if(rayDirY < 0)
+		if (mlx->ray_dir_y < 0)
 		{
-			stepY = -1;
-			sideDistY = (mlx->pos_y - mapY) * deltaDistY;
+			step_y = -1;
+			mlx->side_dist_y = (mlx->pos_y - mlx->map_y) * mlx->delta_dist_y;
 		}
 		else
 		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - mlx->pos_y) * deltaDistY;
+			step_y = 1;
+			mlx->side_dist_y = (mlx->map_y + 1.0 - mlx->pos_y) * mlx->delta_dist_y;
 		}
 
-		while(hit == 0)
+		while (hit == 0)
 		{
-			//jump to next map square, either in x-direction, or in y-direction
-			if(sideDistX < sideDistY)
+			if(mlx->side_dist_x < mlx->side_dist_y)
 			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
+				mlx->side_dist_x += mlx->delta_dist_x;
+				mlx->map_x += step_x;
 				side = 0;
 			}
 			else
 			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
+				mlx->side_dist_y += mlx->delta_dist_y;
+				mlx->map_y += step_y;
 				side = 1;
 			}
-			if(mlx->worldMap[mapX][mapY] == '1') hit = 1;
+			if(mlx->worldMap[mlx->map_x][mlx->map_y] == '1') hit = 1;
 		}
 
-		if(side == 0) perpWallDist = (sideDistX - deltaDistX);
-		else          perpWallDist = (sideDistY - deltaDistY);
+		if(side == 0) mlx->perp_wall_dist = (mlx->side_dist_x - mlx->delta_dist_x);
+		else          mlx->perp_wall_dist = (mlx->side_dist_y - mlx->delta_dist_y);
 
 		//Calculate height of line to draw on screen
-		int lineHeight = (int)(H / perpWallDist);
+		int line_height = (int)(H / mlx->perp_wall_dist);
 
 		//calculate lowest and highest pixel to fill in current stripe
-		int drawStart = -lineHeight / 2 + H / 2;
-		if(drawStart < 0) drawStart = 0;
-		int drawEnd = lineHeight / 2 + H / 2;
-		if(drawEnd >= H) drawEnd = H - 1;
+		int draw_start = -line_height / 2 + H / 2;
+		if(draw_start < 0) draw_start = 0;
+		int draw_end = line_height / 2 + H / 2;
+		if(draw_end >= H) draw_end = H - 1;
+		
 		
 		double wallX; //where exactly the wall was hit
-		if(side == 0) wallX = mlx->pos_y + perpWallDist * rayDirY;
-		else          wallX = mlx->pos_x + perpWallDist * rayDirX;
+		if(side == 0) wallX = mlx->pos_y + mlx->perp_wall_dist * mlx->ray_dir_y;
+		else          wallX = mlx->pos_x + mlx->perp_wall_dist * mlx->ray_dir_x;
 		wallX -= floor((wallX));
 
 		int texX = (int)(wallX * (double)(texWidth));
-		if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
-		if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
+		if(side == 0 && mlx->ray_dir_x > 0) texX = texWidth - texX - 1;
+		if(side == 1 && mlx->ray_dir_y < 0) texX = texWidth - texX - 1;
 
-		double step = 1.0 * texHeight / lineHeight;
-		double texPos = (drawStart - H / 2 + lineHeight / 2) * step;
+		double step = 1.0 * texHeight / line_height;
+		double texPos = (draw_start - H / 2 + line_height / 2) * step;
 
-		int	color = rgb_to_hex(0, 0, 255);
-		if(side == 1) {color = color / 2;}
 		char	*dst;
-		while (drawStart < drawEnd)
+		while (draw_start < draw_end)
 		{
 			int texY = (int)texPos & (texHeight - 1);
 			texPos += step;
-			dst = mlx->img_sprites[0].addr + (texY * \
-				mlx->img_sprites[0].line_length + \
+			dst = mlx->img_sprites[1].addr + (texY * \
+				mlx->img_sprites[1].line_length + \
 				texX * \
-				(mlx->img_sprites[0].bits_per_pixel / 8));
-			my_mlx_pixel_put(mlx, x, drawStart++, *(unsigned int *)dst);
+				(mlx->img_sprites[1].bits_per_pixel / 8));
+			my_mlx_pixel_put(mlx, x, draw_start++, *(unsigned int *)dst);
 		}
 	}
 }

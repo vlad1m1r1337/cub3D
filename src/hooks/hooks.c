@@ -9,15 +9,9 @@ int	press_handle(int keycode, t_mlx *mlx)
 	if (keycode == S_KEY)
 		mlx -> s = 1;
 	if (keycode == D_KEY)
-	{
-		puts("D");
 		mlx -> d = 1;
-	}
 	if (keycode == A_KEY)
-	{
-		puts("A");
-		mlx -> a = 1;
-	}	
+		mlx -> a = 1;	
 	if (keycode == 123) // 123 is the keycode for the left arrow key
 		mlx->arrow_left = 1;
 	if (keycode == 124) // 124 is the keycode for the right arrow key
