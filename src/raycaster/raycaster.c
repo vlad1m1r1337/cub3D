@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 19:35:26 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/28 12:08:58 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:40:22 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,28 @@ void raycasting(t_mlx *mlx)
 {
 	for (int x = 0; x < W; x++)
 	{
-		double cameraX = 2 * x / (double)W - 1;
-		double raydir_x = mlx->dir_x + mlx->plane_x * cameraX;
-		double raydir_y = mlx->dir_y + mlx->plane_y * cameraX;
-		
-		int mapX = (int)mlx->pos_x;
-		int mapY = (int)mlx->pos_y;
+		double cameraX = 2 * x / (double)W - 1; //x-coordinate in camera space
+		double rayDirX = mlx->dir_x + mlx->plane_x * cameraX;
+		double rayDirY = mlx->dir_y + mlx->plane_y * cameraX;
+
+		int mapX = (int)(mlx->pos_x);
+		int mapY = (int)(mlx->pos_y);
 
 		double sideDistX;
 		double sideDistY;
 
-		double deltaDistX = (raydir_x == 0) ? 1e30 : ft_abs(1 / raydir_x);
-		double deltaDistY = (raydir_y == 0) ? 1e30 : ft_abs(1 / raydir_y);
+		double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
+		double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
 
 		double perpWallDist;
 
 		int stepX;
 		int stepY;
 
-		int hit = 0;
-		int side;
-		
-		if(raydir_x < 0)
+		int hit = 0; //was there a wall hit?
+		int side; //was a NS or a EW wall hit?
+
+		if(rayDirX < 0)
 		{
 			stepX = -1;
 			sideDistX = (mlx->pos_x - mapX) * deltaDistX;
@@ -79,7 +79,7 @@ void raycasting(t_mlx *mlx)
 			stepX = 1;
 			sideDistX = (mapX + 1.0 - mlx->pos_x) * deltaDistX;
 		}
-		if(raydir_y < 0)
+		if(rayDirY < 0)
 		{
 			stepY = -1;
 			sideDistY = (mlx->pos_y - mapY) * deltaDistY;
@@ -89,10 +89,10 @@ void raycasting(t_mlx *mlx)
 			stepY = 1;
 			sideDistY = (mapY + 1.0 - mlx->pos_y) * deltaDistY;
 		}
-		
+
 		while(hit == 0)
 		{
-			
+			//jump to next map square, either in x-direction, or in y-direction
 			if(sideDistX < sideDistY)
 			{
 				sideDistX += deltaDistX;
@@ -105,46 +105,45 @@ void raycasting(t_mlx *mlx)
 				mapY += stepY;
 				side = 1;
 			}
-
 			if(mlx->worldMap[mapX][mapY] == '1') hit = 1;
 		}
-		
+
 		if(side == 0) perpWallDist = (sideDistX - deltaDistX);
 		else          perpWallDist = (sideDistY - deltaDistY);
 
-		int lineHeight = (int)(H / (perpWallDist));
+		//Calculate height of line to draw on screen
+		int lineHeight = (int)(H / perpWallDist);
 
+		//calculate lowest and highest pixel to fill in current stripe
 		int drawStart = -lineHeight / 2 + H / 2;
 		if(drawStart < 0) drawStart = 0;
 		int drawEnd = lineHeight / 2 + H / 2;
 		if(drawEnd >= H) drawEnd = H - 1;
+		
+		double wallX; //where exactly the wall was hit
+		if(side == 0) wallX = mlx->pos_y + perpWallDist * rayDirY;
+		else          wallX = mlx->pos_x + perpWallDist * rayDirX;
+		wallX -= floor((wallX));
 
-		int color = rgb_to_hex(0, 0, 255);
-		if(side == 1) {color = color / 2;}
+		int texX = (int)(wallX * (double)(texWidth));
+		if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
+		if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
 
-		double wallX;
-		if (side == 0)
-			wallX = mlx->pos_y + perpWallDist * raydir_y;
-		else
-			wallX = mlx->pos_x + perpWallDist * raydir_x;
-		wallX -= floor(wallX);
-
-		int tex_x = (int)(wallX * (double)texWidth);
-		if (side == 0 && raydir_x > 0)
-			tex_x = texWidth - tex_x - 1;
-		if (side == 1 && raydir_y < 0)
-			tex_x = texWidth - tex_x - 1;
-
-		int step = texHeight / lineHeight;
+		double step = 1.0 * texHeight / lineHeight;
 		double texPos = (drawStart - H / 2 + lineHeight / 2) * step;
-		char *dst;
 
-		while (++drawStart < drawEnd)
+		int	color = rgb_to_hex(0, 0, 255);
+		if(side == 1) {color = color / 2;}
+		char	*dst;
+		while (drawStart < drawEnd)
 		{
-			int tex_y = (int)texPos & (texHeight - 1);
+			int texY = (int)texPos & (texHeight - 1);
 			texPos += step;
-			dst = mlx->img_sprites[0].addr + (tex_y * mlx->img_sprites[0].line_length + tex_x * (mlx->img_sprites[0].bits_per_pixel / 8));
-			my_mlx_pixel_put(mlx, x, drawStart, *(unsigned int *)dst);
+			dst = mlx->img_sprites[0].addr + (texY * \
+				mlx->img_sprites[0].line_length + \
+				texX * \
+				(mlx->img_sprites[0].bits_per_pixel / 8));
+			my_mlx_pixel_put(mlx, x, drawStart++, *(unsigned int *)dst);
 		}
 	}
 }
