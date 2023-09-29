@@ -12,6 +12,24 @@
 
 #include "../../includes/cub3d.h"
 
+// void	after_map(t_game *game, t_map *map)
+// {
+// 	int	i;
+// 	int	flag;
+
+// 	flag = 0;
+// 	i = -1;
+// 	while (map->grid[++i])
+// 	{
+// 		while (map->grid[i][0] == '\n')
+// 		{
+// 			i++;
+// 			if (map->grid[i][0] != '\n' && map->grid[i][0] != '\0')
+// 				game_exit_error(game, map, "error: data after map\n");
+// 		}
+// 	}
+// }
+
 void	after_map(t_game *game, t_map *map)
 {
 	int	i;
@@ -21,11 +39,13 @@ void	after_map(t_game *game, t_map *map)
 	i = -1;
 	while (map->grid[++i])
 	{
-		while (map->grid[i][0] == '\n')
+		while (map->grid[i] && map->grid[i][0] == '\n')
 		{
 			i++;
+			if (!map->grid[i])
+				break ;
 			if (map->grid[i][0] != '\n' && map->grid[i][0] != '\0')
-				game_exit_error(game, map, "error: data after map\n");
+				game_exit_error(game, map, "error: data after map\n", 2);
 		}
 	}
 }

@@ -12,31 +12,20 @@
 
 #include "../includes/cub3d.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_mlx	*mlx;
+	t_game	*game;
+
+	game = malloc(sizeof(t_game));
+	if (!game)
+		game_exit_error(NULL, NULL, "error: game struct malloc error\n", 1);
 	mlx = malloc(sizeof(t_mlx));
-	window_creating(mlx);
-	parsing(argc, argv);
+	if (!mlx)
+		game_exit_error(game, NULL, "error: map struct malloc error\n", 1);
+	parsing(game, argc, argv);
+	mlx->gg = game;
 	initial_game_parametres(mlx);
-	char worldMap[MAP_WIDTH][MAP_HEIGHT] = {
-			{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
-			{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-			{'1', '0', '0', '1', '1', '1', '1', '1', '0', '1'},
-			{'1', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
-			{'1', '0', '1', '0', '1', '1', '0', '1', '0', '1'},
-			{'1', '0', '1', '0', '1', '1', '0', '1', '0', '1'},
-			{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-			{'1', '0', '1', '1', '1', '1', '1', '1', '0', '1'},
-			{'1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-			{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1'}
-	};
-	//recopy in map
-	for (int i = 0; i < MAP_WIDTH; i++) {
-		for (int j = 0; j < MAP_HEIGHT; j++) {
-			mlx->worldMap[i][j] = worldMap[i][j];
-		}
-	}
 	mlx_loop_hook(mlx->mlx_ptr, &render, mlx);
 	hooks(mlx);
 	mlx_loop(mlx->mlx_ptr);

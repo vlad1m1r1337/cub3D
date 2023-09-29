@@ -30,19 +30,19 @@ static int	name_check(char *str)
 	return (0);
 }
 
-void	game_exit_error(t_game *game, t_map *map, char *pstr)
-{
-	if (!game)
-	{
-		if (!map)
-		{
-			ft_putstr_fd(pstr, 2);
-			exit(1);
-		}
-	}
-	ft_putstr_fd(pstr, 2);
-	exit(1);
-}
+// void	game_exit_error(t_game *game, t_map *map, char *pstr)
+// {
+// 	if (!game)
+// 	{
+// 		if (!map)
+// 		{
+// 			ft_putstr_fd(pstr, 2);
+// 			exit(1);
+// 		}
+// 	}
+// 	ft_putstr_fd(pstr, 2);
+// 	exit(1);
+// }
 
 int	facing_check(t_map *map)
 {
@@ -89,18 +89,15 @@ void	parsing(int argc, char **argv)
 {
 	int		i;
 	int		j;
-	t_game	*game;
 	t_map	*map;
 
 	i = -1;
 	j = i;
 	if (argc != 2 || (name_check(argv[1]) == -1))
-		game_exit_error(NULL, NULL, "error: invalid input\n");
-	game = malloc(sizeof(t_game));
-	if (!game)
-		game_exit_error(NULL, NULL, "error: game struct malloc error\n");
+		game_exit_error(NULL, NULL, "error: invalid input\n", 1);
 	map = malloc(sizeof(t_map));
 	if (!map)
 		game_exit_error(game, NULL, "error: map struct malloc error\n");
 	get_colors(argv[1], map, game);
+	game->data = map;
 }
