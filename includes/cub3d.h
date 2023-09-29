@@ -164,7 +164,6 @@ typedef struct s_mlx
 	int			arrow_right;
 	double		move_speed;
 	double		rot_speed;
-	char		worldMap[MAP_WIDTH][MAP_HEIGHT];
 	t_rayimg	img_sprites[4];
 	t_rayimg	img;
 	void		*image_n;
