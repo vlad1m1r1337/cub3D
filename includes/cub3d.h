@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:18:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/26 20:23:03 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:24:07 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,26 @@ typedef struct s_mlx
 	void	*image_s;
 	void	*image_w;
 	void	*image_e;
+
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		side;
+	int		hit;
+	int		draw_start;
+	int		draw_end;
+	int		line_height;
+	int		tex_x;
+	double	texPos;
+	double	step;
 }			t_mlx;
 
 void	hooks(t_mlx *mlx);

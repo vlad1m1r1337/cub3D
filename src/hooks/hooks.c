@@ -11,7 +11,7 @@ int	press_handle(int keycode, t_mlx *mlx)
 	if (keycode == D_KEY)
 		mlx -> d = 1;
 	if (keycode == A_KEY)
-		mlx -> a = 1;
+		mlx -> a = 1;	
 	if (keycode == 123) // 123 is the keycode for the left arrow key
 		mlx->arrow_left = 1;
 	if (keycode == 124) // 124 is the keycode for the right arrow key

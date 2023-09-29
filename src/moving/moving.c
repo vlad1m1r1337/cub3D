@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moving.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgribkov <vgribkov@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:50:35 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/22 12:53:30 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:47:37 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,62 +14,34 @@
 
 void	moving_forward(t_mlx *mlx)
 {
-	double	temp_x;
-	double	temp_y;
-
-	temp_x = mlx->pos_x + mlx->dir_x * mlx->moveSpeed;
-	temp_y = mlx->pos_y + mlx->dir_y * mlx->moveSpeed;
-
-	if (mlx->worldMap[(int)temp_x][(int)temp_y] != '1')
-	{
-		mlx->pos_x = temp_x;
-		mlx->pos_y = temp_y;
-	}
+	if(mlx->worldMap[(int)(mlx->pos_x + mlx->dir_x * mlx->moveSpeed)][(int)(mlx->pos_y)] == '0')
+		mlx->pos_x += mlx->dir_x * mlx->moveSpeed;
+	if(mlx->worldMap[(int)(mlx->pos_x)][(int)(mlx->pos_y + mlx->dir_y * mlx->moveSpeed)] == '0')
+		mlx->pos_y += mlx->dir_y * mlx->moveSpeed;
 }
 
 void	moving_back(t_mlx *mlx)
 {
-	double	temp_x;
-	double	temp_y;
-
-	temp_x = mlx->pos_x - mlx->dir_x * mlx->moveSpeed;
-	temp_y = mlx->pos_y - mlx->dir_y * mlx->moveSpeed;
-
-	if (mlx->worldMap[(int)temp_x][(int)temp_y] != '1')
-	{
-		mlx->pos_x = temp_x;
-		mlx->pos_y = temp_y;
-	}
+	if(mlx->worldMap[(int)(mlx->pos_x - mlx->dir_x * mlx->moveSpeed)][(int)(mlx->pos_y)] == '0')
+		mlx->pos_x -= mlx->dir_x * mlx->moveSpeed;
+    if(mlx->worldMap[(int)(mlx->pos_x)][(int)(mlx->pos_y - mlx->dir_y * mlx->moveSpeed)] == '0')
+		mlx->pos_y -= mlx->dir_y * mlx->moveSpeed;
 }
 
 void	moving_right(t_mlx *mlx)
 {
-	double	temp_x;
-	double	temp_y;
-
-	temp_x = mlx->pos_x + mlx->plane_x * mlx->moveSpeed;
-	temp_y = mlx->pos_y;
-
-	if (mlx->worldMap[(int)temp_x][(int)temp_y] != '1')
-	{
-		mlx->pos_x = temp_x;
-		mlx->pos_y = temp_y;
-	}
+	if(mlx->worldMap[(int)(mlx->pos_x + mlx->dir_y * mlx->moveSpeed)][(int)(mlx->pos_y)] == '0')
+		mlx->pos_x += mlx->dir_y * mlx->moveSpeed;
+	if(mlx->worldMap[(int)(mlx->pos_x)][(int)(mlx->pos_y - mlx->dir_x * mlx->moveSpeed)] == '0')
+		mlx->pos_y -= mlx->dir_x * mlx->moveSpeed;
 }
 
 void moving_left(t_mlx *mlx)
 {
-	double	temp_x;
-	double	temp_y;
-
-	temp_x = mlx->pos_x - mlx->plane_x * mlx->moveSpeed;
-	temp_y = mlx->pos_y;
-
-	if (mlx->worldMap[(int)temp_x][(int)temp_y] != '1')
-	{
-		mlx->pos_x = temp_x;
-		mlx->pos_y = temp_y;
-	}
+	if(mlx->worldMap[(int)(mlx->pos_x - mlx->dir_y * mlx->moveSpeed)][(int)(mlx->pos_y)] == '0')
+		mlx->pos_x -= mlx->dir_y * mlx->moveSpeed;
+	if(mlx->worldMap[(int)(mlx->pos_x)][(int)(mlx->pos_y + mlx->dir_x * mlx->moveSpeed)] == '0')
+		mlx->pos_y += mlx->dir_x * mlx->moveSpeed;
 }
 
 void	spin_left(t_mlx *mlx)
