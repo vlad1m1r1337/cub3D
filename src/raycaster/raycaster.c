@@ -6,20 +6,11 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 19:35:26 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/29 14:43:29 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:34:32 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = mlx->img.addr + (y * mlx->img.line_length + \
-			x * (mlx->img.bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
 
 void	draw_wall_ceil(t_mlx *mlx)
 {
@@ -82,11 +73,12 @@ void	preparing_to_dda(t_mlx *mlx)
 		mlx->side_dist_y = (mlx->map_y + 1.0 - mlx->pos_y) * mlx->delta_dist_y;
 	}
 }
+
 void	dda(t_mlx *mlx)
 {
 	while (mlx->hit == 0)
 	{
-		if(mlx->side_dist_x < mlx->side_dist_y)
+		if (mlx->side_dist_x < mlx->side_dist_y)
 		{
 			mlx->side_dist_x += mlx->delta_dist_x;
 			mlx->map_x += mlx->step_x;
@@ -98,7 +90,7 @@ void	dda(t_mlx *mlx)
 			mlx->map_y += mlx->step_y;
 			mlx->side = 1;
 		}
-		if(mlx->worldMap[mlx->map_x][mlx->map_y] == '1')
+		if (mlx->worldMap[mlx->map_x][mlx->map_y] == '1')
 			mlx->hit = 1;
 	}
 }
@@ -118,65 +110,4 @@ void	calc_draw_start_end(t_mlx *mlx)
 	mlx->draw_end = mlx->line_height / 2 + H / 2;
 	if(mlx->draw_end >= H)
 		mlx->draw_end = H - 1;
-}
-
-void	calc_textures(t_mlx *mlx)
-{
-	double wallX;
-	if(mlx->side == 0)
-		wallX = mlx->pos_y + mlx->perp_wall_dist * mlx->ray_dir_y;
-	else
-		wallX = mlx->pos_x + mlx->perp_wall_dist * mlx->ray_dir_x;
-	wallX -= floor((wallX));
-
-	mlx->tex_x = (int)(wallX * (double)(texWidth));
-	if(mlx->side == 0 && mlx->ray_dir_x > 0)
-		mlx->tex_x = texWidth - mlx->tex_x - 1;
-	if(mlx->side == 1 && mlx->ray_dir_y < 0)
-		mlx->tex_x = texWidth - mlx->tex_x - 1;
-}
-
-int	choose_textures(t_mlx *mlx)
-{
-	if (mlx->side && mlx->ray_dir_y > 0)
-		return (3);
-	else if (mlx->side && mlx->ray_dir_y < 0)
-		return (2);
-	else if (!mlx->side && mlx->ray_dir_x > 0)
-		return (1);
-	else if (!mlx->side && mlx->ray_dir_x < 0)
-		return (0);
-	return (-1);
-}
-
-void	put_textures(t_mlx *mlx, int x)
-{
-	char	*dst;
-	int tex_y;
-	double	step = 1.0 * texHeight / mlx->line_height;
-	double tex_pos = (mlx->draw_start - H / 2 + mlx->line_height / 2) * step;
-	int i = choose_textures(mlx);
-	while (mlx->draw_start < mlx->draw_end)
-	{
-		tex_y = (int)tex_pos & (texHeight - 1);
-		tex_pos += step;
-		dst = mlx->img_sprites[i].addr + (tex_y * \
-			mlx->img_sprites[i].line_length + \
-			mlx->tex_x * \
-			(mlx->img_sprites[i].bits_per_pixel / 8));
-		my_mlx_pixel_put(mlx, x, mlx->draw_start++, *(unsigned int *)dst);
-	}
-}
-
-void raycasting(t_mlx *mlx)
-{
-	for (int x = 0; x < W; x++)
-	{
-		calculate_dist(mlx, x);
-		preparing_to_dda(mlx);
-		dda(mlx);
-		calc_draw_start_end(mlx);
-		calc_textures(mlx);
-		put_textures(mlx, x);
-	}
 }

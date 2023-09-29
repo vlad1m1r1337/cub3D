@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgribkov <vgribkov@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:16:33 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/22 12:53:08 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:01:06 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	my_pixel_put(t_mlx *mlx, int x, int y, int color)
+void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = mlx -> data + (y * mlx -> size_l + x * (mlx -> bpp / 8));
+	dst = mlx->img.addr + (y * mlx->img.line_length + \
+			x * (mlx->img.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -36,9 +37,7 @@ unsigned int	rgb_to_hex(int r, int g, int b)
 		b = 0;
 	else if (b > 255)
 		b = 255;
-
 	hex_value = (r << 16) | (g << 8) | b;
-
 	return (hex_value);
 }
 

@@ -37,12 +37,12 @@ g++ *.cpp -lSDL
 
 #define screenWidth 640
 #define screenHeight 480
-#define texWidth 64
-#define texHeight 64
-#define mapWidth 24
-#define mapHeight 24
+#define TEXT_WIDTH 64
+#define TEXT_HEIGHT 64
+#define MAP_WIDTH 24
+#define MAP_HEIGHT 24
 
-int worldMap[mapWidth][mapHeight]=
+int worldMap[MAP_WIDTH][MAP_HEIGHT]=
 {
   {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
   {4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
@@ -82,27 +82,27 @@ int main(int /*argc*/, char */*argv*/[])
   double oldTime = 0; //time of previous frame
 
   std::vector<Uint32> texture[8];
-  for(int i = 0; i < 8; i++) texture[i].resize(texWidth * texHeight);
+  for(int i = 0; i < 8; i++) texture[i].resize(TEXT_WIDTH * TEXT_HEIGHT);
 
   screen(screenWidth,screenHeight, 0, "Raycaster");
 
   //generate some textures
 #if 0
-  for(int x = 0; x < texWidth; x++)
-  for(int y = 0; y < texHeight; y++)
+  for(int x = 0; x < TEXT_WIDTH; x++)
+  for(int y = 0; y < TEXT_HEIGHT; y++)
   {
-    int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
-    //int xcolor = x * 256 / texWidth;
-    int ycolor = y * 256 / texHeight;
-    int xycolor = y * 128 / texHeight + x * 128 / texWidth;
-    texture[0][texWidth * y + x] = 65536 * 254 * (x != y && x != texWidth - y); //flat red texture with black cross
-    texture[1][texWidth * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
-    texture[2][texWidth * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
-    texture[3][texWidth * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor; //xor greyscale
-    texture[4][texWidth * y + x] = 256 * xorcolor; //xor green
-    texture[5][texWidth * y + x] = 65536 * 192 * (x % 16 && y % 16); //red bricks
-    texture[6][texWidth * y + x] = 65536 * ycolor; //red gradient
-    texture[7][texWidth * y + x] = 128 + 256 * 128 + 65536 * 128; //flat grey texture
+    int xorcolor = (x * 256 / TEXT_WIDTH) ^ (y * 256 / TEXT_HEIGHT);
+    //int xcolor = x * 256 / TEXT_WIDTH;
+    int ycolor = y * 256 / TEXT_HEIGHT;
+    int xycolor = y * 128 / TEXT_HEIGHT + x * 128 / TEXT_WIDTH;
+    texture[0][TEXT_WIDTH * y + x] = 65536 * 254 * (x != y && x != TEXT_WIDTH - y); //flat red texture with black cross
+    texture[1][TEXT_WIDTH * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
+    texture[2][TEXT_WIDTH * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
+    texture[3][TEXT_WIDTH * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor; //xor greyscale
+    texture[4][TEXT_WIDTH * y + x] = 256 * xorcolor; //xor green
+    texture[5][TEXT_WIDTH * y + x] = 65536 * 192 * (x % 16 && y % 16); //red bricks
+    texture[6][TEXT_WIDTH * y + x] = 65536 * ycolor; //red gradient
+    texture[7][TEXT_WIDTH * y + x] = 128 + 256 * 128 + 65536 * 128; //flat grey texture
   }
 #else
  //generate some textures
@@ -214,21 +214,21 @@ int main(int /*argc*/, char */*argv*/[])
       wallX -= floor((wallX));
 
       //x coordinate on the texture
-      int texX = int(wallX * double(texWidth));
-      if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
-      if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
+      int texX = int(wallX * double(TEXT_WIDTH));
+      if(side == 0 && rayDirX > 0) texX = TEXT_WIDTH - texX - 1;
+      if(side == 1 && rayDirY < 0) texX = TEXT_WIDTH - texX - 1;
 
       // TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate stepping faster
       // How much to increase the texture coordinate per screen pixel
-      double step = 1.0 * texHeight / lineHeight;
+      double step = 1.0 * TEXT_HEIGHT / lineHeight;
       // Starting texture coordinate
-      double texPos = (drawStart - pitch - h / 2 + lineHeight / 2) * step;
+      double tex_pos = (drawStart - pitch - h / 2 + lineHeight / 2) * step;
       for(int y = drawStart; y < drawEnd; y++)
       {
-        // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-        int texY = (int)texPos & (texHeight - 1);
-        texPos += step;
-        Uint32 color = texture[texNum][texHeight * texY + texX];
+        // Cast the texture coordinate to integer, and mask with (TEXT_HEIGHT - 1) in case of overflow
+        int texY = (int)tex_pos & (TEXT_HEIGHT - 1);
+        tex_pos += step;
+        Uint32 color = texture[texNum][TEXT_HEIGHT * texY + texX];
         //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
         if(side == 1) color = (color >> 1) & 8355711;
         buffer[y][x] = color;
@@ -245,43 +245,43 @@ int main(int /*argc*/, char */*argv*/[])
     redraw();
 
     //speed modifiers
-    double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
-    double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
+    double move_speed = frameTime * 5.0; //the constant value is in squares/second
+    double rot_speed = frameTime * 3.0; //the constant value is in radians/second
 
     readKeys();
     //move forward if no wall in front of you
     if(keyDown(SDLK_UP))
     {
-      if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
-      if(worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
+      if(worldMap[int(posX + dirX * move_speed)][int(posY)] == false) posX += dirX * move_speed;
+      if(worldMap[int(posX)][int(posY + dirY * move_speed)] == false) posY += dirY * move_speed;
     }
     //move backwards if no wall behind you
     if(keyDown(SDLK_DOWN))
     {
-      if(worldMap[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
-      if(worldMap[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
+      if(worldMap[int(posX - dirX * move_speed)][int(posY)] == false) posX -= dirX * move_speed;
+      if(worldMap[int(posX)][int(posY - dirY * move_speed)] == false) posY -= dirY * move_speed;
     }
     //rotate to the right
     if(keyDown(SDLK_RIGHT))
     {
       //both camera direction and camera plane must be rotated
       double oldDirX = dirX;
-      dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-      dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
+      dirX = dirX * cos(-rot_speed) - dirY * sin(-rot_speed);
+      dirY = oldDirX * sin(-rot_speed) + dirY * cos(-rot_speed);
       double oldPlaneX = planeX;
-      planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-      planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+      planeX = planeX * cos(-rot_speed) - planeY * sin(-rot_speed);
+      planeY = oldPlaneX * sin(-rot_speed) + planeY * cos(-rot_speed);
     }
     //rotate to the left
     if(keyDown(SDLK_LEFT))
     {
       //both camera direction and camera plane must be rotated
       double oldDirX = dirX;
-      dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-      dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
+      dirX = dirX * cos(rot_speed) - dirY * sin(rot_speed);
+      dirY = oldDirX * sin(rot_speed) + dirY * cos(rot_speed);
       double oldPlaneX = planeX;
-      planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-      planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+      planeX = planeX * cos(rot_speed) - planeY * sin(rot_speed);
+      planeY = oldPlaneX * sin(rot_speed) + planeY * cos(rot_speed);
     }
     if(keyDown(SDLK_ESCAPE))
     {

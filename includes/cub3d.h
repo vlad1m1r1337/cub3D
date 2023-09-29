@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:18:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/29 14:24:07 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:38:44 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 # define H  800
 # define W  800
-#define texWidth 64
-#define texHeight 64
+# define TEXT_WIDTH 64
+# define TEXT_HEIGHT 64
 
 # define ESC 53
 # define W_KEY 13
@@ -43,8 +43,8 @@
 # include "../mlx/mlx.h"
 # include <limits.h>
 
-# define mapWidth 24
-# define mapHeight 24
+# define MAP_WIDTH 24
+# define MAP_HEIGHT 24
 
 typedef struct s_rayimg {
 	void	*img;
@@ -58,89 +58,107 @@ typedef struct s_rayimg {
 
 typedef struct s_mlx
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*img_ptr;
-	char	*data;
-	int		bpp;
-	int		endian;
-	int		scale;
-	int		x;
-	int		y;
-	int		size_l;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	void		*img_ptr;
+	char		*data;
+	int			bpp;
+	int			endian;
+	int			scale;
+	int			x;
+	int			y;
+	int			size_l;
 
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	int		w;
-	int		a;
-	int		s;
-	int		d;
-	int		arrow_left;
-	int		arrow_right;
-	double	moveSpeed;
-	double	rotSpeed;
-	char	worldMap[mapWidth][mapHeight];
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+	int			w;
+	int			a;
+	int			s;
+	int			d;
+	int			arrow_left;
+	int			arrow_right;
+	double		move_speed;
+	double		rot_speed;
+	char		worldMap[MAP_WIDTH][MAP_HEIGHT];
 	t_rayimg	img_sprites[4];
 	t_rayimg	img;
-	void	*image_n;
-	void	*image_s;
-	void	*image_w;
-	void	*image_e;
+	void		*image_n;
+	void		*image_s;
+	void		*image_w;
+	void		*image_e;
 
-	double	ray_dir_x;
-	double	ray_dir_y;
-	int		map_x;
-	int		map_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	perp_wall_dist;
-	int		step_x;
-	int		step_y;
-	int		side;
-	int		hit;
-	int		draw_start;
-	int		draw_end;
-	int		line_height;
-	int		tex_x;
-	double	texPos;
-	double	step;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+	int			side;
+	int			hit;
+	int			draw_start;
+	int			draw_end;
+	int			line_height;
+	int			tex_x;
+	double		tex_pos;
+	double		step;
 }			t_mlx;
 
-void	hooks(t_mlx *mlx);
+void			hooks(t_mlx *mlx);
 
-void	my_pixel_put(t_mlx *mlx, int x, int y, int color);
+void			my_pixel_put(t_mlx *mlx, int x, int y, int color);
 
-void	window_creating(t_mlx *mlx);
+void			window_creating(t_mlx *mlx);
 
-void	draw_yellow_square(t_mlx *mlx);
+void			draw_yellow_square(t_mlx *mlx);
 
-unsigned int rgb_to_hex(int r, int g, int b);
+unsigned int	rgb_to_hex(int r, int g, int b);
 
-int	ex(void);
+int				ex(void);
 
-void moving(t_mlx *mlx);
+void			moving(t_mlx *mlx);
 
-void	draw_wall_ceil(t_mlx *mlx);
+void			draw_wall_ceil(t_mlx *mlx);
 
-void raycasting(t_mlx *mlx);
+void			raycasting(t_mlx *mlx);
 
-int render(t_mlx *mlx);
+int				render(t_mlx *mlx);
 
-float	ft_abs(float num);
+float			ft_abs(float num);
 
-void initial_game_parametres(t_mlx *mlx);
+void			initial_game_parametres(t_mlx *mlx);
 
-void spin_left(t_mlx *mlx);
+void			spin_left(t_mlx *mlx);
 
-void spin_right(t_mlx *mlx);
+void			spin_right(t_mlx *mlx);
 
-void	draw_wall_ceil(t_mlx *mlx);
+void			draw_wall_ceil(t_mlx *mlx);
+
+void			moving_forward(t_mlx *mlx);
+
+void			moving_back(t_mlx *mlx);
+
+void			moving_right(t_mlx *mlx);
+
+void			moving_left(t_mlx *mlx);
+
+void			my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
+
+void			calculate_dist(t_mlx *mlx, int x);
+
+void			preparing_to_dda(t_mlx *mlx);
+
+void			dda(t_mlx *mlx);
+
+void			calc_draw_start_end(t_mlx *mlx);
 
 typedef struct s_map
 {
