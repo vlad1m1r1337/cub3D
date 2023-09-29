@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 19:35:26 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/29 14:19:46 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:43:29 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,18 @@ void	calc_textures(t_mlx *mlx)
 		mlx->tex_x = texWidth - mlx->tex_x - 1;
 }
 
-// int	choose_textures(mlx)
-// {
-	
-// }
+int	choose_textures(t_mlx *mlx)
+{
+	if (mlx->side && mlx->ray_dir_y > 0)
+		return (3);
+	else if (mlx->side && mlx->ray_dir_y < 0)
+		return (2);
+	else if (!mlx->side && mlx->ray_dir_x > 0)
+		return (1);
+	else if (!mlx->side && mlx->ray_dir_x < 0)
+		return (0);
+	return (-1);
+}
 
 void	put_textures(t_mlx *mlx, int x)
 {
@@ -147,15 +155,15 @@ void	put_textures(t_mlx *mlx, int x)
 	int tex_y;
 	double	step = 1.0 * texHeight / mlx->line_height;
 	double tex_pos = (mlx->draw_start - H / 2 + mlx->line_height / 2) * step;
-	//int i = choose_textures(mlx);
+	int i = choose_textures(mlx);
 	while (mlx->draw_start < mlx->draw_end)
 	{
 		tex_y = (int)tex_pos & (texHeight - 1);
 		tex_pos += step;
-		dst = mlx->img_sprites[1].addr + (tex_y * \
-			mlx->img_sprites[1].line_length + \
+		dst = mlx->img_sprites[i].addr + (tex_y * \
+			mlx->img_sprites[i].line_length + \
 			mlx->tex_x * \
-			(mlx->img_sprites[1].bits_per_pixel / 8));
+			(mlx->img_sprites[i].bits_per_pixel / 8));
 		my_mlx_pixel_put(mlx, x, mlx->draw_start++, *(unsigned int *)dst);
 	}
 }
