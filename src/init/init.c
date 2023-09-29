@@ -52,9 +52,9 @@ void	init_sprites(t_mlx *mlx)
 	mlx->image_s = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/bluestone.xpm", \
 		&mlx->img_sprites[1].width, &mlx->img_sprites[1].height);
 	mlx->image_w = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/greenlight.xpm", \
-		&mlx->img_sprites[1].width, &mlx->img_sprites[1].height);
+		&mlx->img_sprites[2].width, &mlx->img_sprites[2].height);
 	mlx->image_e = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/greystone.xpm", \
-		&mlx->img_sprites[1].width, &mlx->img_sprites[1].height);
+		&mlx->img_sprites[3].width, &mlx->img_sprites[3].height);
 	if (mlx->image_n == NULL || mlx->image_s == NULL \
 		|| mlx->image_w == NULL || mlx->image_e == NULL)
 		error_handle();

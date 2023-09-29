@@ -49,7 +49,7 @@ void	alloc_grid(t_map *map, t_game *game)
 {
 	map->grid = (char **)malloc(sizeof(char *) * (map->size + 1));
 	if (!map->grid)
-		game_exit_error(game, map, "error: malloc: fatal\n");
+		game_exit_error(game, map, "error: malloc: fatal\n", 2);
 	map->grid[map->size] = NULL;
 }
 

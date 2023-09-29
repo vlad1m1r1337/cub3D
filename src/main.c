@@ -24,6 +24,7 @@ int	main(int argc, char **argv)
 	if (!mlx)
 		game_exit_error(game, NULL, "error: map struct malloc error\n", 1);
 	parsing(game, argc, argv);
+	window_creating(mlx);
 	mlx->gg = game;
 	initial_game_parametres(mlx);
 	mlx_loop_hook(mlx->mlx_ptr, &render, mlx);
