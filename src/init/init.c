@@ -29,7 +29,11 @@ void	initial_game_parametres(t_mlx *mlx)
 
 	mlx->image_n = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/colorstone.xpm", &mlx->img_sprites[0].width, &mlx->img_sprites[0].height);
 	mlx->image_s = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/bluestone.xpm", &mlx->img_sprites[1].width, &mlx->img_sprites[1].height);
+	mlx->image_w = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/greenlight.xpm", &mlx->img_sprites[1].width, &mlx->img_sprites[1].height);
+	mlx->image_e = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/greystone.xpm", &mlx->img_sprites[1].width, &mlx->img_sprites[1].height);
 
 	mlx->img_sprites[0].addr = mlx_get_data_addr(mlx->image_n, &mlx->img_sprites[0].bits_per_pixel, &mlx->img_sprites[0].line_length, &mlx->img_sprites[0].endian);
 	mlx->img_sprites[1].addr = mlx_get_data_addr(mlx->image_s, &mlx->img_sprites[1].bits_per_pixel, &mlx->img_sprites[1].line_length, &mlx->img_sprites[1].endian);
+	mlx->img_sprites[2].addr = mlx_get_data_addr(mlx->image_w, &mlx->img_sprites[2].bits_per_pixel, &mlx->img_sprites[2].line_length, &mlx->img_sprites[2].endian);
+	mlx->img_sprites[3].addr = mlx_get_data_addr(mlx->image_e, &mlx->img_sprites[3].bits_per_pixel, &mlx->img_sprites[3].line_length, &mlx->img_sprites[3].endian);
 }

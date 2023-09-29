@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 19:35:26 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/28 18:12:58 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:19:46 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,18 @@ void	calc_textures(t_mlx *mlx)
 		mlx->tex_x = texWidth - mlx->tex_x - 1;
 }
 
+// int	choose_textures(mlx)
+// {
+	
+// }
+
 void	put_textures(t_mlx *mlx, int x)
 {
 	char	*dst;
 	int tex_y;
 	double	step = 1.0 * texHeight / mlx->line_height;
 	double tex_pos = (mlx->draw_start - H / 2 + mlx->line_height / 2) * step;
+	//int i = choose_textures(mlx);
 	while (mlx->draw_start < mlx->draw_end)
 	{
 		tex_y = (int)tex_pos & (texHeight - 1);
