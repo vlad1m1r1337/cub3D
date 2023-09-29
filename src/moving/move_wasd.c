@@ -14,12 +14,12 @@
 
 void	moving_forward(t_mlx *mlx)
 {
-	if (mlx->worldMap[(int)(mlx->pos_x + mlx->dir_x * \
+	if (mlx->gg->data->grid[(int)(mlx->pos_x + mlx->dir_x * \
 		mlx->move_speed)][(int)(mlx->pos_y)] == '0')
 	{
 		mlx->pos_x += mlx->dir_x * mlx->move_speed;
 	}
-	if (mlx->worldMap[(int)(mlx->pos_x)][(int)(mlx->pos_y + \
+	if (mlx->gg->data->grid[(int)(mlx->pos_x)][(int)(mlx->pos_y + \
 		mlx->dir_y * mlx->move_speed)] == '0')
 	{
 		mlx->pos_y += mlx->dir_y * mlx->move_speed;
@@ -28,12 +28,12 @@ void	moving_forward(t_mlx *mlx)
 
 void	moving_back(t_mlx *mlx)
 {
-	if (mlx->worldMap[(int)(mlx->pos_x - mlx->dir_x * \
+	if (mlx->gg->data->grid[(int)(mlx->pos_x - mlx->dir_x * \
 		mlx->move_speed)][(int)(mlx->pos_y)] == '0')
 	{
 		mlx->pos_x -= mlx->dir_x * mlx->move_speed;
 	}
-	if (mlx->worldMap[(int)(mlx->pos_x)][(int)(mlx->pos_y - \
+	if (mlx->gg->data->grid[(int)(mlx->pos_x)][(int)(mlx->pos_y - \
 		mlx->dir_y * mlx->move_speed)] == '0')
 	{
 		mlx->pos_y -= mlx->dir_y * mlx->move_speed;
@@ -42,12 +42,12 @@ void	moving_back(t_mlx *mlx)
 
 void	moving_right(t_mlx *mlx)
 {
-	if (mlx->worldMap[(int)(mlx->pos_x + mlx->dir_y * \
+	if (mlx->gg->data->grid[(int)(mlx->pos_x + mlx->dir_y * \
 		mlx->move_speed)][(int)(mlx->pos_y)] == '0')
 	{
 		mlx->pos_x += mlx->dir_y * mlx->move_speed;
 	}
-	if (mlx->worldMap[(int)(mlx->pos_x)][(int)(mlx->pos_y - \
+	if (mlx->gg->data->grid[(int)(mlx->pos_x)][(int)(mlx->pos_y - \
 		mlx->dir_x * mlx->move_speed)] == '0')
 	{
 		mlx->pos_y -= mlx->dir_x * mlx->move_speed;
@@ -56,12 +56,12 @@ void	moving_right(t_mlx *mlx)
 
 void	moving_left(t_mlx *mlx)
 {
-	if (mlx->worldMap[(int)(mlx->pos_x - mlx->dir_y * \
+	if (mlx->gg->data->grid[(int)(mlx->pos_x - mlx->dir_y * \
 		mlx->move_speed)][(int)(mlx->pos_y)] == '0')
 	{
 		mlx->pos_x -= mlx->dir_y * mlx->move_speed;
 	}
-	if (mlx->worldMap[(int)(mlx->pos_x)][(int)(mlx->pos_y + \
+	if (mlx->gg->data->grid[(int)(mlx->pos_x)][(int)(mlx->pos_y + \
 		mlx->dir_x * mlx->move_speed)] == '0')
 	{
 		mlx->pos_y += mlx->dir_x * mlx->move_speed;

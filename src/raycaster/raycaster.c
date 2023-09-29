@@ -23,12 +23,14 @@ void	draw_wall_ceil(t_mlx *mlx)
 		y = 0;
 		while (y < H / 2)
 		{
-			my_mlx_pixel_put(mlx, x, y, rgb_to_hex(153, 171, 255));
+			my_mlx_pixel_put(mlx, x, y, \
+			rgb_to_hex(mlx->gg->flc1, mlx->gg->flc2, mlx->gg->flc3));
 			y++;
 		}
 		while (y < H)
 		{
-			my_mlx_pixel_put(mlx, x, y, rgb_to_hex(53, 52, 50));
+			my_mlx_pixel_put(mlx, x, y, \
+			rgb_to_hex(mlx->gg->clc1, mlx->gg->clc2, mlx->gg->clc3));
 			y++;
 		}
 		x++;
@@ -37,14 +39,11 @@ void	draw_wall_ceil(t_mlx *mlx)
 
 void	calculate_dist(t_mlx *mlx, int x)
 {
-	double cameraX = 2 * x / (double)W - 1; //x-coordinate in camera space
-	
+	double cameraX = 2 * x / (double)W - 1;
 	mlx->ray_dir_x = mlx->dir_x + mlx->plane_x * cameraX;
 	mlx->ray_dir_y = mlx->dir_y + mlx->plane_y * cameraX;
-	
 	mlx->map_x = (int)(mlx->pos_x);
 	mlx->map_y = (int)(mlx->pos_y);
-
 	mlx->delta_dist_x = (mlx->ray_dir_x == 0) ? 1e30 : fabs(1 / mlx->ray_dir_x);
 	mlx->delta_dist_y = (mlx->ray_dir_y == 0) ? 1e30 : fabs(1 / mlx->ray_dir_y);
 }
@@ -90,7 +89,7 @@ void	dda(t_mlx *mlx)
 			mlx->map_y += mlx->step_y;
 			mlx->side = 1;
 		}
-		if (mlx->worldMap[mlx->map_x][mlx->map_y] == '1')
+		if (mlx->gg->data->grid[mlx->map_x][mlx->map_y] == '1')
 			mlx->hit = 1;
 	}
 }

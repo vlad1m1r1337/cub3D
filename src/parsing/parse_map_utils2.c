@@ -12,24 +12,6 @@
 
 #include "../../includes/cub3d.h"
 
-// void	after_map(t_game *game, t_map *map)
-// {
-// 	int	i;
-// 	int	flag;
-
-// 	flag = 0;
-// 	i = -1;
-// 	while (map->grid[++i])
-// 	{
-// 		while (map->grid[i][0] == '\n')
-// 		{
-// 			i++;
-// 			if (map->grid[i][0] != '\n' && map->grid[i][0] != '\0')
-// 				game_exit_error(game, map, "error: data after map\n");
-// 		}
-// 	}
-// }
-
 void	after_map(t_game *game, t_map *map)
 {
 	int	i;
@@ -95,29 +77,13 @@ void	dup_cnt(t_map *map, t_game *game)
 	while (map->grid[++i] != NULL)
 	{
 		if (char_chk(map->grid[i]) == -1)
-			game_exit_error(game, map, "error: invalid characters in map\n");
+			game_exit_error(game, map, "error: invalid characters in map\n", 2);
 		map->n += chr_count(map->grid[i], 'N');
 		map->s += chr_count(map->grid[i], 'S');
 		map->e += chr_count(map->grid[i], 'E');
 		map->w += chr_count(map->grid[i], 'W');
 	}
 	if (facing_check(map) == -1)
-		game_exit_error(game, map, "error: invalid facings\n");
+		game_exit_error(game, map, "error: invalid facings\n", 2);
 	check_colors(game, map);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	if (!s1)
-		return (0);
-	while ((s1[i] || s2[i]) && i < n)
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
-	}
-	return (0);
 }

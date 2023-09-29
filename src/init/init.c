@@ -23,8 +23,8 @@ void	window_creating(t_mlx *mlx)
 
 void	var_init(t_mlx *mlx)
 {
-	mlx->pos_x = 2;
-	mlx->pos_y = 2;
+	mlx->pos_x = mlx->gg->pos_player_x;
+	mlx->pos_y = mlx->gg->pos_player_y;
 	mlx->dir_x = -1;
 	mlx->dir_y = 0;
 	mlx->plane_x = 0;

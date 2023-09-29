@@ -150,6 +150,7 @@ typedef struct s_mlx
 	int			y;
 	int			size_l;
 
+	t_game		*gg;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -245,7 +246,7 @@ void	game_exit_error(t_game *game, t_map *map, char *pstr, int flag);
 //misc
 void	after_map(t_game *game, t_map *map);
 void	create_int_array(t_game *game, t_map *map);
-void	parsing(int argc, char **argv);
+void	parsing(t_game *game, int argc, char **argv);
 //vova
 void			hooks(t_mlx *mlx);
 void			my_pixel_put(t_mlx *mlx, int x, int y, int color);
