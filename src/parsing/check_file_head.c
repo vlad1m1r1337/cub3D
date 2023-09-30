@@ -32,7 +32,7 @@ void	check_no(char *orient, char *line, t_map *map, int *i)
 		space_skip(&line);
 	}
 	if (yes == 1 && check_orient('N', orient) == 0)
-		map->north = ft_strdup(line);
+		map->north = ft_strtrim(ft_strdup(line), "\n");
 }
 
 void	check_so(char *orient, char *line, t_map *map, int *i)
