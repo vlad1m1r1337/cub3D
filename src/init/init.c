@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:39:35 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/30 14:52:17 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:08:43 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	error_handle(t_game *game)
 
 void	init_sprites(t_mlx *mlx)
 {
-	mlx->gg->data->north[ft_strlen[mlx->gg->data->north - 1]] = '\0';
+	//mlx->gg->data->north[ft_strlen[mlx->gg->data->north - 1]] = '\0';
 	mlx->image_n = mlx_xpm_file_to_image(mlx->mlx_ptr, mlx->gg->data->north, \
 		&mlx->img_sprites[0].width, &mlx->img_sprites[0].height);
 	mlx->image_s = mlx_xpm_file_to_image(mlx->mlx_ptr, mlx->gg->data->south, \
