@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors_and_free.c                                  :+:      :+:    :+:   */
+/*   free_exit_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:18:27 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/22 13:18:28 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:26:43 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ void	game_exit(t_game *game, t_map *map, char *pstr)
 		free_map_data(map, 2);
 	game->flc1 = 1;
 	ft_putstr_fd(pstr, 1);
-	system("leaks cub3D");
+	//system("leaks cub3D");
 	exit(0);
 }

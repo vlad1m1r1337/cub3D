@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_walls.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:21:37 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/15 14:21:39 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:15:55 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	check_walls(t_game *game, t_map *map, int x, int j)
 			{
 				game->pos_player_y = x + 0.5;
 				game->pos_player_x = j + 0.5;
-				game->facing = spawn_orient;
+				game->facing = map->spawn_orient;
 				map->grid[x][j] = '0';
 			}
 			if (map->grid[x][j] == '0')
