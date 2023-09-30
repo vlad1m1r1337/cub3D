@@ -66,7 +66,6 @@ void	var_init(t_mlx *mlx)
 void	error_handle(t_game *game)
 {
 	game_exit_error(game, game->data, "Error\n", 2);
-	//system("leaks cub3D");
 	exit(1);
 }
 

@@ -83,7 +83,7 @@ void	check_walls(t_game *game, t_map *map, int x, int j)
 			if (map->grid[x][j] == '0')
 			{
 				if (x == 0 || x == map_size(map->grid))
-					game_exit_error(game, map, "error: not enclosed in walls\n", 2);
+					game_exit_error(game, map, "error: not in walls\n", 2);
 				check_posit(game, map, map->grid[x - 1][j], map->spawn_orient);
 				check_posit(game, map, map->grid[x + 1][j], map->spawn_orient);
 				check_posit(game, map, map->grid[x][j - 1], map->spawn_orient);

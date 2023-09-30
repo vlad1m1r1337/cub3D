@@ -55,7 +55,7 @@ typedef struct s_map
 	int		e;
 	int		w;
 	char	*line;
-	char	**grid;// vova needs for map
+	char	**grid;
 	char	*north;
 	char	*south;
 	char	*west;
@@ -78,34 +78,16 @@ typedef struct s_img
 
 typedef struct s_game
 {
-	void	*mlx;
-	void	*mlx_win;
 	t_map	*data;
-	int		players;
-	int		max_size;
 	char	facing;
 	double	pos_player_x;
 	double	pos_player_y;
-	int		step_x;
-	int		step_y;
-	int		side;
-	int		map_x;
-	int		map_y;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	void	*sprite_north;
-	void	*sprite_south;
-	void	*sprite_west;
-	void	*sprite_east;
-	int		flc1;//vova need for ceil and floor colors
+	int		flc1;
 	int		flc2;
 	int		flc3;
 	int		clc1;
 	int		clc2;
 	int		clc3;
-	t_img	img;
-	t_img	img_sprites[4];
 }			t_game;
 
 typedef struct s_rayimg {
@@ -130,7 +112,6 @@ typedef struct s_mlx
 	int			x;
 	int			y;
 	int			size_l;
-
 	t_game		*gg;
 	double		pos_x;
 	double		pos_y;
@@ -152,7 +133,6 @@ typedef struct s_mlx
 	void		*image_s;
 	void		*image_w;
 	void		*image_e;
-
 	double		ray_dir_x;
 	double		ray_dir_y;
 	int			map_x;
@@ -229,29 +209,30 @@ void	after_map(t_game *game, t_map *map);
 void	create_int_array(t_game *game, t_map *map);
 void	parsing(t_game *game, int argc, char **argv);
 void	game_exit(t_game *game, t_map *map, char *pstr);
+void	check_map_count(t_game *game, t_map *map);
 //vova
-void			hooks(t_mlx *mlx);
-void			my_pixel_put(t_mlx *mlx, int x, int y, int color);
-void			window_creating(t_mlx *mlx);
-void			draw_yellow_square(t_mlx *mlx);
+void	hooks(t_mlx *mlx);
+void	my_pixel_put(t_mlx *mlx, int x, int y, int color);
+void	window_creating(t_mlx *mlx);
+void	draw_yellow_square(t_mlx *mlx);
 unsigned int	rgb_to_hex(int r, int g, int b);
-int				ex(void);
-void			moving(t_mlx *mlx);
-void			draw_wall_ceil(t_mlx *mlx);
-void			raycasting(t_mlx *mlx);
-int				render(t_mlx *mlx);
-float			ft_abs(float num);
-void			initial_game_parametres(t_mlx *mlx);
-void			spin_left(t_mlx *mlx);
-void			spin_right(t_mlx *mlx);
-void			draw_wall_ceil(t_mlx *mlx);
-void			moving_forward(t_mlx *mlx);
-void			moving_back(t_mlx *mlx);
-void			moving_right(t_mlx *mlx);
-void			moving_left(t_mlx *mlx);
-void			my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
-void			calculate_dist(t_mlx *mlx, int x);
-void			preparing_to_dda(t_mlx *mlx);
-void			dda(t_mlx *mlx);
-void			calc_draw_start_end(t_mlx *mlx);
+int		ex(void);
+void	moving(t_mlx *mlx);
+void	draw_wall_ceil(t_mlx *mlx);
+void	raycasting(t_mlx *mlx);
+int		render(t_mlx *mlx);
+float	ft_abs(float num);
+void	initial_game_parametres(t_mlx *mlx);
+void	spin_left(t_mlx *mlx);
+void	spin_right(t_mlx *mlx);
+void	draw_wall_ceil(t_mlx *mlx);
+void	moving_forward(t_mlx *mlx);
+void	moving_back(t_mlx *mlx);
+void	moving_right(t_mlx *mlx);
+void	moving_left(t_mlx *mlx);
+void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
+void	calculate_dist(t_mlx *mlx, int x);
+void	preparing_to_dda(t_mlx *mlx);
+void	dda(t_mlx *mlx);
+void	calc_draw_start_end(t_mlx *mlx);
 #endif

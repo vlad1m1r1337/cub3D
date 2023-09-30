@@ -12,12 +12,6 @@
 
 #include "../../includes/cub3d.h"	
 
-void	check_map_count(t_game *game, t_map *map)
-{
-	if (map->cnt == 0)
-		game_exit_error(game, map, "error: fatal\n", 1);
-}
-
 void	check_colors(t_game *game, t_map *map)
 {
 	char	**tmp_floor;
@@ -37,7 +31,8 @@ void	check_colors(t_game *game, t_map *map)
 		flag = 1;
 	}
 	if (flag == 1)
-		game_exit_error(game, map, "error: invalid number of RGB arguments\n", 1);
+		game_exit_error(game, map, \
+		"error: invalid number of RGB arguments\n", 1);
 	fill_colors(game, map, tmp_floor, tmp_ceiling);
 	if (flag == 0)
 		free_arr(tmp_floor, tmp_ceiling);
@@ -135,5 +130,7 @@ void	get_colors(char *str, t_map *map, t_game *game)
 		close(fd);
 		game_exit_error(game, map, "error: invalid descriptors\n", 1);
 	}
+	free(orient);
+	free(map->line);
 	parse_map(str, game, map, fd);
 }
