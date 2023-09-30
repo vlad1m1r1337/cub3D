@@ -77,6 +77,7 @@ void	check_walls(t_game *game, t_map *map, int x, int j)
 			{
 				game->pos_player_y = x + 0.5;
 				game->pos_player_x = j + 0.5;
+				game->facing = spawn_orient;
 				map->grid[x][j] = '0';
 			}
 			if (map->grid[x][j] == '0')
