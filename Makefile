@@ -84,7 +84,7 @@ $(OBJDIR)%.o: $(SRCDIR)%.c | $(OBJDIR)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(MLX) $(OBJS)
+$(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(LIBS) $(OBJS) -o $(NAME)
 	@echo "${GREEN}>>> RDY <<<${RESET}"
 
@@ -93,7 +93,7 @@ $(MLX):
 
 clean:
 	@rm -rf $(OBJDIR)
-	@make -sC $(MLX_DIR) clean
+	@$(MAKE) -sC $(MLX_DIR) clean
 
 fclean: clean
 	@rm -f $(NAME)
