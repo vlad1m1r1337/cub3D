@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:39:35 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/30 15:15:01 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:21:37 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	init_sprites(t_mlx *mlx)
 	mlx->img_sprites[3].addr = mlx_get_data_addr(mlx->image_e, \
 		&mlx->img_sprites[3].bits_per_pixel, \
 			&mlx->img_sprites[3].line_length, &mlx->img_sprites[3].endian);
-	bruno_textures(mlx);
+	//bruno_textures(mlx);
 }
 
 void	initial_game_parametres(t_mlx *mlx)

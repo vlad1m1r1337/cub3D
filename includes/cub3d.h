@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:18:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/29 18:38:44 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:20:55 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@
 
 # define MAP_WIDTH 24
 # define MAP_HEIGHT 24
+
+typedef struct s_rayimg {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}			t_rayimg;
 
 typedef struct s_map
 {
@@ -95,16 +105,6 @@ typedef struct s_game
 	int		clc2;
 	int		clc3;
 }			t_game;
-
-typedef struct s_rayimg {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-}			t_rayimg;
 
 typedef struct s_mlx
 {
