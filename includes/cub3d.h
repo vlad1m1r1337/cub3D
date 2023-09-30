@@ -65,8 +65,7 @@ typedef struct s_map
 	char	spawn_orient;
 }	t_map;
 
-typedef struct s_img
-{
+typedef struct s_rayimg {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -74,7 +73,7 @@ typedef struct s_img
 	int		endian;
 	int		width;
 	int		height;
-}			t_img;
+}			t_rayimg;
 
 typedef struct s_game
 {
@@ -95,16 +94,6 @@ typedef struct s_game
 	int		clc2;
 	int		clc3;
 }			t_game;
-
-typedef struct s_rayimg {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-}			t_rayimg;
 
 typedef struct s_mlx
 {
@@ -216,6 +205,7 @@ void	create_int_array(t_game *game, t_map *map);
 void	parsing(t_game *game, int argc, char **argv);
 void	game_exit(t_game *game, t_map *map, char *pstr);
 void	check_map_count(t_game *game, t_map *map);
+void	bruno_textures(t_mlx *mlx);
 //vova
 void	hooks(t_mlx *mlx);
 void	my_pixel_put(t_mlx *mlx, int x, int y, int color);
@@ -241,4 +231,5 @@ void	calculate_dist(t_mlx *mlx, int x);
 void	preparing_to_dda(t_mlx *mlx);
 void	dda(t_mlx *mlx);
 void	calc_draw_start_end(t_mlx *mlx);
+void	error_handle(t_game *game);
 #endif

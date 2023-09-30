@@ -70,7 +70,6 @@ void	init_sprites(t_mlx *mlx)
 	mlx->img_sprites[3].addr = mlx_get_data_addr(mlx->image_e, \
 		&mlx->img_sprites[3].bits_per_pixel, \
 			&mlx->img_sprites[3].line_length, &mlx->img_sprites[3].endian);
-	bruno_textures(mlx);
 }
 
 void	initial_game_parametres(t_mlx *mlx)
