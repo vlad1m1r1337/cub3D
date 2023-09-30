@@ -135,5 +135,7 @@ void	get_colors(char *str, t_map *map, t_game *game)
 		close(fd);
 		game_exit_error(game, map, "error: invalid descriptors\n", 1);
 	}
+	free(orient);
+	free(map->line);
 	parse_map(str, game, map, fd);
 }
