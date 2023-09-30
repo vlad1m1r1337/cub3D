@@ -30,6 +30,12 @@ static int	name_check(char *str)
 	return (0);
 }
 
+void	check_map_count(t_game *game, t_map *map)
+{
+	if (map->cnt == 0)
+		game_exit_error(game, map, "error: fatal\n", 1);
+}
+
 int	facing_check(t_map *map)
 {
 	if (map->n == 0 && map->s == 0 && map->e == 0 && map->w == 0)
