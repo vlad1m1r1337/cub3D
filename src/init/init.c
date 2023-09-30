@@ -39,10 +39,10 @@ void	var_init(t_mlx *mlx)
 	mlx->rot_speed = 0.05;
 }
 
-void	error_handle(void)
+void	error_handle(t_game *game)
 {
-	printf("Error\n");
-	exit(0);
+	game_exit_error(game, game->data, "Error\n", 2);
+	exit(1);
 }
 
 void	init_sprites(t_mlx *mlx)
@@ -57,7 +57,7 @@ void	init_sprites(t_mlx *mlx)
 		&mlx->img_sprites[3].width, &mlx->img_sprites[3].height);
 	if (mlx->image_n == NULL || mlx->image_s == NULL \
 		|| mlx->image_w == NULL || mlx->image_e == NULL)
-		error_handle();
+		error_handle(mlx->gg);
 	mlx->img_sprites[0].addr = mlx_get_data_addr(mlx->image_n, \
 		&mlx->img_sprites[0].bits_per_pixel, \
 			&mlx->img_sprites[0].line_length, &mlx->img_sprites[0].endian);

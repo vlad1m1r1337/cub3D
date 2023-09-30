@@ -247,6 +247,7 @@ void	game_exit_error(t_game *game, t_map *map, char *pstr, int flag);
 void	after_map(t_game *game, t_map *map);
 void	create_int_array(t_game *game, t_map *map);
 void	parsing(t_game *game, int argc, char **argv);
+void	game_exit(t_game *game, t_map *map, char *pstr);
 //vova
 void			hooks(t_mlx *mlx);
 void			my_pixel_put(t_mlx *mlx, int x, int y, int color);

@@ -3,7 +3,7 @@
 int	press_handle(int keycode, t_mlx *mlx)
 {
 	if (keycode == ESC)
-		exit(0);
+		game_exit(mlx->gg, mlx->gg->data, "Thanks for Playing\n");
 	if (keycode == W_KEY)
 		mlx -> w = 1;
 	if (keycode == S_KEY)
@@ -11,7 +11,7 @@ int	press_handle(int keycode, t_mlx *mlx)
 	if (keycode == D_KEY)
 		mlx -> d = 1;
 	if (keycode == A_KEY)
-		mlx -> a = 1;	
+		mlx -> a = 1;
 	if (keycode == 123)
 		mlx->arrow_left = 1;
 	if (keycode == 124)
