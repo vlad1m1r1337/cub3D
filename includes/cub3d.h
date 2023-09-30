@@ -82,6 +82,12 @@ typedef struct s_game
 	char	facing;
 	double	pos_player_x;
 	double	pos_player_y;
+	t_rayimg	img_sprites[4];
+	t_rayimg	img;
+	void	*anim1;
+	void	*anim2;
+	void	*anim3;
+	void	*anim4;
 	int		flc1;
 	int		flc2;
 	int		flc3;

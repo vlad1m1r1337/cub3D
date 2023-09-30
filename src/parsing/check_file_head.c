@@ -49,7 +49,7 @@ void	check_so(char *orient, char *line, t_map *map, int *i)
 		space_skip(&line);
 	}
 	if (yes == 1 && check_orient('S', orient) == 0)
-		map->south = ft_strdup(line);
+		map->south = ft_strtrim(ft_strdup(line), "\n");
 }
 
 void	check_ea(char *orient, char *line, t_map *map, int *i)
@@ -66,7 +66,7 @@ void	check_ea(char *orient, char *line, t_map *map, int *i)
 		space_skip(&line);
 	}
 	if (yes == 1 && check_orient('E', orient) == 0)
-		map->east = ft_strdup(line);
+		map->east = ft_strtrim(ft_strdup(line), "\n");
 }
 
 void	check_we(char *orient, char *line, t_map *map, int *i)
@@ -83,5 +83,5 @@ void	check_we(char *orient, char *line, t_map *map, int *i)
 		space_skip(&line);
 	}
 	if (yes == 1 && check_orient('W', orient) == 0)
-		map->west = ft_strdup(line);
+		map->west = ft_strtrim(ft_strdup(line), "\n");
 }
