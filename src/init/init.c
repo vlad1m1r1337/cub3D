@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:39:35 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/30 14:40:22 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:52:17 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,14 @@ void	error_handle(t_game *game)
 
 void	init_sprites(t_mlx *mlx)
 {
-	mlx->image_n = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/colorstone.xpm", \
+	mlx->gg->data->north[ft_strlen[mlx->gg->data->north - 1]] = '\0';
+	mlx->image_n = mlx_xpm_file_to_image(mlx->mlx_ptr, mlx->gg->data->north, \
 		&mlx->img_sprites[0].width, &mlx->img_sprites[0].height);
-	mlx->image_s = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/bluestone.xpm", \
+	mlx->image_s = mlx_xpm_file_to_image(mlx->mlx_ptr, mlx->gg->data->south, \
 		&mlx->img_sprites[1].width, &mlx->img_sprites[1].height);
-	mlx->image_w = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/greenlight.xpm", \
+	mlx->image_w = mlx_xpm_file_to_image(mlx->mlx_ptr, mlx->gg->data->west, \
 		&mlx->img_sprites[2].width, &mlx->img_sprites[2].height);
-	mlx->image_e = mlx_xpm_file_to_image(mlx->mlx_ptr, "pics/greystone.xpm", \
+	mlx->image_e = mlx_xpm_file_to_image(mlx->mlx_ptr, mlx->gg->data->east, \
 		&mlx->img_sprites[3].width, &mlx->img_sprites[3].height);
 	if (mlx->image_n == NULL || mlx->image_s == NULL \
 		|| mlx->image_w == NULL || mlx->image_e == NULL)
