@@ -25,7 +25,7 @@
 # define W  800
 # define TEXT_WIDTH 64
 # define TEXT_HEIGHT 64
-
+# define DELAY 800000000
 # define ESC 53
 # define W_KEY 13
 # define A_KEY 0
@@ -35,14 +35,6 @@
 # define RIGHT_KEY 124
 # define UP_KEY 126
 # define DOWN_KEY 125
-
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <math.h>
-# include "../mlx/mlx.h"
-# include <limits.h>
-
 # define MAP_WIDTH 24
 # define MAP_HEIGHT 24
 
@@ -75,35 +67,24 @@ typedef struct s_map
 	char	spawn_orient;
 }	t_map;
 
-typedef struct s_img
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-}			t_img;
-
 typedef struct s_game
 {
-	t_map	*data;
-	char	facing;
-	double	pos_player_x;
-	double	pos_player_y;
+	t_map		*data;
+	char		facing;
+	double		pos_player_x;
+	double		pos_player_y;
 	t_rayimg	img_sprites[4];
 	t_rayimg	img;
-	void	*anim1;
-	void	*anim2;
-	void	*anim3;
-	void	*anim4;
-	int		flc1;
-	int		flc2;
-	int		flc3;
-	int		clc1;
-	int		clc2;
-	int		clc3;
+	void		*anim1;
+	void		*anim2;
+	void		*anim3;
+	void		*anim4;
+	int			flc1;
+	int			flc2;
+	int			flc3;
+	int			clc1;
+	int			clc2;
+	int			clc3;
 }			t_game;
 
 typedef struct s_mlx
@@ -217,6 +198,8 @@ void	create_int_array(t_game *game, t_map *map);
 void	parsing(t_game *game, int argc, char **argv);
 void	game_exit(t_game *game, t_map *map, char *pstr);
 void	check_map_count(t_game *game, t_map *map);
+void	bruno_textures(t_mlx *mlx);
+void	init_frame_pos(int *frame_pos);
 //vova
 void	hooks(t_mlx *mlx);
 void	my_pixel_put(t_mlx *mlx, int x, int y, int color);
@@ -242,4 +225,5 @@ void	calculate_dist(t_mlx *mlx, int x);
 void	preparing_to_dda(t_mlx *mlx);
 void	dda(t_mlx *mlx);
 void	calc_draw_start_end(t_mlx *mlx);
+void	error_handle(t_game *game);
 #endif

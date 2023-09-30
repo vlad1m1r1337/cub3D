@@ -15,7 +15,7 @@ SRCSB = $(wildcard $(SRCBDIR)*/*.c) $(wildcard $(SRCBDIR)*.c)
 OBJSB = $(patsubst $(SRCBDIR)%.c, $(OBJBDIR)%.o, $(SRCSB))
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g ##-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address -g
 LIBS =  -lmlx -framework OpenGL -framework AppKit
 FLAGS_FOR_MLX = -lmlx -framework OpenGL -framework AppKit -L$(MLX_DIR)
 
