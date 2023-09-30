@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:27:07 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 14:27:08 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/30 16:20:42 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	hooks(t_mlx *mlx)
 {
 	mlx_hook(mlx -> win_ptr, 17, 1L << 2, ex, mlx);
 	mlx_hook(mlx -> win_ptr, 2, 1L << 3, press_handle, mlx);
-	mlx_hook(mlx -> win_ptr, 6, 1L << 6, mouse_move, mlx);
 	mlx_hook(mlx -> win_ptr, 3, 1L << 3, release_handle, mlx);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:18:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 15:20:55 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 16:26:41 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ typedef struct s_mlx
 	int			tex_x;
 	double		tex_pos;
 	double		step;
+	FILE		*pipe;
 }			t_mlx;
 
 //src/minilib/ft_split.c
