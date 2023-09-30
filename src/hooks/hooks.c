@@ -72,7 +72,6 @@ int	render(t_mlx *mlx)
 	static int	current_frame = 0;
 	static int	count = 0;
 	int			frame_pos[4];
-	int			i;
 
 	init_frame_pos(frame_pos);
 	mlx_clear_window(mlx -> mlx_ptr, mlx -> win_ptr);
@@ -85,7 +84,6 @@ int	render(t_mlx *mlx)
 	moving(mlx);
 	mlx_put_image_to_window(mlx -> mlx_ptr, mlx -> win_ptr, \
 		mlx -> img.img, 0, 0);
-	i = 0;
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, \
 	mlx->gg->img_sprites[current_frame].img, frame_pos[current_frame], 650);
 	if (count > 8)

@@ -68,12 +68,14 @@ void	hooks(t_mlx *mlx)
 	mlx_hook(mlx -> win_ptr, 3, 1L << 3, release_handle, mlx);
 }
 
-void	musik()
+void	musik(void)
 {
-	static int i = 0;
+	static int	i = 0;
+	int			f;
+
 	if (i == 0)
 	{
-		int f = fork();
+		f = fork();
 		if (!f)
 			system("afplay ./srcb/music/skayrim-muzyka-iz-igry.mp3");
 		i++;
@@ -82,6 +84,11 @@ void	musik()
 
 int	render(t_mlx *mlx)
 {
+	static int	current_frame = 0;
+	static int	count = 0;
+	int			frame_pos[4];
+
+	init_frame_pos(frame_pos);
 	mlx_clear_window(mlx -> mlx_ptr, mlx -> win_ptr);
 	mlx->img.img = mlx_new_image(mlx->mlx_ptr, W, H);
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, \
@@ -92,6 +99,14 @@ int	render(t_mlx *mlx)
 	moving(mlx);
 	mlx_put_image_to_window(mlx -> mlx_ptr, mlx -> win_ptr, \
 		mlx -> img.img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, \
+	mlx->gg->img_sprites[current_frame].img, frame_pos[current_frame], 650);
+	if (count > 8)
+	{
+		count = 0;
+		current_frame = (current_frame + 1) % 4;
+	}
+	count++;
 	musik();
 	return (0);
 }
