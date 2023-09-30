@@ -226,4 +226,6 @@ void	preparing_to_dda(t_mlx *mlx);
 void	dda(t_mlx *mlx);
 void	calc_draw_start_end(t_mlx *mlx);
 void	error_handle(t_game *game);
+void	ns(t_mlx *mlx);
+void	ew(t_mlx *mlx);
 #endif

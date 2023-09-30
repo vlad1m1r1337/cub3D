@@ -53,7 +53,6 @@ void	game_exit(t_game *game, t_map *map, char *pstr)
 		free_map_data(map, 2);
 	game->flc1 = 1;
 	ft_putstr_fd(pstr, 1);
-	//system("leaks cub3D");
 	system("killall afplay");
 	exit(0);
 }
