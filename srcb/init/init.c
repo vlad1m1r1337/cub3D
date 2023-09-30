@@ -23,34 +23,8 @@ void	window_creating(t_mlx *mlx)
 
 void	var_init(t_mlx *mlx)
 {
-	if (mlx->gg->data->spawn_orient == 'N')
-	{
-		mlx->dir_x = -1;
-		mlx->dir_y = 0;
-		mlx->plane_x = 0;
-		mlx->plane_y = 0.66;
-	}
-	else if (mlx->gg->data->spawn_orient == 'S')
-	{
-		mlx->dir_x = 1;
-		mlx->dir_y = 0;
-		mlx->plane_x = 0;
-		mlx->plane_y = -0.66;
-	}
-	else if (mlx->gg->data->spawn_orient == 'E')
-	{
-		mlx->dir_x = 0;
-		mlx->dir_y = 1;
-		mlx->plane_x = 0.66;
-		mlx->plane_y = 0;
-	}
-	else if (mlx->gg->data->spawn_orient == 'W')
-	{
-		mlx->dir_x = 0;
-		mlx->dir_y = -1;
-		mlx->plane_x = -0.66;
-		mlx->plane_y = 0;
-	}
+	ns(mlx);
+	ew(mlx);
 	mlx->pos_x = mlx->gg->pos_player_y;
 	mlx->pos_y = mlx->gg->pos_player_x;
 	mlx->w = 0;

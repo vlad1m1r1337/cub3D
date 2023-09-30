@@ -68,20 +68,6 @@ void	hooks(t_mlx *mlx)
 	mlx_hook(mlx -> win_ptr, 3, 1L << 3, release_handle, mlx);
 }
 
-void	musik(void)
-{
-	static int	i = 0;
-	int			f;
-
-	if (i == 0)
-	{
-		f = fork();
-		if (!f)
-			system("afplay ./srcb/music/skayrim-muzyka-iz-igry.mp3");
-		i++;
-	}
-}
-
 int	render(t_mlx *mlx)
 {
 	static int	current_frame = 0;
