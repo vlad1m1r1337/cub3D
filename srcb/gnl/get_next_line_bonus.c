@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 08:29:38 by jfrances          #+#    #+#             */
-/*   Updated: 2023/04/02 14:47:53 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:19:48 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdio.h>
 
 static void	check_free(char **ptr)

@@ -6,11 +6,11 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:27:07 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 16:32:02 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:13:27 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 int	press_handle(int keycode, t_mlx *mlx)
 {

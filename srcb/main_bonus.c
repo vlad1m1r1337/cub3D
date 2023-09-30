@@ -6,11 +6,11 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:20:39 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 15:32:31 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:55 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 int	main(int argc, char **argv)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:22:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/04/10 14:22:59 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:41 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	set_count(t_map *map)
 {

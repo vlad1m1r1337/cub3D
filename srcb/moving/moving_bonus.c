@@ -6,11 +6,11 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:50:35 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/29 17:55:12 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:15:21 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	spin_left(t_mlx *mlx)
 {

@@ -6,11 +6,11 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:18:27 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 16:32:11 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:36 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 static void	free_map_data(t_map *map, int flag)
 {

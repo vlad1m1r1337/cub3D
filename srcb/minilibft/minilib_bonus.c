@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minilib.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:22:06 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/15 14:22:07 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:19 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {

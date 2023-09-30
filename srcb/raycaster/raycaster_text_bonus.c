@@ -6,11 +6,11 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:34:19 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/29 18:41:51 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:48 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	calc_textures(t_mlx *mlx)
 {

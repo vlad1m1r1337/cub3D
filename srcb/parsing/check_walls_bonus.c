@@ -6,11 +6,11 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:21:37 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 14:15:55 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:30 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	fill_colors(t_game *game, t_map *map, char **floor, char **ceiling)
 {

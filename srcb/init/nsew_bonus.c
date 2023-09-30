@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   nsew.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:35:30 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 17:35:32 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:12 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	ns(t_mlx *mlx)
 {

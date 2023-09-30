@@ -6,7 +6,7 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 19:35:26 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/29 18:34:32 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:07:54 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,14 @@ void	calculate_dist(t_mlx *mlx, int x)
 	mlx->ray_dir_y = mlx->dir_y + mlx->plane_y * camera_x;
 	mlx->map_x = (int)(mlx->pos_x);
 	mlx->map_y = (int)(mlx->pos_y);
-	
-	mlx->delta_dist_x = (mlx->ray_dir_x == 0) ? 1e30 : fabs(1 / mlx->ray_dir_x);
-	mlx->delta_dist_y = (mlx->ray_dir_y == 0) ? 1e30 : fabs(1 / mlx->ray_dir_y);
+	if (mlx->ray_dir_x == 0)
+		mlx->delta_dist_x = 1e30;
+	else
+		mlx->delta_dist_x = fabs(1 / mlx->ray_dir_x);
+	if (mlx->ray_dir_y == 0)
+		mlx->delta_dist_y = 1e30;
+	else
+		mlx->delta_dist_y = fabs(1 / mlx->ray_dir_y);
 }
 
 void	preparing_to_dda(t_mlx *mlx)

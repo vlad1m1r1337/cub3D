@@ -6,11 +6,11 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:16:33 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/30 16:13:42 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:58 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 {

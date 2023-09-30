@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 19:54:36 by jfrances          #+#    #+#             */
-/*   Updated: 2023/04/05 20:04:36 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:39 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"	
+#include "../../includes/cub3d_bonus.h"	
 
 void	check_colors(t_game *game, t_map *map)
 {

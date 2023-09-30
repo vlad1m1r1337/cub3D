@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   f_c_and_orient_check.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:10:28 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/02 15:10:30 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:32 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 int	check_orient(char c, char *orient)
 {

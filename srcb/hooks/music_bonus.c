@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   music.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:56:45 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 17:56:46 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:13:52 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	musik(void)
 {

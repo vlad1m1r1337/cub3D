@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minilib2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 15:36:23 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 14:27:38 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:21 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 size_t	ft_strlcpy2(char *dst, const char *src, size_t dstsize)
 {

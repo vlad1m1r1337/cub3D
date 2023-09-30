@@ -6,11 +6,11 @@
 /*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:39:35 by vgribkov          #+#    #+#             */
-/*   Updated: 2023/09/30 15:21:37 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:04 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	window_creating(t_mlx *mlx)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:22:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/15 14:22:20 by jfrances         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:14:43 by vgribkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../../includes/cub3d_bonus.h"
 
 void	after_map(t_game *game, t_map *map)
 {
