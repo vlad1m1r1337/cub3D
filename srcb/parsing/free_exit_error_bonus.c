@@ -1,4 +1,16 @@
-#include "../../includes/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_exit_error_bonus.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/02 16:14:39 by jfrances          #+#    #+#             */
+/*   Updated: 2023/10/02 16:14:54 by jfrances         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/cub3d_bonus.h"
 
 static void	free_map_data(t_map *map, int flag)
 {
@@ -22,7 +34,6 @@ static void	free_map_data(t_map *map, int flag)
 		while (map->grid[++i])
 			free(map->grid[i]);
 	}
-
 	free(map->grid);
 	free(map);
 }

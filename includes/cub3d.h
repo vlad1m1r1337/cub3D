@@ -217,6 +217,7 @@ int				fc_garbage(char *floor, char *ceil);
 void			garbage_check(t_game *game, t_map *map, int fd, char *str);
 void			map_init(t_map *map);
 void			free_arr2(char **arr1, char **arr2);
+int				norm_cnt(t_helper *h, int flg);
 //vova
 void			hooks(t_mlx *mlx);
 void			my_pixel_put(t_mlx *mlx, int x, int y, int color);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   garbage_check.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/02 16:13:05 by jfrances          #+#    #+#             */
+/*   Updated: 2023/10/02 16:13:07 by jfrances         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 static int	basura(char *s, int i)
@@ -15,38 +27,20 @@ static int	nosoeawe(t_helper *h, char *s, int i)
 {
 	if (s[i] == 'N' && s[i + 1] && s[i + 2] \
 	&& s[i + 1] == 'O' && s[i + 2] == ' ')
-	{
-		h->n_cnt++;
-		return (0);
-	}
+		return (norm_cnt(h, 1));
 	else if (s[i] == 'S' && s[i + 1] && s[i + 2] \
 	&& s[i + 1] == 'O' && s[i + 2] == ' ')
-	{
-		h->s_cnt++;
-		return (0);
-	}
+		return (norm_cnt(h, 2));
 	else if (s[i] == 'E' && s[i + 1] && s[i + 2] \
 	&& s[i + 1] == 'A' && s[i + 2] == ' ')
-	{
-		h->e_cnt++;
-		return (0);
-	}
+		return (norm_cnt(h, 3));
 	else if (s[i] == 'W' && s[i + 1] && s[i + 2] \
 	&& s[i + 1] == 'E' && s[i + 2] == ' ')
-	{
-		h->w_cnt++;
-		return (0);
-	}
+		return (norm_cnt(h, 4));
 	else if (s[i] == 'F' && s[i + 1] && s[i + 1] == ' ')
-	{
-		h->f_cnt++;
-		return (0);
-	}
+		return (norm_cnt(h, 5));
 	else if (s[i] == 'C' && s[i + 1] && s[i + 1] == ' ')
-	{
-		h->c_cnt++;
-		return (0);
-	}
+		return (norm_cnt(h, 6));
 	return (1);
 }
 

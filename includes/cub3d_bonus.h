@@ -1,5 +1,17 @@
-#ifndef CUB3D_H
-# define CUB3D_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/02 16:18:54 by jfrances          #+#    #+#             */
+/*   Updated: 2023/10/02 16:18:56 by jfrances         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <mlx.h>
 # include <stdlib.h>
@@ -205,6 +217,7 @@ int				fc_garbage(char *floor, char *ceil);
 void			garbage_check(t_game *game, t_map *map, int fd, char *str);
 void			map_init(t_map *map);
 void			free_arr2(char **arr1, char **arr2);
+int				norm_cnt(t_helper *h, int flg);
 //vova
 void			hooks(t_mlx *mlx);
 void			my_pixel_put(t_mlx *mlx, int x, int y, int color);

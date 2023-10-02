@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_exit_error.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/02 16:12:36 by jfrances          #+#    #+#             */
+/*   Updated: 2023/10/02 16:12:49 by jfrances         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 static void	free_map_data(t_map *map, int flag)
@@ -22,7 +34,6 @@ static void	free_map_data(t_map *map, int flag)
 		while (map->grid[++i])
 			free(map->grid[i]);
 	}
-
 	free(map->grid);
 	free(map);
 }
