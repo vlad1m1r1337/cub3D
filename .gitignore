@@ -5,6 +5,9 @@ cmake-build-debug
 #Mac
 .DS_Store
 
+#VSCode
+.vscode
+
 
 #Exec
 cube3D
