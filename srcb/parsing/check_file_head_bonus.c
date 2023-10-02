@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_file_head.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 14:56:28 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 18:14:28 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/02 14:56:30 by jfrances         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d_bonus.h"
+#include "../../includes/cub3d.h"
 
 void	space_skip(char **str)
 {

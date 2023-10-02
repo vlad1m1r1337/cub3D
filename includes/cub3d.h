@@ -14,7 +14,6 @@
 # define CUB3D_H
 
 # include <mlx.h>
-//# include "../mlx/mlx.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -36,6 +35,17 @@
 # define RIGHT_KEY 124
 # define UP_KEY 126
 # define DOWN_KEY 125
+
+typedef struct s_helper {
+	int		i;
+	int		n_cnt;
+	int		s_cnt;
+	int		e_cnt;
+	int		w_cnt;
+	int		f_cnt;
+	int		c_cnt;
+	char	*line;
+}			t_helper;
 
 typedef struct s_rayimg {
 	void	*img;
@@ -84,6 +94,7 @@ typedef struct s_game
 	int			clc1;
 	int			clc2;
 	int			clc3;
+	int			fd;
 }			t_game;
 
 typedef struct s_mlx
@@ -162,7 +173,7 @@ void			check_we(char *orient, char *line, t_map *map, int *i);
 //parsing/check_walls.c
 void			fill_colors(t_game *game, t_map *map, \
 char **floor, char **ceiling);
-void			free_arr(char **arr1, char **arr2);
+void			free_arr(char **arr1);
 void			check_posit(t_game *game, t_map *map, char pos, char player);
 void			check_walls(t_game *game, t_map *map, int x, int j);
 int				map_size(char **map);
@@ -174,12 +185,12 @@ int				check(const char *(haystack), const char *(needle), size_t len);
 int				check_orient(char c, char *orient);
 //parsing/map_parse.c
 void			get_colors(char *str, t_map *map, t_game *game);
-void			parse_map(char *str, t_game *game, t_map *map, int fd);
+void			parse_map(char *str, t_game *game, t_map *map);
 void			parsing_magic(char *str, t_game *game, t_map *map);
 void			check_data(char *orient, t_map *map, char *line);
 void			check_colors(t_game *game, t_map *map);
 //parsing/parse_map_utils.c
-void			store_grid(t_game *game, t_map *map, int fd);
+void			store_grid(t_game *game, t_map *map);
 void			alloc_grid(t_map *map, t_game *game);
 void			trim_grid(t_map *map);
 void			set_count(t_map *map);
@@ -202,6 +213,10 @@ void			game_exit(t_game *game, t_map *map, char *pstr);
 void			check_map_count(t_game *game, t_map *map);
 void			bruno_textures(t_mlx *mlx);
 void			init_frame_pos(int *frame_pos);
+int				fc_garbage(char *floor, char *ceil);
+void			garbage_check(t_game *game, t_map *map, int fd, char *str);
+void			map_init(t_map *map);
+void			free_arr2(char **arr1, char **arr2);
 //vova
 void			hooks(t_mlx *mlx);
 void			my_pixel_put(t_mlx *mlx, int x, int y, int color);

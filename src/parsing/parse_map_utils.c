@@ -53,14 +53,14 @@ void	alloc_grid(t_map *map, t_game *game)
 	map->grid[map->size] = NULL;
 }
 
-void	store_grid(t_game *game, t_map *map, int fd)
+void	store_grid(t_game *game, t_map *map)
 {
 	int	i;
 
 	i = 1;
 	while (i < map->size)
 	{
-		map->grid[i] = get_next_line(fd);
+		map->grid[i] = get_next_line(game->fd);
 		i++;
 	}
 	after_map(game, map);

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   free_exit_error.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/22 13:18:27 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 15:10:32 by vgribkov         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../includes/cub3d.h"
 
 static void	free_map_data(t_map *map, int flag)
@@ -34,15 +22,23 @@ static void	free_map_data(t_map *map, int flag)
 		while (map->grid[++i])
 			free(map->grid[i]);
 	}
+
 	free(map->grid);
 	free(map);
+}
+
+void	free_arr2(char **arr1, char **arr2)
+{
+	free_arr(arr1);
+	free_arr(arr2);
 }
 
 void	game_exit_error(t_game *game, t_map *map, char *pstr, int flag)
 {
 	if (map)
 		free_map_data(map, flag);
-	game->flc1 = 1;
+	if (game->fd != 0)
+		close(game->fd);
 	ft_putstr_fd(pstr, 2);
 	exit(1);
 }
@@ -51,7 +47,8 @@ void	game_exit(t_game *game, t_map *map, char *pstr)
 {
 	if (map)
 		free_map_data(map, 2);
-	game->flc1 = 1;
+	if (game->fd != 0)
+		close(game->fd);
 	ft_putstr_fd(pstr, 1);
 	exit(0);
 }

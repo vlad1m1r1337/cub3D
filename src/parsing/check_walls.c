@@ -25,12 +25,13 @@ void	fill_colors(t_game *game, t_map *map, char **floor, char **ceiling)
 	game->flc1 > 255 || game->flc2 > 255 || game->flc3 > 255 \
 	|| game->clc1 > 255 || game->clc2 > 255 || game->clc3 > 255)
 	{
-		free_arr(floor, ceiling);
-		game_exit_error(game, map, "error: RGB values incorrect\n", 1);
+		free_arr(floor);
+		free_arr(ceiling);
+		game_exit_error(game, map, "error: RGB values incorrect\n", 2);
 	}
 }
 
-void	free_arr(char **arr1, char **arr2)
+void	free_arr(char **arr1)
 {
 	int	i;
 
@@ -41,13 +42,6 @@ void	free_arr(char **arr1, char **arr2)
 		i++;
 	}
 	free(arr1);
-	i = 0;
-	while (arr2[i])
-	{
-		free(arr2[i]);
-		i++;
-	}
-	free(arr2);
 }
 
 void	check_posit(t_game *game, t_map *map, char pos, char player)

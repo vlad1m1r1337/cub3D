@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:22:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 18:14:41 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:22:59 by jfrances         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d_bonus.h"
+#include "../../includes/cub3d.h"
 
 void	set_count(t_map *map)
 {
@@ -53,14 +53,14 @@ void	alloc_grid(t_map *map, t_game *game)
 	map->grid[map->size] = NULL;
 }
 
-void	store_grid(t_game *game, t_map *map, int fd)
+void	store_grid(t_game *game, t_map *map)
 {
 	int	i;
 
 	i = 1;
 	while (i < map->size)
 	{
-		map->grid[i] = get_next_line(fd);
+		map->grid[i] = get_next_line(game->fd);
 		i++;
 	}
 	after_map(game, map);

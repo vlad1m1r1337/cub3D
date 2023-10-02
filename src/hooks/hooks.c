@@ -48,6 +48,18 @@ int	release_handle(int keycode, t_mlx *mlx)
 	return (0);
 }
 
+int	mouse_move(int x, int y, t_mlx *mlx)
+{
+	(void)y;
+	mlx_mouse_hide();
+	if (x < W / 2)
+		spin_left(mlx);
+	if (x > W / 2)
+		spin_right(mlx);
+	mlx_mouse_move(mlx->win_ptr, W / 2, H / 2);
+	return (0);
+}
+
 void	hooks(t_mlx *mlx)
 {
 	mlx_hook(mlx -> win_ptr, 17, 1L << 2, ex, mlx);

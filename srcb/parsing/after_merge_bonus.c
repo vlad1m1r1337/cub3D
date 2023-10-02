@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   after_merge.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgribkov <vgribkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfrances <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 12:26:18 by jfrances          #+#    #+#             */
-/*   Updated: 2023/09/30 18:14:26 by vgribkov         ###   ########.fr       */
+/*   Updated: 2023/09/20 12:26:21 by jfrances         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d_bonus.h"
+#include "../../includes/cub3d.h"
 
 static int	name_check(char *str)
 {
@@ -90,6 +90,7 @@ void	parsing(t_game *game, int argc, char **argv)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		game_exit_error(game, NULL, "error: map struct malloc error\n", 1);
+	map_init(map);
 	get_colors(argv[1], map, game);
 	game->data = map;
 }

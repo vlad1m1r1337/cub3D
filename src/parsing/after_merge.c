@@ -90,6 +90,7 @@ void	parsing(t_game *game, int argc, char **argv)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		game_exit_error(game, NULL, "error: map struct malloc error\n", 1);
+	map_init(map);
 	get_colors(argv[1], map, game);
 	game->data = map;
 }
