@@ -35,7 +35,7 @@ void	check_colors(t_game *game, t_map *map)
 	}
 	if (flag == 1)
 		game_exit_error(game, map, \
-		"error: invalid number of RGB arguments\n", 1);
+		"error: invalid number of RGB arguments\n", 2);
 	fill_colors(game, map, tmp_floor, tmp_ceiling);
 	if (flag == 0)
 		free_arr2(tmp_floor, tmp_ceiling);
