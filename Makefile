@@ -5,8 +5,11 @@ SRCBDIR = srcb/
 OBJDIR = obj/
 OBJBDIR = objb/
 
+SRCBDIR = srcb/
+OBJBDIR = objb/
+
 MLX_DIR = ./mlx
-MLX		=	$(MLX_DIR)libmlx.a
+MLX		=	$(MLX_DIR)/libmlx.a
 
 SRCS = $(wildcard $(SRCDIR)*/*.c) $(wildcard $(SRCDIR)*.c)
 OBJS = $(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
@@ -32,7 +35,11 @@ $(OBJDIR)%.o: $(SRCDIR)%.c | $(OBJDIR)
 	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 $(NAME): $(OBJS) $(MLX)
+<<<<<<< HEAD
 	@$(CC) $(CFLAGS) $(LIBS) $(FLAGS_FOR_MLX) $(OBJS) -o $(NAME)
+=======
+	@$(CC) $(CFLAGS) $(LIBS) $(OBJS) -o $(NAME)
+>>>>>>> master
 	@echo "${GREEN}>>> RDY <<<${RESET}"
 
 $(MLX):
@@ -54,6 +61,7 @@ re: fclean all
 
 rb: fclean bonus
 
+<<<<<<< HEAD
 .PHONY: all clean fclean re
 
 #################################################################################################################
@@ -102,3 +110,6 @@ rb: fclean bonus
 # re: fclean all
 
 # .PHONY: all clean fclean re
+=======
+.PHONY: all clean fclean re bonus
+>>>>>>> master
