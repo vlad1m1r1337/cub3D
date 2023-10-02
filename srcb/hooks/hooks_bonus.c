@@ -15,10 +15,10 @@
 int	press_handle(int keycode, t_mlx *mlx)
 {
 	if (keycode == ESC)
-    {
-        system("killall afplay");
-        game_exit(mlx->gg, mlx->gg->data, "Thanks for Playing\n");
-    }
+	{
+		system("killall afplay");
+		game_exit(mlx->gg, mlx->gg->data, "Thanks for Playing\n");
+	}
 	if (keycode == W_KEY)
 		mlx -> w = 1;
 	if (keycode == S_KEY)
