@@ -14,18 +14,20 @@
 
 static int	name_check(char *str)
 {
-	int	i;
-	int	j;
+	size_t		len;
+	size_t		extlen;
+	const char	*ext;
+	const char	*str_end;
 
-	i = 0;
-	j = -1;
-	while (str[i])
-		i++;
-	while (str[i] != '.')
-		i--;
-	while (++j < i)
-		str++;
-	if (!str || ft_strncmp(str, ".cub", 4) != 0)
+	len = ft_strlen(str);
+	ext = ".cub";
+	extlen = ft_strlen(ext);
+	if (len < extlen)
+		return (-1);
+	str_end = str + len - extlen;
+	if (ft_strncmp(str_end, ext, extlen) == 0)
+		return (0);
+	else
 		return (-1);
 	return (0);
 }
@@ -86,7 +88,7 @@ void	parsing(t_game *game, int argc, char **argv)
 	i = -1;
 	j = i;
 	if (argc != 2 || (name_check(argv[1]) == -1))
-		game_exit_error(NULL, NULL, "error: invalid input\n", 1);
+		game_exit_error(game, NULL, "error: invalid input\n", 1);
 	map = malloc(sizeof(t_map));
 	if (!map)
 		game_exit_error(game, NULL, "error: map struct malloc error\n", 1);
