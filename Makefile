@@ -15,7 +15,7 @@ SRCSB = $(wildcard $(SRCBDIR)*/*.c) $(wildcard $(SRCBDIR)*.c)
 OBJSB = $(patsubst $(SRCBDIR)%.c, $(OBJBDIR)%.o, $(SRCSB))
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 LIBS =  -lmlx -framework OpenGL -framework AppKit -L$(MLX_DIR)
 
 GREEN = \033[0;32m

@@ -78,7 +78,6 @@ int	render(t_mlx *mlx)
 	int			frame_pos[4];
 
 	init_frame_pos(frame_pos);
-	mlx_clear_window(mlx -> mlx_ptr, mlx -> win_ptr);
 	mlx->img.img = mlx_new_image(mlx->mlx_ptr, W, H);
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, \
 			&mlx->img.bits_per_pixel, &mlx->img.line_length, \
@@ -96,6 +95,7 @@ int	render(t_mlx *mlx)
 		current_frame = (current_frame + 1) % 4;
 	}
 	count++;
-	musik();
+	//musik();
+	mlx_destroy_image(mlx->mlx_ptr, mlx->img.img);
 	return (0);
 }

@@ -51,7 +51,6 @@ void	game_exit_error(t_game *game, t_map *map, char *pstr, int flag)
 	if (game->fd != 0)
 		close(game->fd);
 	ft_putstr_fd(pstr, 2);
-	system("leaks cub3D");
 	exit(1);
 }
 
@@ -62,6 +61,5 @@ void	game_exit(t_game *game, t_map *map, char *pstr)
 	if (game->fd != 0)
 		close(game->fd);
 	ft_putstr_fd(pstr, 1);
-	system("leaks cub3D");
 	exit(0);
 }
