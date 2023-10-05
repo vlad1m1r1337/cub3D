@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include "../srcb/gnl/get_next_line_bonus.h"
 # include <math.h>
+# include <signal.h>
 
 # define H  800
 # define W  800
@@ -149,7 +150,7 @@ typedef struct s_mlx
 	int			tex_x;
 	double		tex_pos;
 	double		step;
-	FILE		*pipe;
+	int 		f;
 }			t_mlx;
 
 //vova one weird function
@@ -245,5 +246,5 @@ void			calc_draw_start_end(t_mlx *mlx);
 void			error_handle(t_game *game);
 void			ns(t_mlx *mlx);
 void			ew(t_mlx *mlx);
-void			musik(void);
+void			musik(t_mlx *mlx);
 #endif

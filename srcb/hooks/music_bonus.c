@@ -12,16 +12,34 @@
 
 #include "../../includes/cub3d_bonus.h"
 
-void	musik(void)
+void	sighandler(int sig)
+{
+	if (sig != SIGKILL)
+		return ;
+	exit (0);
+}
+
+//void	game_no_exit(t_game *game, t_map *map, char *pstr)
+//{
+//	if (map)
+//		free_map_data(map, 2);
+//	if (game->fd != 0)
+//		close(game->fd);
+//	ft_putstr_fd(pstr, 1);
+//}
+
+void	musik(t_mlx *mlx)
 {
 	static int	i = 0;
-	int			f;
 
 	if (i == 0)
 	{
-		f = fork();
-		if (!f)
-			system("afplay ./srcb/music/skayrim-muzyka-iz-igry.mp3");
+		mlx->f = fork();
+		if (!mlx->f)
+		{
+			while (1)
+				system("exec afplay ./srcb/music/skayrim-muzyka-iz-igry.mp3");
+		}
 		i++;
 	}
 }
