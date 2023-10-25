@@ -43,7 +43,6 @@ unsigned int	rgb_to_hex(int r, int g, int b)
 
 int	ex(void)
 {
-	system("killall afplay");
 	exit(0);
 }
 

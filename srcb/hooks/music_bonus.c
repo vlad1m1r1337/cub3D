@@ -12,22 +12,6 @@
 
 #include "../../includes/cub3d_bonus.h"
 
-void	sighandler(int sig)
-{
-	if (sig != SIGKILL)
-		return ;
-	exit (0);
-}
-
-//void	game_no_exit(t_game *game, t_map *map, char *pstr)
-//{
-//	if (map)
-//		free_map_data(map, 2);
-//	if (game->fd != 0)
-//		close(game->fd);
-//	ft_putstr_fd(pstr, 1);
-//}
-
 void	musik(t_mlx *mlx)
 {
 	static int	i = 0;

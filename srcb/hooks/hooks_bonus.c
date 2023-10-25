@@ -16,8 +16,6 @@ int	press_handle(int keycode, t_mlx *mlx)
 {
 	if (keycode == ESC)
 	{
-		kill(mlx->f, SIGKILL);
-		system("killall afplay");
 		game_exit(mlx->gg, mlx->gg->data, "Thanks for Playing\n");
 	}
 	if (keycode == W_KEY)
@@ -96,7 +94,6 @@ int	render(t_mlx *mlx)
 		current_frame = (current_frame + 1) % 4;
 	}
 	count++;
-	musik(mlx);
 	mlx_destroy_image(mlx->mlx_ptr, mlx->img.img);
 	return (0);
 }

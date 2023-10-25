@@ -150,7 +150,7 @@ typedef struct s_mlx
 	int			tex_x;
 	double		tex_pos;
 	double		step;
-	int 		f;
+	int			f;
 }			t_mlx;
 
 //vova one weird function
